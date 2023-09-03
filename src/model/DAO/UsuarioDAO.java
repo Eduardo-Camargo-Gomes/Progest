@@ -101,7 +101,7 @@ public class UsuarioDAO {
             
              try {
 
-        String sql = "update usuario set senha = ? where nome_de_usuario like ? and cpf = ? ";
+        String sql = "update usuario set senha = ? where cpf like ?";
         
         PreparedStatement ps = null;
 	Connection connection = null;
@@ -109,8 +109,7 @@ public class UsuarioDAO {
 		connection = new Conexao().getConexao();
 		ps = connection.prepareStatement(sql);
 		
-                ps.setString(1, usuarioQueEsqueceuSenha.getSenha());
-                ps.setString(2, usuarioQueEsqueceuSenha.getUser());
+                ps.setString(1, usuarioQueEsqueceuSenha.getSenha());     
                   ps.setString(3, usuarioQueEsqueceuSenha.getCpf());
                   
                   ps.execute();
@@ -123,4 +122,3 @@ public class UsuarioDAO {
         }// fim metodo alterar senha
     
 }// }fim classe
-

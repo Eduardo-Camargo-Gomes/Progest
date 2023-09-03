@@ -7,152 +7,120 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class RelatorioAtendimentoModel {
-    private String nome;
+    private String nomeAluno;
     private int numRelatorio;
-    private int serie;
-    private int turma;
-    private Date data;
-    private String matricula;
+    private int serieAluno;
+    private int turmaAluno;
+    private Date dataOcorrido;
+    private String matriculaAluno;
     private String situacao;
+    private String encaminhamentos;
+    private String conclusao; 
     private boolean concluido;
-    
-   
-  
-    public RelatorioAtendimentoModel(String nome, int numRelatorio, int serie, int turma, String  data, String matricula,
-			String situacao) {
-		super();
-		this.nome = nome;
-		this.numRelatorio = numRelatorio;
-		this.serie = serie;
-		this.turma = turma;
-		
-		this.matricula = matricula;
-		this.situacao = situacao;
-		this.concluido = concluido;
-		try {
-			this.data = new SimpleDateFormat("dd/MM/yyyy").parse(data);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+
+    public RelatorioAtendimentoModel(String nomeAluno, int serieAluno, int turmaAluno, Date dataOcorrido, String matriculaAluno, String situacao, String encaminhamentos, String conclusao, boolean concluido) {
+        this.nomeAluno = nomeAluno;
+       
+        this.serieAluno = serieAluno;
+        this.turmaAluno = turmaAluno;
+        this.dataOcorrido = dataOcorrido;
+        this.matriculaAluno = matriculaAluno;
+        this.situacao = situacao;
+        this.encaminhamentos = encaminhamentos;
+        this.conclusao = conclusao;
+        this.concluido = concluido;
+        
+    }// fim construtor
+
+    public String getNomeAluno() {
+        return nomeAluno;
     }
-    //fim construtor
 
+    public void setNomeAluno(String nomeAluno) {
+        this.nomeAluno = nomeAluno;
+    }
 
+    public int getNumRelatorio() {
+        return numRelatorio;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public void setNumRelatorio(int numRelatorio) {
+        this.numRelatorio = numRelatorio;
+    }
 
+    public int getSerieAluno() {
+        return serieAluno;
+    }
 
+    public void setSerieAluno(int serieAluno) {
+        this.serieAluno = serieAluno;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public int getTurmaAluno() {
+        return turmaAluno;
+    }
 
+    public void setTurmaAluno(int turmaAluno) {
+        this.turmaAluno = turmaAluno;
+    }
 
+    public Date getDataOcorrido() {
+        return dataOcorrido;
+    }
 
-	public int getNumRelatorio() {
-		return numRelatorio;
-	}
+    public void setDataOcorrido(Date dataOcorrido) {
+        this.dataOcorrido = dataOcorrido;
+    }
 
+    public String getMatriculaAluno() {
+        return matriculaAluno;
+    }
 
+    public void setMatriculaAluno(String matriculaAluno) {
+        this.matriculaAluno = matriculaAluno;
+    }
 
-	public void setNumRelatorio(int numRelatorio) {
-		this.numRelatorio = numRelatorio;
-	}
+    public String getSituacao() {
+        return situacao;
+    }
 
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
 
+    public String getEncaminhamentos() {
+        return encaminhamentos;
+    }
 
-	public int getSerie() {
-		return serie;
-	}
+    public void setEncaminhamentos(String encaminhamentos) {
+        this.encaminhamentos = encaminhamentos;
+    }
 
+    public String getConclusao() {
+        return conclusao;
+    }
 
+    public void setConclusao(String conclusao) {
+        this.conclusao = conclusao;
+    }
 
-	public void setSerie(int serie) {
-		this.serie = serie;
-	}
+    public boolean getConcluido() {
+        return concluido;
+    }
 
-
-
-	public int getTurma() {
-		return turma;
-	}
-
-
-
-	public void setTurma(int turma) {
-		this.turma = turma;
-	}
-
-
-
-	public Date getData() {
-		return data;
-	}
-
-
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
-
-
-	public String getMatricula() {
-		return matricula;
-	}
-
-
-
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
-
-
-
-	public String getSituacao() {
-		return situacao;
-	}
-
-
-
-	public void setSituacao(String situacao) {
-		this.situacao = situacao;
-	}
-
-
-
-	public boolean getConcluido() {
-		return concluido;
-	}
-
-
-
-	public void setConcluido(boolean concluido) {
-		this.concluido = concluido;
-	}
-
-
-
-	public void DadosRelatorio(){
-    	
-        System.out.println("numero do relatorio: "+getNumRelatorio() );
-        System.out.println("Data e hora do ocorrido : " +getData());
-        System.out.println("Nome do discente: "+getNome());
-       if(getSituacao()!= "Concluido"){
-           setConcluido(false);
-       }// fim if
-       else {
-           setConcluido(true);
-       }// 
-        System.out.println("Concluido: " +getConcluido());
-        
-    }// fim metodo
-        
+    public void setConcluido(boolean concluido) {
+        this.concluido = concluido;
+    }
+    // fim getters e setters
     
     
     
+    
+
+    
+    
+  
+  
     
     
 }// fim classe
