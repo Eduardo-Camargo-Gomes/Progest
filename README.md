@@ -1,29 +1,27 @@
 PROGEST
 
-
-Status ⏰
-🚧 Em desenvolvimento 🚧
+Status 
+	Em desenvolvimento
 
 Colaboradores
-Eduardo Camargo Gomes
+	Eduardo Camargo Gomes
 
-Gabriel de Albuquerque Façanha
+	Gabriel de Albuquerque Façanha
 
-Marcos Paulo Lopes Maciel
+	Marcos Paulo Lopes Maciel
 
-Vitor Roberto Fogassa Pereira
+	Vitor Roberto Fogassa Pereira
 
 Técnicas e tecnologias 
--- Paradigma Orientada a Objetos
+	-- Paradigma Orientada a Objetos
 
--- Metodología Ágil Scrum
+	-- Metodología Ágil Scrum
 
--- Linguagem de programação Java
+	-- Linguagem de programação Java
 
--- Ambiente de desenvolvimento: Netbens e MySQL
+	-- Ambiente de desenvolvimento: Netbens
 
--- Base de dados: Firebase
+	-- Base de dados: MySQL
 
--- Hospedagem de código: Github
+	-- Hospedagem de código: Github
 
-Acesso ao projeto
