@@ -1,9 +1,11 @@
 PROGEST
 
 Status 
+
 	Em desenvolvimento
 
 Colaboradores
+
 	Eduardo Camargo Gomes
 
 	Gabriel de Albuquerque Façanha
@@ -13,6 +15,7 @@ Colaboradores
 	Vitor Roberto Fogassa Pereira
 
 Técnicas e tecnologias 
+
 	-- Paradigma Orientada a Objetos
 
 	-- Metodología Ágil Scrum
