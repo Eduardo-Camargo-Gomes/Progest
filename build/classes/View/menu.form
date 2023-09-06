@@ -59,9 +59,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Menu"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder/>
-              </Border>
+              <Border info="null"/>
             </Property>
           </Properties>
           <Constraints>
@@ -265,7 +263,7 @@
         <Component class="javax.swing.JLabel" name="imagemmenu">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ARIANA MACIEL\OneDrive\&#xc1;rea de Trabalho\Imagens\Captura.demenu.png"/>
+              <Image iconType="3" name="/View/Captura.demenu.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -277,7 +275,7 @@
         <Component class="javax.swing.JLabel" name="imageminicio">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ARIANA MACIEL\OneDrive\&#xc1;rea de Trabalho\Imagens\Captura.deinicio.png"/>
+              <Image iconType="3" name="/View/Captura.deinicio.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -289,7 +287,7 @@
         <Component class="javax.swing.JLabel" name="imagemnovo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ARIANA MACIEL\OneDrive\&#xc1;rea de Trabalho\Imagens\Captura.denovo.png"/>
+              <Image iconType="3" name="/View/Captura.denovo.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -301,7 +299,7 @@
         <Component class="javax.swing.JLabel" name="imagemagenda">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ARIANA MACIEL\OneDrive\&#xc1;rea de Trabalho\Imagens\Captura.deagenda.png"/>
+              <Image iconType="3" name="/View/Captura.deagenda.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -313,7 +311,7 @@
         <Component class="javax.swing.JLabel" name="imagemrelatorio">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ARIANA MACIEL\OneDrive\&#xc1;rea de Trabalho\Imagens\Captura.derelatorio.png"/>
+              <Image iconType="3" name="/View/Captura.derelatorio.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -325,7 +323,7 @@
         <Component class="javax.swing.JLabel" name="imagemconcluido">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ARIANA MACIEL\OneDrive\&#xc1;rea de Trabalho\Imagens\Captura.deconcluido.png"/>
+              <Image iconType="3" name="/View/Captura.deconcluido.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -337,7 +335,7 @@
         <Component class="javax.swing.JLabel" name="imagempendente">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ARIANA MACIEL\OneDrive\&#xc1;rea de Trabalho\Imagens\Captura.dependente.png"/>
+              <Image iconType="3" name="/View/Captura.dependente.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -349,7 +347,7 @@
         <Component class="javax.swing.JLabel" name="imagempasta">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ARIANA MACIEL\OneDrive\&#xc1;rea de Trabalho\Imagens\Captura.depasta.png"/>
+              <Image iconType="3" name="/View/Captura.depasta.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -361,7 +359,7 @@
         <Component class="javax.swing.JLabel" name="imagemconfiguracao">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ARIANA MACIEL\OneDrive\&#xc1;rea de Trabalho\Imagens\Captura.deconfiguracao.png"/>
+              <Image iconType="3" name="/View/Captura.deconfiguracao.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -459,7 +457,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ARIANA MACIEL\OneDrive\&#xc1;rea de Trabalho\Imagens\Captura.desair.png"/>
+              <Image iconType="3" name="/View/Captura.desair.png"/>
             </Property>
           </Properties>
           <Constraints>

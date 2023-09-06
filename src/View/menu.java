@@ -59,7 +59,7 @@ public class menu extends javax.swing.JFrame {
         MENU.setBackground(new java.awt.Color(186, 203, 212));
         MENU.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         MENU.setText("Menu");
-        MENU.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        MENU.setBorder(null);
         jPanel2.add(MENU, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 70, 30));
 
         INICIO.setBackground(new java.awt.Color(186, 203, 212));
@@ -133,31 +133,31 @@ public class menu extends javax.swing.JFrame {
         IFAM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.ifam.png"))); // NOI18N
         jPanel2.add(IFAM, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 110));
 
-        imagemmenu.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\Captura.demenu.png")); // NOI18N
+        imagemmenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.demenu.png"))); // NOI18N
         jPanel2.add(imagemmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 50, 50));
 
-        imageminicio.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\Captura.deinicio.png")); // NOI18N
+        imageminicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.deinicio.png"))); // NOI18N
         jPanel2.add(imageminicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 50, 60));
 
-        imagemnovo.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\Captura.denovo.png")); // NOI18N
+        imagemnovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.denovo.png"))); // NOI18N
         jPanel2.add(imagemnovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 50, 40));
 
-        imagemagenda.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\Captura.deagenda.png")); // NOI18N
+        imagemagenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.deagenda.png"))); // NOI18N
         jPanel2.add(imagemagenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 50, 50));
 
-        imagemrelatorio.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\Captura.derelatorio.png")); // NOI18N
+        imagemrelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.derelatorio.png"))); // NOI18N
         jPanel2.add(imagemrelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 50, 50));
 
-        imagemconcluido.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\Captura.deconcluido.png")); // NOI18N
+        imagemconcluido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.deconcluido.png"))); // NOI18N
         jPanel2.add(imagemconcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 50, 50));
 
-        imagempendente.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\Captura.dependente.png")); // NOI18N
+        imagempendente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.dependente.png"))); // NOI18N
         jPanel2.add(imagempendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 50, -1));
 
-        imagempasta.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\Captura.depasta.png")); // NOI18N
+        imagempasta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.depasta.png"))); // NOI18N
         jPanel2.add(imagempasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 50, 50));
 
-        imagemconfiguracao.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\Captura.deconfiguracao.png")); // NOI18N
+        imagemconfiguracao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.deconfiguracao.png"))); // NOI18N
         jPanel2.add(imagemconfiguracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 580, 50, 50));
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
@@ -193,7 +193,7 @@ public class menu extends javax.swing.JFrame {
         jButton1.setText("Ajudar");
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\Captura.desair.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.desair.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 0, -1, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 800));

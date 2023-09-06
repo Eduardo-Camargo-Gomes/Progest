@@ -5,9 +5,13 @@
         <group>
             <file>file:/C:/Users/ARIANA%20MACIEL/OneDrive/Área%20de%20Trabalho/Documentos/Progest.netbeans/PROGEST/src/View/TelaInicio.java</file>
             <file>file:/C:/Users/ARIANA%20MACIEL/OneDrive/Área%20de%20Trabalho/Documentos/Progest.netbeans/PROGEST/src/View/TelaCadastro.java</file>
+            <file>file:/C:/Users/ARIANA%20MACIEL/OneDrive/Área%20de%20Trabalho/Documentos/Progest.netbeans/PROGEST/src/model/DAO/UsuarioDAO.java</file>
             <file>file:/C:/Users/ARIANA%20MACIEL/OneDrive/Área%20de%20Trabalho/Documentos/Progest.netbeans/PROGEST/src/View/menu.java</file>
             <file>file:/C:/Users/ARIANA%20MACIEL/OneDrive/Área%20de%20Trabalho/Documentos/Progest.netbeans/PROGEST/src/View/TelaLogin.java</file>
+            <file>file:/C:/Users/ARIANA%20MACIEL/OneDrive/Área%20de%20Trabalho/Documentos/Progest.netbeans/PROGEST/src/controller/UsuarioController.java</file>
+            <file>file:/C:/Users/ARIANA%20MACIEL/OneDrive/Área%20de%20Trabalho/Documentos/Progest.netbeans/PROGEST/src/model/UsuarioModel.java</file>
             <file>file:/C:/Users/ARIANA%20MACIEL/OneDrive/Área%20de%20Trabalho/Documentos/Progest.netbeans/PROGEST/src/View/EsqueciSenha.java</file>
+            <file>file:/C:/Users/ARIANA%20MACIEL/OneDrive/Área%20de%20Trabalho/Documentos/Progest.netbeans/PROGEST/src/model/DAO/Conexao.java</file>
             <file>file:/C:/Users/ARIANA%20MACIEL/OneDrive/Área%20de%20Trabalho/Documentos/Progest.netbeans/PROGEST/src/View/RelatorioAtendimento.java</file>
         </group>
     </open-files>

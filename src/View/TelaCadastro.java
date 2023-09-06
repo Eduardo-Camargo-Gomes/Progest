@@ -132,7 +132,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         });
         jPanel1.add(CampoCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 480, 350, 40));
 
-        fundo.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\imagem.login.jpg")); // NOI18N
+        fundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagem.login.jpg"))); // NOI18N
         jPanel1.add(fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 810));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));

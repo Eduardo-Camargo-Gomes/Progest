@@ -184,7 +184,7 @@
         <Component class="javax.swing.JLabel" name="fundo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ARIANA MACIEL\OneDrive\&#xc1;rea de Trabalho\Imagens\imagem.login.jpg"/>
+              <Image iconType="3" name="/View/imagem.login.jpg"/>
             </Property>
           </Properties>
           <Constraints>

@@ -227,7 +227,7 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 20));
         jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 480, 10));
 
-        jLabel17.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\Captura.derelatorio2.png")); // NOI18N
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.derelatorio2.png"))); // NOI18N
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

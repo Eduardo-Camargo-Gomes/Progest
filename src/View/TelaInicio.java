@@ -62,7 +62,7 @@ public class TelaInicio extends javax.swing.JFrame {
         });
         jPanel1.add(CADASTRAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 500, -1, -1));
 
-        fundo.setIcon(new javax.swing.ImageIcon("C:\\Users\\ARIANA MACIEL\\OneDrive\\Área de Trabalho\\Imagens\\imagem.login.jpg")); // NOI18N
+        fundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagem.login.jpg"))); // NOI18N
         jPanel1.add(fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 730, 820));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, -10, 1610, 810));

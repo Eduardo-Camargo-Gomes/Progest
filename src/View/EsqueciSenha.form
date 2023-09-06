@@ -73,6 +73,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Georgia" size="36" style="1"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="1f" green="1e" red="1e" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Redefinir Senha"/>
           </Properties>
           <Constraints>
@@ -181,7 +184,7 @@
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\ARIANA MACIEL\OneDrive\&#xc1;rea de Trabalho\Imagens\Captura de tela login2(1) (1).png"/>
+              <Image iconType="3" name="/View/Captura de tela login2.png"/>
             </Property>
           </Properties>
           <Constraints>
