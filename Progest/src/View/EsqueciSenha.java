@@ -4,8 +4,6 @@
  */
 package View;
 
-import javax.swing.JFrame;
-
 /**
  *
  * @author LUIZA
@@ -17,7 +15,6 @@ public class EsqueciSenha extends javax.swing.JFrame {
      */
     public EsqueciSenha() {
         initComponents();
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -30,6 +27,8 @@ public class EsqueciSenha extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         telaLogin = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -48,6 +47,18 @@ public class EsqueciSenha extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 220, -1));
+
+        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Georgia", 0, 24)); // NOI18N
+        jLabel8.setText("Nova Senha");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, 30));
+
         telaLogin.setBackground(new java.awt.Color(0, 0, 0));
         telaLogin.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         telaLogin.setForeground(new java.awt.Color(255, 255, 255));
@@ -57,7 +68,7 @@ public class EsqueciSenha extends javax.swing.JFrame {
                 telaLoginActionPerformed(evt);
             }
         });
-        jPanel1.add(telaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 130, 30));
+        jPanel1.add(telaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, 130, 30));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Georgia", 1, 36)); // NOI18N
@@ -96,7 +107,7 @@ public class EsqueciSenha extends javax.swing.JFrame {
                 redefinirSenhaActionPerformed(evt);
             }
         });
-        jPanel1.add(redefinirSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, -1, 30));
+        jPanel1.add(redefinirSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, -1, 30));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setText("cadastrado para redefinir sua senha ");
@@ -117,18 +128,21 @@ public class EsqueciSenha extends javax.swing.JFrame {
 
     private void telaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telaLoginActionPerformed
         if(evt.getSource()==telaLogin){
-           
+            new TelaLogin().setVisible(true);
+        }
         this.setVisible(false);
-        }// fim if
     }//GEN-LAST:event_telaLoginActionPerformed
 
     private void redefinirSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redefinirSenhaActionPerformed
         if(evt.getSource()==redefinirSenha){
-           
-             this.dispose();
-        }// fim if
-       
+            new TelaLogin().setVisible(true);
+        }
+        this.setVisible(false);
     }//GEN-LAST:event_redefinirSenhaActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,9 +186,11 @@ public class EsqueciSenha extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JButton redefinirSenha;
     private javax.swing.JButton telaLogin;
     // End of variables declaration//GEN-END:variables

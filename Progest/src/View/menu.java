@@ -190,8 +190,9 @@ public class menu extends javax.swing.JFrame {
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 1540, 10));
 
         jButton1.setBackground(new java.awt.Color(186, 203, 212));
-        jButton1.setText("Ajudar");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, -1, -1));
+        jButton1.setText("Ajuda");
+        jButton1.setBorder(null);
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 50, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.desair.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 0, -1, -1));
@@ -226,7 +227,7 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_RelatorioActionPerformed
 
     private void AGENDAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AGENDAActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_AGENDAActionPerformed
 
     private void jPanel2AncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel2AncestorMoved
