@@ -3,9 +3,6 @@ package View;
 import model.*;
 import controller.*;
 import View.*;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -170,17 +167,22 @@ public class TelaCadastro extends javax.swing.JFrame {
 
     private void CADASTRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CADASTRARActionPerformed
         if (evt.getSource()==CADASTRAR){
+            new TelaLogin().setVisible(true);
+            this.setVisible(false);
 
-            boolean sucesso = false ;
+            boolean sucesso ;
             UsuarioController usuarioController = new UsuarioController();
-            try {
-                sucesso = usuarioController.cadastrarUsuario(CampoNome.getText(), CampoSenha.getText(),
-                        CampoCPF.getText());
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, ex);
-            }
-          
-            limparCampos();
+            sucesso = usuarioController.cadastrarUsuario(CampoNome.getText(), CampoSenha.getText(),
+                CampoCPF.getText());
+            if(sucesso == true) {
+
+                JOptionPane.showMessageDialog(null, "Usuario Cadastrado com sucesso!");
+                limparCampos();
+            }// fim if
+            else if (sucesso == false) {
+                JOptionPane.showMessageDialog(null, "Os campos nao foram preenchidos "
+                    + "corretamente!");
+            }// fim else
 
         }// fim ifao
     }//GEN-LAST:event_CADASTRARActionPerformed
