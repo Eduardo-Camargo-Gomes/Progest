@@ -179,14 +179,8 @@ public class TelaCadastro extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(sucesso) {
-
-                JOptionPane.showMessageDialog(null, "Usuario Cadastrado com sucesso!");
-                limparCampos();
-            }// fim if
-            else {
-                JOptionPane.showMessageDialog(null, "Os campos nao foram preenchidos corretamente!");
-            }// fim else
+          
+            limparCampos();
 
         }// fim ifao
     }//GEN-LAST:event_CADASTRARActionPerformed

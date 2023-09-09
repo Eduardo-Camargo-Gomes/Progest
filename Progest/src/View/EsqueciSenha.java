@@ -4,6 +4,8 @@
  */
 package View;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author LUIZA
@@ -15,6 +17,7 @@ public class EsqueciSenha extends javax.swing.JFrame {
      */
     public EsqueciSenha() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -114,16 +117,17 @@ public class EsqueciSenha extends javax.swing.JFrame {
 
     private void telaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telaLoginActionPerformed
         if(evt.getSource()==telaLogin){
-            new TelaLogin().setVisible(true);
-        }
+           
         this.setVisible(false);
+        }// fim if
     }//GEN-LAST:event_telaLoginActionPerformed
 
     private void redefinirSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redefinirSenhaActionPerformed
         if(evt.getSource()==redefinirSenha){
-            new TelaLogin().setVisible(true);
-        }
-        this.setVisible(false);
+           
+             this.dispose();
+        }// fim if
+       
     }//GEN-LAST:event_redefinirSenhaActionPerformed
 
     /**

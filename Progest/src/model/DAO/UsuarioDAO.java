@@ -71,6 +71,56 @@ public class UsuarioDAO {
     }// fim catch
     return false;
 }// fim metodo
+    
+    public boolean verificarSeExisteCpf(UsuarioModel usuarioAVerificar) throws SQLException {
+        
+     try {
+
+        String sql = "select * from usuario where cpf like ?";
+        
+        PreparedStatement ps = null;
+	Connection connection = null;
+	
+		connection = new Conexao().getConexao();
+		ps = connection.prepareStatement(sql);
+		
+                ps.setString(1, usuarioAVerificar.getCpf());
+                
+                ResultSet resultSet = ps.executeQuery();
+                return resultSet.next();
+             
+    } catch(SQLException e) {
+        e.printStackTrace();       
+    }// fim catch
+    return false;
+       
+    }// fim metodo
+
+        public void alterarSenha (UsuarioModel usuarioQueEsqueceuSenha){    
+            
+             try {
+
+        String sql = "update usuario set senha = ? where cpf like ?";
+        
+        PreparedStatement ps = null;
+	Connection connection = null;
+	
+		connection = new Conexao().getConexao();
+		ps = connection.prepareStatement(sql);
+		
+                ps.setString(1, usuarioQueEsqueceuSenha.getSenha());     
+                  ps.setString(3, usuarioQueEsqueceuSenha.getCpf());
+                  
+                  ps.execute();
+                
+                
+    } catch(SQLException e) {
+        e.printStackTrace();       
+    }// fim catch
+    
+        }// fim metodo alterar senha
+    
+    
    
 }// }fim classe 
 
