@@ -63,13 +63,13 @@ public class TelaLogin extends javax.swing.JFrame {
 
         esqueciSenha.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         esqueciSenha.setText("ESQUECI MINHA SENHA");
-        esqueciSenha.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        esqueciSenha.setBorder(null);
         esqueciSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 esqueciSenhaActionPerformed(evt);
             }
         });
-        jPanel1.add(esqueciSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 510, 180, 20));
+        jPanel1.add(esqueciSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 500, 160, 20));
 
         USUARIO.setBackground(new java.awt.Color(210, 225, 233));
         USUARIO.setForeground(new java.awt.Color(30, 30, 31));
@@ -98,13 +98,13 @@ public class TelaLogin extends javax.swing.JFrame {
                 cadastreseAquiActionPerformed(evt);
             }
         });
-        jPanel1.add(cadastreseAqui, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 630, 110, 20));
+        jPanel1.add(cadastreseAqui, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 630, 120, 20));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Georgia", 1, 100)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(30, 30, 31));
         jLabel1.setText("LOGIN");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 60, 360, 120));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 60, 380, 120));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Georgia", 1, 48)); // NOI18N
