@@ -11,8 +11,7 @@ public class RelatorioAtendimentoModel {
     private int numRelatorio;
     private String nomeAluno;
      private String matriculaAluno;
-    private int serieAluno;
-    private char turmaAluno;
+    private String turmaAluno;
     private String nomeResponsavel;
     private Date dataOcorrido;
     private Time horarioOcorrido;
@@ -22,10 +21,9 @@ public class RelatorioAtendimentoModel {
     private String conclusao; 
     private boolean concluido;
 
-    public RelatorioAtendimentoModel(String nomeAluno, String matriculaAluno, int serieAluno, char turmaAluno, String nomeResponsavel, Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String situacao, String encaminhamentos, String conclusao, boolean concluido) {
+    public RelatorioAtendimentoModel(String nomeAluno, String matriculaAluno, String turmaAluno, String nomeResponsavel, Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String situacao, String encaminhamentos, String conclusao) {
         this.nomeAluno = nomeAluno;
         this.matriculaAluno = matriculaAluno;
-        this.serieAluno = serieAluno;
         this.turmaAluno = turmaAluno;
         this.nomeResponsavel = nomeResponsavel;
         this.dataOcorrido = dataOcorrido;
@@ -34,8 +32,7 @@ public class RelatorioAtendimentoModel {
         this.situacao = situacao;
         this.encaminhamentos = encaminhamentos;
         this.conclusao = conclusao;
-        this.concluido = concluido;
-    }// fim const
+    }// fim construtor
 
     public int getNumRelatorio() {
         return numRelatorio;
@@ -61,19 +58,11 @@ public class RelatorioAtendimentoModel {
         this.matriculaAluno = matriculaAluno;
     }
 
-    public int getSerieAluno() {
-        return serieAluno;
-    }
-
-    public void setSerieAluno(int serieAluno) {
-        this.serieAluno = serieAluno;
-    }
-
-    public char getTurmaAluno() {
+    public String getTurmaAluno() {
         return turmaAluno;
     }
 
-    public void setTurmaAluno(char turmaAluno) {
+    public void setTurmaAluno(String turmaAluno) {
         this.turmaAluno = turmaAluno;
     }
 
@@ -142,8 +131,9 @@ public class RelatorioAtendimentoModel {
     }
     
     
+    
+    
+    
+    
 
-    
-    
-    
-}// fim classe 
+}// fim classe

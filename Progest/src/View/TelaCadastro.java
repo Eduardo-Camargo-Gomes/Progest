@@ -169,9 +169,7 @@ public class TelaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_VOLTARActionPerformed
 
     private void CADASTRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CADASTRARActionPerformed
-        if (evt.getSource()==CADASTRAR){
-            new TelaLogin().setVisible(true);
-            this.setVisible(false);
+       if (evt.getSource()==CADASTRAR){
 
             boolean sucesso = false ;
             UsuarioController usuarioController = new UsuarioController();
@@ -181,15 +179,8 @@ public class TelaCadastro extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(sucesso == true) {
-
-                JOptionPane.showMessageDialog(null, "Usuario Cadastrado com sucesso!");
-                limparCampos();
-            }// fim if
-            else if (sucesso == false) {
-                JOptionPane.showMessageDialog(null, "Os campos nao foram preenchidos "
-                    + "corretamente!");
-            }// fim else
+          
+            limparCampos();
 
         }// fim ifao
     }//GEN-LAST:event_CADASTRARActionPerformed

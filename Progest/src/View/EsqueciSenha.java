@@ -4,6 +4,14 @@
  */
 package View;
 
+import controller.UsuarioController;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import model.DAO.UsuarioDAO;
+import model.UsuarioModel;
+
 /**
  *
  * @author LUIZA
@@ -15,6 +23,7 @@ public class EsqueciSenha extends javax.swing.JFrame {
      */
     public EsqueciSenha() {
         initComponents();
+         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -52,7 +61,7 @@ public class EsqueciSenha extends javax.swing.JFrame {
                 jTextField3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 220, -1));
+        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 220, -1));
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Georgia", 0, 24)); // NOI18N
@@ -96,7 +105,7 @@ public class EsqueciSenha extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 220, -1));
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 220, -1));
+        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 220, -1));
 
         redefinirSenha.setBackground(new java.awt.Color(0, 0, 0));
         redefinirSenha.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
@@ -128,16 +137,28 @@ public class EsqueciSenha extends javax.swing.JFrame {
 
     private void telaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telaLoginActionPerformed
         if(evt.getSource()==telaLogin){
-            new TelaLogin().setVisible(true);
+            
+        this.dispose();
         }
-        this.setVisible(false);
     }//GEN-LAST:event_telaLoginActionPerformed
 
     private void redefinirSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redefinirSenhaActionPerformed
+     
+     /* */
+      
+      UsuarioController controlador = new UsuarioController();
+      
         if(evt.getSource()==redefinirSenha){
-            new TelaLogin().setVisible(true);
-        }
-        this.setVisible(false);
+          try {
+              controlador.alterarSenha(jTextField1.getText(),
+                      jPasswordField1.getText(), jTextField3.getText());
+          } catch (SQLException ex) {
+              Logger.getLogger(EsqueciSenha.class.getName()).log(Level.SEVERE, null, ex);
+          }
+           
+           
+            
+        }// fim if
     }//GEN-LAST:event_redefinirSenhaActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed

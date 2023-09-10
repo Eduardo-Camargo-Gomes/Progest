@@ -175,7 +175,7 @@ public class menu extends javax.swing.JFrame {
                 sairActionPerformed(evt);
             }
         });
-        jPanel2.add(sair, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 10, 40, 20));
+        jPanel2.add(sair, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 80, 40, 20));
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
@@ -195,7 +195,7 @@ public class menu extends javax.swing.JFrame {
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 50, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.desair.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1480, 0, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 60, -1, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 800));
 
@@ -214,7 +214,7 @@ public class menu extends javax.swing.JFrame {
     private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
         if (evt.getSource()==sair){
             new TelaInicio().setVisible(true);
-            this.setVisible(false);
+            this.dispose();
         }
     }//GEN-LAST:event_sairActionPerformed
 

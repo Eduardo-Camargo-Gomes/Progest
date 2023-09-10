@@ -109,7 +109,7 @@ public class UsuarioDAO {
 		ps = connection.prepareStatement(sql);
 		
                 ps.setString(1, usuarioQueEsqueceuSenha.getSenha());     
-                  ps.setString(3, usuarioQueEsqueceuSenha.getCpf());
+                  ps.setString(2, usuarioQueEsqueceuSenha.getCpf());
                   
                   ps.execute();
                 
@@ -120,6 +120,22 @@ public class UsuarioDAO {
     
         }// fim metodo alterar senha
     
+          public boolean VerificadorParaSenha(UsuarioModel usuarioSenha) throws SQLException {
+         String sql = "select * from Usuario where nome_de_usuario = '"+usuarioSenha.getUser() +"' "
+              + "and cpf = '"+usuarioSenha.getCpf()+"' ";
+            
+            PreparedStatement ps = null;
+	Connection connection = null;
+	
+		connection = new Conexao().getConexao();
+		ps = connection.prepareStatement(sql);
+		ps.execute();
+                
+                  ResultSet resultSet = ps.getResultSet();
+      
+      return resultSet.next();
+                
+    }
     
    
 }// }fim classe 

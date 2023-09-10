@@ -10,15 +10,13 @@ import java.sql.SQLException;
 
 public class RelatorioAtendimentoDAO {
     
-  
-    
-    public void salvarRelatorio(RelatorioAtendimentoModel relatorioASalvar){
+   public void salvarRelatorio(RelatorioAtendimentoModel relatorioASalvar){
         
-       ResponsavelModel responsavel;
+      
         
-        String sql = "INSERT INTO relatorio_atendimento(nome_aluno, matricula_aluno, serie_aluno, turma_aluno"
-                + "nome_responsavel, data_ocorrido, horario, locall, situacao, encaminhamento, conclusao, concluido) "
-                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO relatorio_atendimento(nome_aluno, matricula_aluno, turma_aluno"
+                + "nome_responsavel, data_ocorrido, horario, locall, situacao, encaminhamento, conclusao) "
+                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	PreparedStatement ps = null;
 	Connection connection = null;
@@ -28,19 +26,17 @@ public class RelatorioAtendimentoDAO {
 		
 		ps = connection.prepareStatement(sql);  
 		ps.setString(1,relatorioASalvar.getNomeAluno() );
-		ps.setString (2, relatorioASalvar.getMatriculaAluno());
-		 ps.setInt(3, relatorioASalvar.getSerieAluno());
-                 ps.setInt(4, relatorioASalvar.getTurmaAluno());
-                 ps.setString(5, relatorioASalvar.getNomeResponsavel());
-                 ps.setDate(6, new java.sql.Date(
-                         relatorioASalvar.getDataOcorrido().getTime()));
-                 
-                 ps.setTime(7, relatorioASalvar.getHorarioOcorrido());
-                 ps.setString(8, relatorioASalvar.getLocalOcorrido());
-                  ps.setString(9, relatorioASalvar.getSituacao());
-                   ps.setString(10, relatorioASalvar.getEncaminhamentos());
-                    ps.setString(11, relatorioASalvar.getConclusao());
-                     ps.setBoolean(12, relatorioASalvar.getConcluido());
+		ps.setString (2, relatorioASalvar.getMatriculaAluno()); 
+                 ps.setString(3, relatorioASalvar.getTurmaAluno());
+                 ps.setString(4, relatorioASalvar.getNomeResponsavel());
+                 ps.setDate(5, new java.sql.Date(
+                         relatorioASalvar.getDataOcorrido().getTime()));  
+                 ps.setTime(6, relatorioASalvar.getHorarioOcorrido());
+                 ps.setString(7, relatorioASalvar.getLocalOcorrido());
+                  ps.setString(8, relatorioASalvar.getSituacao());
+                   ps.setString(9, relatorioASalvar.getEncaminhamentos());
+                    ps.setString(10, relatorioASalvar.getConclusao());
+                    
                   ps.execute();
 	
 	} catch (SQLException e) {
@@ -50,6 +46,7 @@ public class RelatorioAtendimentoDAO {
         
     }// fim metodo
     
+  
     
     
     public void excluirRelatorio(RelatorioAtendimentoModel relatorioADeletar) {
@@ -75,9 +72,10 @@ public class RelatorioAtendimentoDAO {
     }// fim metodo
     
     
-    public void mostrarNumeroRelatorio(){
+    public int mostrarNumeroRelatorio(){
         
-	
+	int numero_relatorio = 1;
+        
 	try {
             
               String sql = "select max(numero_relatorio) from relatorio_atendimento ";
@@ -90,6 +88,13 @@ public class RelatorioAtendimentoDAO {
 		ps = connection.prepareStatement(sql);  
                 
                  ResultSet resultSet = ps.executeQuery();  
+                 
+                 if(resultSet.next()){
+                    numero_relatorio = resultSet.getInt("numero_relatorio");
+                     
+                 }// fim if
+                 
+               
 
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -98,7 +103,10 @@ public class RelatorioAtendimentoDAO {
         
         
         
-        
+        return numero_relatorio;
     }// fim metodo
+    
+    
+    
     
 }// fim classe 

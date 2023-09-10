@@ -15,13 +15,13 @@ String situacao, String encaminhamentos,
         
          RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
          
-         RelatorioAtendimentoModel relatorioASalvar = new RelatorioAtendimentoModel(
+       /*  RelatorioAtendimentoModel relatorioASalvar = new RelatorioAtendimentoModel(
           nomeAluno,  matriculaAluno,  serieAluno, turmaAluno, 
  nomeResponsavel,  dataOcorrido, horarioOcorrido, localOcorrido, 
 situacao, encaminhamentos,
             conclusao, concluido);
          
-         relatorioDAO.salvarRelatorio(relatorioASalvar);
+         relatorioDAO.salvarRelatorio(relatorioASalvar);*/
        
     }// fim metodo
     
@@ -33,7 +33,16 @@ situacao, encaminhamentos,
         relatorioDAO.excluirRelatorio(relatorioASerExcluido);
        
         
-    }
+    }// fim metodo
+    
+    
+      public int  mostrarNumeroDeRelatorio(){
+        
+        RelatorioAtendimentoDAO modelo = new RelatorioAtendimentoDAO();
+        
+        return  modelo.mostrarNumeroRelatorio();
+        
+    }// fim metodo
     
     
 }// fim classe 

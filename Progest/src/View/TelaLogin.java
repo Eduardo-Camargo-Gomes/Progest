@@ -6,11 +6,17 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import view.*;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class TelaLogin extends javax.swing.JFrame {
+    
+       public void limparCampo(){
+       SENHA.setText("");
+   }// fim metodo
+   
    
     public JPasswordField getSENHA() {
         return SENHA;
@@ -154,11 +160,28 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_esqueciSenhaActionPerformed
 
     private void LOGINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGINActionPerformed
-
-        if(evt.getSource()==LOGIN){
-            new menu().setVisible(true);
-        }
-        this.setVisible(false);
+ if (evt.getSource()==LOGIN){
+          
+            
+        
+         UsuarioController usuarioController = new UsuarioController();   
+            try {
+              boolean logado =  usuarioController.Autenticar(USUARIO.getText(), SENHA.getText());
+                
+              if(logado == true){
+                     new menu().setVisible(true);
+               this.dispose();
+              }
+              else {
+              JOptionPane.showMessageDialog(null, "Usuario ou senha inválidos!");
+                limparCampo();
+              }// fim else 
+       } catch (SQLException ex) {
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+}
+              
     }//GEN-LAST:event_LOGINActionPerformed
 
     

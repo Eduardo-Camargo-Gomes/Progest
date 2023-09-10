@@ -4,7 +4,6 @@ package View;
 import javax.swing.JFrame;
 
 public class TelaInicio extends javax.swing.JFrame {
-    
 
     public TelaInicio() {
         initComponents();

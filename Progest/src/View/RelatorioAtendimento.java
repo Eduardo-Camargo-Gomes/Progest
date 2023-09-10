@@ -44,7 +44,6 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         jSeparator12 = new javax.swing.JSeparator();
         jSeparator10 = new javax.swing.JSeparator();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
@@ -166,10 +165,7 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 480, 10));
 
         jTextField1.setBorder(null);
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 260, 50, 40));
-
-        jTextField2.setBorder(null);
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, 340, 40));
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 274, 40, -1));
 
         jTextField3.setBorder(null);
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
@@ -183,19 +179,19 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 80, 40));
 
         jTextField5.setBorder(null);
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 130, 40));
+        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 436, 120, 20));
 
         jTextField6.setBorder(null);
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 460, 230, 40));
+        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 470, 230, 20));
 
         jTextField7.setBorder(null);
-        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 460, 120, 40));
+        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 470, 80, 20));
 
         jTextField8.setBorder(null);
         jPanel1.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 500, 80));
 
         jTextField9.setBorder(null);
-        jPanel1.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 500, 240, 40));
+        jPanel1.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 510, 240, 30));
 
         jTextField10.setBorder(null);
         jPanel1.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 620, 500, 110));
@@ -313,7 +309,6 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;

@@ -50,5 +50,8 @@ public class UsuarioModel {
 		this.senha = senha;
 	}
         
+      
+        
+        
 
 }// fim classe 

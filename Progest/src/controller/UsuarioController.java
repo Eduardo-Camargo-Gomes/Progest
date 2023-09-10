@@ -32,7 +32,7 @@ public class UsuarioController {
                     JOptionPane.showMessageDialog(null, "O campo nome deve conter apenas letras.");
                 }// fim if 
            
-           else if (!cpf.matches("[0-9]+")) {
+            if (!cpf.matches("[0-9]+")) {
                     JOptionPane.showMessageDialog(null, "O campo CPF deve conter apenas números.");
                 }
           
@@ -80,15 +80,40 @@ public class UsuarioController {
         } else {
             return false;
         }
-    }
-}
+    }// fim metodo
+    
+     public boolean AutenticarSenha(String nome, String cpf) throws SQLException {
+        UsuarioModel usuarioAFazerLogin = new UsuarioModel(nome, cpf);
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        
+        usuarioDAO.VerificadorParaSenha(usuarioAFazerLogin);
+        
+        boolean sucessoNaAutenticacao = usuarioDAO.VerificadorParaSenha(usuarioAFazerLogin);
+        
+        if (sucessoNaAutenticacao) {
+            return true;
+        } else {
+            return false;
+        }
+    }// fim metodo
+    
+    public void alterarSenha(String nome, String senha, String cpf) throws SQLException{
+         UsuarioDAO usuario = new UsuarioDAO();
+         UsuarioModel usuarioLeso = new UsuarioModel(nome, senha, cpf);
+                 
+        if(usuario.VerificadorParaSenha(usuarioLeso) == true){
+            usuario.alterarSenha(usuarioLeso);
 
- /*  else {
-                
-                if (!nome.matches("[A-Za-z]+")) {
-                    JOptionPane.showMessageDialog(null, "O campo nome deve conter apenas letras.");
-                }// fim if 
-             
-                else if (!cpf.matches("[0-9]+")) {
-                    JOptionPane.showMessageDialog(null, "O campo CPF deve conter apenas números.");
-                }*/
+            JOptionPane.showMessageDialog(null, "Senha alterada com sucesso!");
+        }// fim if
+        else{
+             JOptionPane.showMessageDialog(null, "Não foi possível alterar a senha!");
+        }// fim else 
+        
+    }// fim metodo
+    
+    
+    
+}// fim classe
+
+ 
