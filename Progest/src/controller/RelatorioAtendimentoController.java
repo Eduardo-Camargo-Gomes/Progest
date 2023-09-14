@@ -3,46 +3,68 @@ import model.*;
 import controller.*;
 import java.sql.Time;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import model.DAO.RelatorioAtendimentoDAO;
-import view.*;
+import View.RelatorioAtendimento;
 
 public class RelatorioAtendimentoController {
     
-    public void salvarRelatorioAtendimento(String nomeAluno,  String matriculaAluno, int serieAluno, char turmaAluno, 
-String nomeResponsavel, Date dataOcorrido, Time horarioOcorrido, String localOcorrido, 
-String situacao, String encaminhamentos,
-            String conclusao, boolean concluido ){
-        
+    private RelatorioAtendimento relatorio;
+    
+    public boolean salvarRelatorioAtendimento(Date dataOcorrido,
+            Time horarioOcorrido,
+            String localOcorrido, String nomeAluno, String turmaAluno, 
+            String nomeResponsavel, String situacao, String encaminhamentos, String conclusao ){
+
          RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
          
-       /*  RelatorioAtendimentoModel relatorioASalvar = new RelatorioAtendimentoModel(
-          nomeAluno,  matriculaAluno,  serieAluno, turmaAluno, 
- nomeResponsavel,  dataOcorrido, horarioOcorrido, localOcorrido, 
-situacao, encaminhamentos,
-            conclusao, concluido);
-         
-         relatorioDAO.salvarRelatorio(relatorioASalvar);*/
-       
+        RelatorioAtendimentoModel relatorioASalvar =
+                new RelatorioAtendimentoModel(dataOcorrido, horarioOcorrido,
+                        localOcorrido, nomeAluno, turmaAluno, nomeResponsavel, situacao,
+                        encaminhamentos, conclusao);
+        
+        
+        if(dataOcorrido != null && horarioOcorrido != null && localOcorrido.length() > 0 
+                && nomeAluno.length() > 0 && turmaAluno.length() > 0 && nomeResponsavel.length() >0
+                && situacao.length() > 0 && encaminhamentos.length() > 0 && conclusao.length() > 0){
+            
+            
+             relatorioDAO.salvarRelatorio(relatorioASalvar);
+             
+            relatorioASalvar.setConcluido(true);
+              JOptionPane.showMessageDialog(null, "Relatorio salvo com sucesso!");
+              return true;
+        }// fim if
+        
+        else {
+            JOptionPane.showMessageDialog(null, "Campos incompletos!");
+            return false;
+        }
+  
     }// fim metodo
     
     
-    public void excluirRelatorioAtendimento(RelatorioAtendimentoModel relatorioASerExcluido){
+    public void excluirRelatorioAtendimento(int numRelatorio){
 
+        RelatorioAtendimentoModel relatorioASerExcluido = 
+                new RelatorioAtendimentoModel(numRelatorio);
+        
         RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
         
         relatorioDAO.excluirRelatorio(relatorioASerExcluido);
-       
+        JOptionPane.showMessageDialog(null, "Relatorio excluído com sucesso!"); 
         
     }// fim metodo
     
     
-      public int  mostrarNumeroDeRelatorio(){
+      public void  mostrarNumeroDeRelatorio(){
         
         RelatorioAtendimentoDAO modelo = new RelatorioAtendimentoDAO();
         
-        return  modelo.mostrarNumeroRelatorio();
+        int ultimoId =  modelo.mostrarNumeroRelatorio();
         
+        relatorio.mostrarIdRelatorio(ultimoId);
+    
     }// fim metodo
-    
-    
+   
 }// fim classe 

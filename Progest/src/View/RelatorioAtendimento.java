@@ -1,17 +1,41 @@
 
 package View;
 
-public class RelatorioAtendimento extends javax.swing.JFrame {
+import controller.RelatorioAtendimentoController;
+import controller.UsuarioController;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 
+public class RelatorioAtendimento extends javax.swing.JFrame {
+    
+    SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
+    
+    RelatorioAtendimentoController controlador = new RelatorioAtendimentoController ();
+    
+  
     public RelatorioAtendimento() {
         initComponents();
         setLocationRelativeTo(null);
-    }
+         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+  
+    }// fim construtor
+    
+    public void mostrarIdRelatorio(int ultimoId){
+        CampoId.setText(String.valueOf(ultimoId));
+        
+    }// fim metodo
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -43,17 +67,17 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         jSeparator9 = new javax.swing.JSeparator();
         jSeparator12 = new javax.swing.JSeparator();
         jSeparator10 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
+        CampoId = new javax.swing.JTextField();
+        CampoData = new javax.swing.JTextField();
+        CampoHorario = new javax.swing.JTextField();
+        CampoLocal = new javax.swing.JTextField();
+        CampoDiscente = new javax.swing.JTextField();
+        CampoTurma = new javax.swing.JTextField();
+        CampoObservacoes = new javax.swing.JTextField();
+        CampoPais = new javax.swing.JTextField();
+        CampoSituacao = new javax.swing.JTextField();
+        CampoEncaminhamentos = new javax.swing.JTextField();
+        CampoConclusao = new javax.swing.JTextField();
         VOLTAR = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -164,43 +188,43 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         jPanel1.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 500, 80));
         jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 480, 10));
 
-        jTextField1.setBorder(null);
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 274, 40, -1));
+        CampoId.setBorder(null);
+        jPanel1.add(CampoId, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 274, 40, -1));
 
-        jTextField3.setBorder(null);
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        CampoData.setBorder(null);
+        CampoData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                CampoDataActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 80, 40));
+        jPanel1.add(CampoData, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 80, 40));
 
-        jTextField4.setBorder(null);
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 80, 40));
+        CampoHorario.setBorder(null);
+        jPanel1.add(CampoHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 80, 40));
 
-        jTextField5.setBorder(null);
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 436, 120, 20));
+        CampoLocal.setBorder(null);
+        jPanel1.add(CampoLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 436, 120, 20));
 
-        jTextField6.setBorder(null);
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 470, 230, 20));
+        CampoDiscente.setBorder(null);
+        jPanel1.add(CampoDiscente, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 470, 230, 20));
 
-        jTextField7.setBorder(null);
-        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 470, 80, 20));
+        CampoTurma.setBorder(null);
+        jPanel1.add(CampoTurma, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 470, 80, 20));
 
-        jTextField8.setBorder(null);
-        jPanel1.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 500, 80));
+        CampoObservacoes.setBorder(null);
+        jPanel1.add(CampoObservacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 500, 80));
 
-        jTextField9.setBorder(null);
-        jPanel1.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 510, 240, 30));
+        CampoPais.setBorder(null);
+        jPanel1.add(CampoPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 510, 240, 30));
 
-        jTextField10.setBorder(null);
-        jPanel1.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 620, 500, 110));
+        CampoSituacao.setBorder(null);
+        jPanel1.add(CampoSituacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 630, 480, 90));
 
-        jTextField11.setBorder(null);
-        jPanel1.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 770, 500, 110));
+        CampoEncaminhamentos.setBorder(null);
+        jPanel1.add(CampoEncaminhamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 780, 480, 100));
 
-        jTextField12.setBorder(null);
-        jPanel1.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 930, 500, 130));
+        CampoConclusao.setBorder(null);
+        jPanel1.add(CampoConclusao, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 940, 480, 120));
 
         VOLTAR.setBackground(new java.awt.Color(217, 217, 217));
         VOLTAR.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -215,33 +239,77 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(217, 217, 217));
         jButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton2.setText("SALVAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 20));
+
+        jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1120, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         setSize(new java.awt.Dimension(809, 1127));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void CampoDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoDataActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_CampoDataActionPerformed
 
     private void VOLTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VOLTARActionPerformed
         if (evt.getSource()==VOLTAR){
-            new menu().setVisible(true);// aqui que se chama a tela de menu 
-            this.setVisible(false);
+           this.dispose();
         }
     }//GEN-LAST:event_VOLTARActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      if(evt.getSource() == jButton2){
+     
+         try {
+             
+             
+             Date dataOcorrencia;  
+              dataOcorrencia = formatoData.parse(CampoData.getText());
+             formatoData.format(dataOcorrencia);
+   
+          Date data;
+        
+              data = formatoHora.parse(CampoHorario.getText());
+     
+          Time horarioOcorrencia = new Time(data.getTime());
+
+      RelatorioAtendimentoController relatorioPraSalvar = new RelatorioAtendimentoController();
+       
+    boolean sucesso =relatorioPraSalvar.salvarRelatorioAtendimento(dataOcorrencia,  horarioOcorrencia,
+                          CampoLocal.getText(), CampoDiscente.getText(), CampoTurma.getText(),
+                          CampoPais.getText(), CampoSituacao.getText(),
+                CampoEncaminhamentos.getText(), CampoConclusao.getText());
+    
+    if (sucesso == true){
+       
+        this.dispose();
+        
+    }// fim if
+            } catch (ParseException ex) {
+              Logger.getLogger(RelatorioAtendimento.class.getName()).log(Level.SEVERE, null, ex);
+          }// fim catch
+         
+         
+          
+  
+      }// fim metodo
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
         
@@ -272,6 +340,17 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CampoConclusao;
+    private javax.swing.JTextField CampoData;
+    private javax.swing.JTextField CampoDiscente;
+    private javax.swing.JTextField CampoEncaminhamentos;
+    private javax.swing.JTextField CampoHorario;
+    private javax.swing.JTextField CampoId;
+    private javax.swing.JTextField CampoLocal;
+    private javax.swing.JTextField CampoObservacoes;
+    private javax.swing.JTextField CampoPais;
+    private javax.swing.JTextField CampoSituacao;
+    private javax.swing.JTextField CampoTurma;
     private javax.swing.JButton VOLTAR;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -294,6 +373,7 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator12;
@@ -305,16 +385,5 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,70 +8,30 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class RelatorioAtendimentoModel {
-    private int numRelatorio;
-    private String nomeAluno;
-     private String matriculaAluno;
-    private String turmaAluno;
-    private String nomeResponsavel;
     private Date dataOcorrido;
-    private Time horarioOcorrido;
-    private String localOcorrido;
-    private String situacao;
+     private Time horarioOcorrido;
+      private String localOcorrido;
+       private String nomeAluno;
+        private String turmaAluno;
+          private String nomeResponsavel;
+           private String situacao;
     private String encaminhamentos;
-    private String conclusao; 
+    private String conclusao;
+   
+    private int numRelatorio;
+
     private boolean concluido;
 
-    public RelatorioAtendimentoModel(String nomeAluno, String matriculaAluno, String turmaAluno, String nomeResponsavel, Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String situacao, String encaminhamentos, String conclusao) {
-        this.nomeAluno = nomeAluno;
-        this.matriculaAluno = matriculaAluno;
-        this.turmaAluno = turmaAluno;
-        this.nomeResponsavel = nomeResponsavel;
+    public RelatorioAtendimentoModel(Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String nomeAluno, String turmaAluno, String nomeResponsavel, String situacao, String encaminhamentos, String conclusao) {
         this.dataOcorrido = dataOcorrido;
         this.horarioOcorrido = horarioOcorrido;
         this.localOcorrido = localOcorrido;
+        this.nomeAluno = nomeAluno;
+        this.turmaAluno = turmaAluno;
+        this.nomeResponsavel = nomeResponsavel;
         this.situacao = situacao;
         this.encaminhamentos = encaminhamentos;
         this.conclusao = conclusao;
-    }// fim construtor
-
-    public int getNumRelatorio() {
-        return numRelatorio;
-    }
-
-    public void setNumRelatorio(int numRelatorio) {
-        this.numRelatorio = numRelatorio;
-    }
-
-    public String getNomeAluno() {
-        return nomeAluno;
-    }
-
-    public void setNomeAluno(String nomeAluno) {
-        this.nomeAluno = nomeAluno;
-    }
-
-    public String getMatriculaAluno() {
-        return matriculaAluno;
-    }
-
-    public void setMatriculaAluno(String matriculaAluno) {
-        this.matriculaAluno = matriculaAluno;
-    }
-
-    public String getTurmaAluno() {
-        return turmaAluno;
-    }
-
-    public void setTurmaAluno(String turmaAluno) {
-        this.turmaAluno = turmaAluno;
-    }
-
-    public String getNomeResponsavel() {
-        return nomeResponsavel;
-    }
-
-    public void setNomeResponsavel(String nomeResponsavel) {
-        this.nomeResponsavel = nomeResponsavel;
     }
 
     public Date getDataOcorrido() {
@@ -98,6 +58,30 @@ public class RelatorioAtendimentoModel {
         this.localOcorrido = localOcorrido;
     }
 
+    public String getNomeAluno() {
+        return nomeAluno;
+    }
+
+    public void setNomeAluno(String nomeAluno) {
+        this.nomeAluno = nomeAluno;
+    }
+
+    public String getTurmaAluno() {
+        return turmaAluno;
+    }
+
+    public void setTurmaAluno(String turmaAluno) {
+        this.turmaAluno = turmaAluno;
+    }
+
+    public String getNomeResponsavel() {
+        return nomeResponsavel;
+    }
+
+    public void setNomeResponsavel(String nomeResponsavel) {
+        this.nomeResponsavel = nomeResponsavel;
+    }
+
     public String getSituacao() {
         return situacao;
     }
@@ -122,6 +106,14 @@ public class RelatorioAtendimentoModel {
         this.conclusao = conclusao;
     }
 
+    public int getNumRelatorio() {
+        return numRelatorio;
+    }
+
+    public void setNumRelatorio(int numRelatorio) {
+        this.numRelatorio = numRelatorio;
+    }
+
     public boolean getConcluido() {
         return concluido;
     }
@@ -129,6 +121,14 @@ public class RelatorioAtendimentoModel {
     public void setConcluido(boolean concluido) {
         this.concluido = concluido;
     }
+
+   
+    
+    
+    
+    public RelatorioAtendimentoModel(int numRelatorio) {
+        this.numRelatorio = numRelatorio;
+    }// fim metoo
     
     
     

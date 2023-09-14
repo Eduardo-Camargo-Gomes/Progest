@@ -1,5 +1,7 @@
 package View;
 
+import controller.RelatorioAtendimentoController;
+
 public class menu extends javax.swing.JFrame {
 
     public menu() {
@@ -12,17 +14,15 @@ public class menu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        MENU = new javax.swing.JButton();
         INICIO = new javax.swing.JButton();
         NOVO = new javax.swing.JButton();
         AGENDA = new javax.swing.JButton();
-        Relatorio = new javax.swing.JButton();
+        ExcluirBotao = new javax.swing.JButton();
         Concluido = new javax.swing.JButton();
         Pendente = new javax.swing.JButton();
         Pasta = new javax.swing.JButton();
         Configuracao = new javax.swing.JButton();
         IFAM = new javax.swing.JLabel();
-        imagemmenu = new javax.swing.JLabel();
         imageminicio = new javax.swing.JLabel();
         imagemnovo = new javax.swing.JLabel();
         imagemagenda = new javax.swing.JLabel();
@@ -56,17 +56,11 @@ public class menu extends javax.swing.JFrame {
         });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        MENU.setBackground(new java.awt.Color(186, 203, 212));
-        MENU.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        MENU.setText("Menu");
-        MENU.setBorder(null);
-        jPanel2.add(MENU, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 70, 30));
-
         INICIO.setBackground(new java.awt.Color(186, 203, 212));
         INICIO.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        INICIO.setText("Inicío");
+        INICIO.setText("Início");
         INICIO.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jPanel2.add(INICIO, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 70, 30));
+        jPanel2.add(INICIO, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 70, 30));
 
         NOVO.setBackground(new java.awt.Color(186, 203, 212));
         NOVO.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -77,7 +71,7 @@ public class menu extends javax.swing.JFrame {
                 NOVOActionPerformed(evt);
             }
         });
-        jPanel2.add(NOVO, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 70, 30));
+        jPanel2.add(NOVO, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, 70, 30));
 
         AGENDA.setBackground(new java.awt.Color(186, 203, 212));
         AGENDA.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -88,30 +82,35 @@ public class menu extends javax.swing.JFrame {
                 AGENDAActionPerformed(evt);
             }
         });
-        jPanel2.add(AGENDA, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, 90, 30));
+        jPanel2.add(AGENDA, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 90, 30));
 
-        Relatorio.setBackground(new java.awt.Color(186, 203, 212));
-        Relatorio.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        Relatorio.setText("Relatório");
-        Relatorio.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        Relatorio.addActionListener(new java.awt.event.ActionListener() {
+        ExcluirBotao.setBackground(new java.awt.Color(186, 203, 212));
+        ExcluirBotao.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        ExcluirBotao.setText("Excluir");
+        ExcluirBotao.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        ExcluirBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RelatorioActionPerformed(evt);
+                ExcluirBotaoActionPerformed(evt);
             }
         });
-        jPanel2.add(Relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 110, 30));
+        jPanel2.add(ExcluirBotao, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, 100, 30));
 
         Concluido.setBackground(new java.awt.Color(186, 203, 212));
         Concluido.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        Concluido.setText("Concluído");
+        Concluido.setText("Concluídos");
         Concluido.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jPanel2.add(Concluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 460, 120, 30));
+        Concluido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConcluidoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Concluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 130, 30));
 
         Pendente.setBackground(new java.awt.Color(186, 203, 212));
         Pendente.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         Pendente.setText("Pendente");
         Pendente.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jPanel2.add(Pendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 510, 110, 30));
+        jPanel2.add(Pendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, 110, 30));
 
         Pasta.setBackground(new java.awt.Color(186, 203, 212));
         Pasta.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -128,37 +127,34 @@ public class menu extends javax.swing.JFrame {
                 ConfiguracaoActionPerformed(evt);
             }
         });
-        jPanel2.add(Configuracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 590, 150, 30));
+        jPanel2.add(Configuracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 600, 150, 30));
 
         IFAM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.ifam.png"))); // NOI18N
         jPanel2.add(IFAM, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 110));
 
-        imagemmenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.demenu.png"))); // NOI18N
-        jPanel2.add(imagemmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 50, 50));
-
         imageminicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.deinicio.png"))); // NOI18N
-        jPanel2.add(imageminicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 50, 60));
+        jPanel2.add(imageminicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 50, 60));
 
         imagemnovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.denovo.png"))); // NOI18N
-        jPanel2.add(imagemnovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 50, 40));
+        jPanel2.add(imagemnovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 50, 40));
 
         imagemagenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.deagenda.png"))); // NOI18N
-        jPanel2.add(imagemagenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 50, 50));
+        jPanel2.add(imagemagenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 50, 50));
 
-        imagemrelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.derelatorio.png"))); // NOI18N
-        jPanel2.add(imagemrelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 50, 50));
+        imagemrelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/LIXEIRAPNG (1).png"))); // NOI18N
+        jPanel2.add(imagemrelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 60, 50));
 
         imagemconcluido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.deconcluido.png"))); // NOI18N
-        jPanel2.add(imagemconcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 50, 50));
+        jPanel2.add(imagemconcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 50, 50));
 
         imagempendente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.dependente.png"))); // NOI18N
-        jPanel2.add(imagempendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 50, -1));
+        jPanel2.add(imagempendente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, 40));
 
         imagempasta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.depasta.png"))); // NOI18N
         jPanel2.add(imagempasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 50, 50));
 
         imagemconfiguracao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.deconfiguracao.png"))); // NOI18N
-        jPanel2.add(imagemconfiguracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 580, 50, 50));
+        jPanel2.add(imagemconfiguracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, 50, 50));
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
@@ -206,9 +202,12 @@ public class menu extends javax.swing.JFrame {
     private void NOVOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NOVOActionPerformed
         if (evt.getSource()==NOVO){
            new RelatorioAtendimento().setVisible(true);
-           this.setVisible(false);
            
-       }
+           RelatorioAtendimentoController controlador = new RelatorioAtendimentoController();
+           
+           controlador.mostrarNumeroDeRelatorio();
+          
+       }// fim if
     }//GEN-LAST:event_NOVOActionPerformed
 
     private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
@@ -222,9 +221,15 @@ public class menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ConfiguracaoActionPerformed
 
-    private void RelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RelatorioActionPerformed
+    private void ExcluirBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirBotaoActionPerformed
+      if(evt.getSource() == ExcluirBotao){
+          
+          new ExcluirRelatorio().setVisible(true);
+          
+      }// fim if
+            
+            
+    }//GEN-LAST:event_ExcluirBotaoActionPerformed
 
     private void AGENDAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AGENDAActionPerformed
        
@@ -233,6 +238,10 @@ public class menu extends javax.swing.JFrame {
     private void jPanel2AncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel2AncestorMoved
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel2AncestorMoved
+
+    private void ConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConcluidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ConcluidoActionPerformed
 
 
     public static void main(String args[]) {
@@ -256,7 +265,7 @@ public class menu extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new menu().setVisible(false);
+               
                 new TelaInicio().setVisible(true);
             }
         });
@@ -266,18 +275,16 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JButton AGENDA;
     private javax.swing.JButton Concluido;
     private javax.swing.JButton Configuracao;
+    private javax.swing.JButton ExcluirBotao;
     private javax.swing.JLabel IFAM;
     private javax.swing.JButton INICIO;
-    private javax.swing.JButton MENU;
     private javax.swing.JButton NOVO;
     private javax.swing.JButton Pasta;
     private javax.swing.JButton Pendente;
-    private javax.swing.JButton Relatorio;
     private javax.swing.JLabel imagemagenda;
     private javax.swing.JLabel imagemconcluido;
     private javax.swing.JLabel imagemconfiguracao;
     private javax.swing.JLabel imageminicio;
-    private javax.swing.JLabel imagemmenu;
     private javax.swing.JLabel imagemnovo;
     private javax.swing.JLabel imagempasta;
     private javax.swing.JLabel imagempendente;

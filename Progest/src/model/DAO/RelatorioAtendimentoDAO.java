@@ -14,9 +14,9 @@ public class RelatorioAtendimentoDAO {
         
       
         
-        String sql = "INSERT INTO relatorio_atendimento(nome_aluno, matricula_aluno, turma_aluno"
+        String sql = "INSERT INTO relatorio_atendimento(nome_aluno, turma_aluno, "
                 + "nome_responsavel, data_ocorrido, horario, locall, situacao, encaminhamento, conclusao) "
-                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	PreparedStatement ps = null;
 	Connection connection = null;
@@ -26,16 +26,16 @@ public class RelatorioAtendimentoDAO {
 		
 		ps = connection.prepareStatement(sql);  
 		ps.setString(1,relatorioASalvar.getNomeAluno() );
-		ps.setString (2, relatorioASalvar.getMatriculaAluno()); 
-                 ps.setString(3, relatorioASalvar.getTurmaAluno());
-                 ps.setString(4, relatorioASalvar.getNomeResponsavel());
-                 ps.setDate(5, new java.sql.Date(
+		
+                 ps.setString (2, relatorioASalvar.getTurmaAluno());
+                 ps.setString(3, relatorioASalvar.getNomeResponsavel());
+                 ps.setDate(4, new java.sql.Date(
                          relatorioASalvar.getDataOcorrido().getTime()));  
-                 ps.setTime(6, relatorioASalvar.getHorarioOcorrido());
-                 ps.setString(7, relatorioASalvar.getLocalOcorrido());
-                  ps.setString(8, relatorioASalvar.getSituacao());
-                   ps.setString(9, relatorioASalvar.getEncaminhamentos());
-                    ps.setString(10, relatorioASalvar.getConclusao());
+                 ps.setTime(5, relatorioASalvar.getHorarioOcorrido());
+                 ps.setString(6, relatorioASalvar.getLocalOcorrido());
+                  ps.setString(7, relatorioASalvar.getSituacao());
+                   ps.setString(8, relatorioASalvar.getEncaminhamentos());
+                    ps.setString(9, relatorioASalvar.getConclusao());
                     
                   ps.execute();
 	
@@ -61,10 +61,10 @@ public class RelatorioAtendimentoDAO {
 		
 		ps = connection.prepareStatement(sql);  
                 ps.setInt(1, relatorioADeletar.getNumRelatorio());
-		
+		ps.executeUpdate();
 	
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
+		
 		e.printStackTrace();  
 	}// fim catch	
         
@@ -74,12 +74,12 @@ public class RelatorioAtendimentoDAO {
     
     public int mostrarNumeroRelatorio(){
         
-	int numero_relatorio = 1;
+	int ultimoId = 0;
         
 	try {
             
-              String sql = "select max(numero_relatorio) from relatorio_atendimento ";
-	
+              String sql = "select max(numero_relatorio)as ultimo_id from relatorio_atendimento";
+	 
 	PreparedStatement ps = null;
 	Connection connection = null;
             
@@ -90,7 +90,7 @@ public class RelatorioAtendimentoDAO {
                  ResultSet resultSet = ps.executeQuery();  
                  
                  if(resultSet.next()){
-                    numero_relatorio = resultSet.getInt("numero_relatorio");
+                    ultimoId = resultSet.getInt("ultimo_id");
                      
                  }// fim if
                  
@@ -102,8 +102,7 @@ public class RelatorioAtendimentoDAO {
 	}// fim catch	
         
         
-        
-        return numero_relatorio;
+        return ultimoId;
     }// fim metodo
     
     

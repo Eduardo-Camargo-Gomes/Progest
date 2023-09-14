@@ -28,7 +28,7 @@ public class UsuarioController {
               JOptionPane.showMessageDialog(null, "Nome de usuario e CPF já existentes!");
           }// fim  if
           
-           if (!nome.matches("[A-Za-z]+")) {
+           if (!nome.matches("[A-Za-z ]+")) {
                     JOptionPane.showMessageDialog(null, "O campo nome deve conter apenas letras.");
                 }// fim if 
            
@@ -48,7 +48,7 @@ public class UsuarioController {
           }// fim else if verificar se existe CPF
           
 
-          else if (sim == false && jaExisteCPF == false && nome.matches("[A-Za-z]+") && cpf.matches("[0-9]+") ){
+          else if (sim == false && jaExisteCPF == false && nome.matches("[A-Za-z ]+") && cpf.matches("[0-9]+") ){
           usuarioDAO.cadastrarUsuario(usuarioACadastrar);
           
           JOptionPane.showMessageDialog(null,"Usuário cadastrado com sucesso!" );

@@ -152,6 +152,8 @@ public class EsqueciSenha extends javax.swing.JFrame {
           try {
               controlador.alterarSenha(jTextField1.getText(),
                       jPasswordField1.getText(), jTextField3.getText());
+              
+              this.dispose();
           } catch (SQLException ex) {
               Logger.getLogger(EsqueciSenha.class.getName()).log(Level.SEVERE, null, ex);
           }
