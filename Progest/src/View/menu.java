@@ -37,6 +37,7 @@ public class menu extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        FichaAdentimento = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -193,6 +194,14 @@ public class menu extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.desair.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 60, -1, -1));
 
+        FichaAdentimento.setText("FichaAdentimento");
+        FichaAdentimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FichaAdentimentoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(FichaAdentimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 680, 140, 40));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 800));
 
         pack();
@@ -243,6 +252,13 @@ public class menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ConcluidoActionPerformed
 
+    private void FichaAdentimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FichaAdentimentoActionPerformed
+        if (evt.getSource()==FichaAdentimento){
+            new FichaDeAtendimento().setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_FichaAdentimentoActionPerformed
+
 
     public static void main(String args[]) {
         
@@ -276,6 +292,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JButton Concluido;
     private javax.swing.JButton Configuracao;
     private javax.swing.JButton ExcluirBotao;
+    private javax.swing.JButton FichaAdentimento;
     private javax.swing.JLabel IFAM;
     private javax.swing.JButton INICIO;
     private javax.swing.JButton NOVO;
