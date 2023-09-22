@@ -53,6 +53,7 @@ public class UsuarioController {
           
           JOptionPane.showMessageDialog(null,"Usuário cadastrado com sucesso!" );
           return true;
+          
           }// fim else de nome ja existente 
           
       } // fim if 

@@ -179,10 +179,11 @@ public class TelaCadastro extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, ex);
             }
-          
+            
             limparCampos();
-
-        }// fim ifao
+            
+            
+       }// fim ifao
     }//GEN-LAST:event_CADASTRARActionPerformed
 
     public static void main(String args[]) {
