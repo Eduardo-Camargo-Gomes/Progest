@@ -117,7 +117,7 @@ public class FichaDeAtendimento extends javax.swing.JFrame {
         celularAvos = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        escolaEmQueConcluiuEnsinoMedio = new javax.swing.JTextField();
+        escolaEmQueConcluiuEnsinoFundamental = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
         anoDeConclusao = new javax.swing.JTextField();
         publica = new javax.swing.JRadioButton();
@@ -150,7 +150,6 @@ public class FichaDeAtendimento extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(900, 900));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -396,8 +395,8 @@ public class FichaDeAtendimento extends javax.swing.JFrame {
         jLabel33.setText("ESCOLA EM QUE VOCÊ CONCLUIU O ENSINO FUNDAMENTAL :");
         jPanel1.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1260, 340, -1));
 
-        escolaEmQueConcluiuEnsinoMedio.setBorder(null);
-        jPanel1.add(escolaEmQueConcluiuEnsinoMedio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1280, 750, 30));
+        escolaEmQueConcluiuEnsinoFundamental.setBorder(null);
+        jPanel1.add(escolaEmQueConcluiuEnsinoFundamental, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 1280, 750, 30));
 
         jLabel34.setText("ANO DE CONCLUSÃO :");
         jPanel1.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 1320, -1, 30));
@@ -585,7 +584,7 @@ public class FichaDeAtendimento extends javax.swing.JFrame {
     private javax.swing.JTextField emailMae;
     private javax.swing.JTextField emailPai;
     private javax.swing.JTextField endereco;
-    private javax.swing.JTextField escolaEmQueConcluiuEnsinoMedio;
+    private javax.swing.JTextField escolaEmQueConcluiuEnsinoFundamental;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
