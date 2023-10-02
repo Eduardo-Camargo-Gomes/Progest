@@ -72,13 +72,12 @@ public class RelatorioAtendimentoDAO {
     }// fim metodo
     
     
-    public int mostrarNumeroRelatorio(){
+    public RelatorioAtendimentoModel mostrarNumeroRelatorio() throws SQLException {
         
-	int ultimoId = 0;
-        
-	try {
-            
-              String sql = "select max(numero_relatorio)as ultimo_id from relatorio_atendimento";
+	RelatorioAtendimentoModel relatorio =   new RelatorioAtendimentoModel();
+   
+              String sql = "select * from relatorio_atendimento where numero_relatorio ="
+                      + " (select max(numero_relatorio) from relatorio_atendimento)";
 	 
 	PreparedStatement ps = null;
 	Connection connection = null;
@@ -90,22 +89,125 @@ public class RelatorioAtendimentoDAO {
                  ResultSet resultSet = ps.executeQuery();  
                  
                  if(resultSet.next()){
-                    ultimoId = resultSet.getInt("ultimo_id");
-                     
+                   relatorio.setNumRelatorio(resultSet.getInt("numero_relatorio"));
                  }// fim if
-                 
-               
 
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();  
-	}// fim catch	
-        
-        
-        return ultimoId;
+        return relatorio;
     }// fim metodo
     
     
     
+    public RelatorioAtendimentoModel mostrarUltimoRelatorio() throws SQLException{
+
+        
+        RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
+        
+              String sql = " select * from relatorio_atendimento where numero_relatorio ="
+                      + " (select max(numero_relatorio) from relatorio_atendimento)";
+	 
+	PreparedStatement ps = null;
+	Connection connection = null;
+            
+		connection = new Conexao().getConexao();
+		
+		ps = connection.prepareStatement(sql);  
+                
+                 ResultSet resultSet = ps.executeQuery();
+                 
+                 if(resultSet.next()){
+ relatorio.setNumRelatorio(resultSet.getInt("numero_relatorio"));
+ relatorio.setDataOcorrido(resultSet.getDate("data_ocorrido"));
+ relatorio.setHorarioOcorrido(resultSet.getTime("horario"));
+ relatorio.setLocalOcorrido(resultSet.getString("locall"));
+ relatorio.setNomeAluno(resultSet.getString("nome_aluno"));
+ relatorio.setTurmaAluno(resultSet.getString("turma_aluno"));
+ relatorio.setNomeResponsavel (resultSet.getString("nome_responsavel"));
+ relatorio.setSituacao (resultSet.getString("situacao"));
+ relatorio.setEncaminhamentos (resultSet.getString("encaminhamento"));
+ relatorio.setConclusao (resultSet.getString("conclusao"));
+         return relatorio;
+                 }// fim if
+                 else {
+                     return null;
+                 }// fim else 
     
-}// fim classe 
+    }// fim metodo
+    
+    public RelatorioAtendimentoModel mostrarUltimosRelatorios(String tipoOrdenacao) throws SQLException{
+        
+        tipoOrdenacao = "horaAcesso";
+        
+        RelatorioAtendimentoModel relatorios =   new RelatorioAtendimentoModel();
+   
+              String sql = "select * from relatorio_atendimento order by ?";
+	 
+	PreparedStatement ps = null;
+	Connection connection = null;
+            
+		connection = new Conexao().getConexao();
+		
+		ps = connection.prepareStatement(sql);  
+                
+                if(tipoOrdenacao.equals("dataCriacao")){   
+                ps.setString(1, "dataCriacao");
+                }// fim if
+                
+                else if (tipoOrdenacao.equals("dataAcesso")){
+                     ps.setString(1, "dataAcesso");
+                }// fim else if
+                
+                else if (tipoOrdenacao.equals("dataModificacao")){
+                     ps.setString(1, "dataModificacao");
+                }// fim else if
+                
+                else if (tipoOrdenacao.equals("horaAcesso")){
+                     ps.setString(1, "horaAcesso");
+                }// fim else if
+                
+                else if (tipoOrdenacao.equals("horaModificacao")){
+                     ps.setString(1, "horaModificacao");
+                }// fim else if
+                
+                 ResultSet resultSet = ps.executeQuery();  
+ 
+                 if(resultSet.next()){
+                     return relatorios; 
+                 } // fim if
+                 
+                 else {
+                    return null; 
+                     
+                 }// fim else 
+    
+    }// fim metodo
+    
+    
+    public boolean existeNumeroRelatorio(RelatorioAtendimentoModel relatorioAVerificar){
+        
+          try {
+
+        String sql = "select * from relatorio_atendimento where numero_relatorio like ?";
+        
+        PreparedStatement ps = null;
+	Connection connection = null;
+	
+		connection = new Conexao().getConexao();
+		ps = connection.prepareStatement(sql);
+		
+                ps.setInt(1, relatorioAVerificar.getNumRelatorio());
+                
+                ResultSet resultSet = ps.executeQuery();
+                return resultSet.next();
+             
+    } catch(SQLException e) {
+        e.printStackTrace();       
+    }// fim catch
+    return false;
+}// fim metodo
+        
+    }// fim classe
+    
+                 
+     
+ 
+    

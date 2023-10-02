@@ -5,11 +5,29 @@ import java.sql.Time;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import model.DAO.RelatorioAtendimentoDAO;
-import View.RelatorioAtendimento;
+import View.RelatorioAtendimentoNovo;
+import java.sql.SQLException;
 
 public class RelatorioAtendimentoController {
     
-    private RelatorioAtendimento relatorio;
+    public boolean verificarSeExisteRelatorio(int numeroRelatorio) throws SQLException{
+        
+        RelatorioAtendimentoModel relatorio = new  RelatorioAtendimentoModel(numeroRelatorio);
+        RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
+        
+  
+         boolean existeRelatorio = relatorioDAO.existeNumeroRelatorio(relatorio);
+       
+        if(existeRelatorio== true){
+            return true;
+        }// fim metodo
+        
+        else {
+      return false; 
+              }// fim else 
+        
+        
+    }// fim metodo
     
     public boolean salvarRelatorioAtendimento(Date dataOcorrido,
             Time horarioOcorrido,
@@ -44,27 +62,35 @@ public class RelatorioAtendimentoController {
     }// fim metodo
     
     
-    public void excluirRelatorioAtendimento(int numRelatorio){
+    public void excluirRelatorioAtendimento(int numRelatorio) throws SQLException{
 
         RelatorioAtendimentoModel relatorioASerExcluido = 
                 new RelatorioAtendimentoModel(numRelatorio);
         
         RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
         
-        relatorioDAO.excluirRelatorio(relatorioASerExcluido);
-        JOptionPane.showMessageDialog(null, "Relatorio excluído com sucesso!"); 
+        boolean existe = verificarSeExisteRelatorio(numRelatorio);
         
+        if(existe == true){
+        relatorioDAO.excluirRelatorio(relatorioASerExcluido);
+        JOptionPane.showMessageDialog(null, "Relatório excluído com sucesso!"); 
+        }
+        
+        else {
+            JOptionPane.showMessageDialog(null, "Relatório inexistente!");
+        }
     }// fim metodo
     
     
-      public void  mostrarNumeroDeRelatorio(){
+      public void  mostrarNumeroDeRelatorio() throws SQLException{
         
         RelatorioAtendimentoDAO modelo = new RelatorioAtendimentoDAO();
         
-        int ultimoId =  modelo.mostrarNumeroRelatorio();
-        
-        relatorio.mostrarIdRelatorio(ultimoId);
-    
+ 
     }// fim metodo
+      
+    
    
 }// fim classe 
+
+ 

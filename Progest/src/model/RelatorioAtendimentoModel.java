@@ -15,13 +15,58 @@ public class RelatorioAtendimentoModel {
         private String turmaAluno;
           private String nomeResponsavel;
            private String situacao;
-    private String encaminhamentos;
-    private String conclusao;
-   
-    private int numRelatorio;
+               private String encaminhamentos;
+               private String conclusao;
+                 private int numRelatorio;
+                     private boolean concluido;
+                     
+                 private Date dataAcesso;
+                 private Date dataModificacao;
+                 private Date dataCriacao;
+                 private Time horaAcesso;
+                 private Time horaModificacao;
 
-    private boolean concluido;
+    public Date getDataAcesso() {
+        return dataAcesso;
+    }
 
+    public void setDataAcesso(Date dataAcesso) {
+        this.dataAcesso = dataAcesso;
+    }
+
+    public Date getDataModificacao() {
+        return dataModificacao;
+    }
+
+    public void setDataModificacao(Date dataModificacao) {
+        this.dataModificacao = dataModificacao;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public Time getHoraAcesso() {
+        return horaAcesso;
+    }
+
+    public void setHoraAcesso(Time horaAcesso) {
+        this.horaAcesso = horaAcesso;
+    }
+
+    public Time getHoraModificacao() {
+        return horaModificacao;
+    }
+
+    public void setHoraModificacao(Time horaModificacao) {
+        this.horaModificacao = horaModificacao;
+    }
+                 
+               
     public RelatorioAtendimentoModel(Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String nomeAluno, String turmaAluno, String nomeResponsavel, String situacao, String encaminhamentos, String conclusao) {
         this.dataOcorrido = dataOcorrido;
         this.horarioOcorrido = horarioOcorrido;
@@ -33,6 +78,11 @@ public class RelatorioAtendimentoModel {
         this.encaminhamentos = encaminhamentos;
         this.conclusao = conclusao;
     }
+
+    public RelatorioAtendimentoModel() {
+    }
+
+   
 
     public Date getDataOcorrido() {
         return dataOcorrido;

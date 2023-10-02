@@ -3,6 +3,7 @@ package View;
 
 import controller.RelatorioAtendimentoController;
 import controller.UsuarioController;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,8 +11,12 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import model.DAO.RelatorioAtendimentoDAO;
+import model.RelatorioAtendimentoModel;
 
-public class RelatorioAtendimento extends javax.swing.JFrame {
+public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
+    
+      
     
     SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
@@ -19,17 +24,29 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
     RelatorioAtendimentoController controlador = new RelatorioAtendimentoController ();
     
   
-    public RelatorioAtendimento() {
+    public RelatorioAtendimentoNovo() throws SQLException {
         initComponents();
         setLocationRelativeTo(null);
          setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+         mostrarIdRelatorio();
+         CampoId.setEditable(false);
   
     }// fim construtor
     
-    public void mostrarIdRelatorio(int ultimoId){
-        CampoId.setText(String.valueOf(ultimoId));
+    public void mostrarIdRelatorio() throws SQLException{
         
-    }// fim metodo
+         RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
+         RelatorioAtendimentoModel relatorioModel = new RelatorioAtendimentoModel();
+
+         relatorioModel = relatorioDAO.mostrarNumeroRelatorio();
+         
+        
+          
+          CampoId.setText(String.valueOf(relatorioModel.getNumRelatorio() + 1));
+          
+        
+    }// fim metodo 
+ 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -75,11 +92,15 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         CampoTurma = new javax.swing.JTextField();
         CampoObservacoes = new javax.swing.JTextField();
         CampoPais = new javax.swing.JTextField();
-        CampoSituacao = new javax.swing.JTextField();
-        CampoEncaminhamentos = new javax.swing.JTextField();
-        CampoConclusao = new javax.swing.JTextField();
         VOLTAR = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        CampoEncaminhamentos = new javax.swing.JTextArea();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        CampoConclusao = new javax.swing.JTextArea();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        CampoSituacao = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,7 +142,7 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("  Relatório de atendimento N°:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 170, 40));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 170, 30));
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -144,7 +165,7 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel12.setText("  1.6 Nome dos responsaveis pelo Discente:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 500, 260, 40));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 510, 260, 30));
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel13.setText("  2. ACOMPANHAMENTO PEDAGÓGICO");
@@ -203,7 +224,7 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         jPanel1.add(CampoHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 80, 40));
 
         CampoLocal.setBorder(null);
-        jPanel1.add(CampoLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 436, 120, 20));
+        jPanel1.add(CampoLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 426, 130, 30));
 
         CampoDiscente.setBorder(null);
         jPanel1.add(CampoDiscente, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 470, 230, 20));
@@ -217,16 +238,7 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         CampoPais.setBorder(null);
         jPanel1.add(CampoPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 510, 240, 30));
 
-        CampoSituacao.setBorder(null);
-        jPanel1.add(CampoSituacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 630, 480, 90));
-
-        CampoEncaminhamentos.setBorder(null);
-        jPanel1.add(CampoEncaminhamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 780, 480, 100));
-
-        CampoConclusao.setBorder(null);
-        jPanel1.add(CampoConclusao, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 940, 480, 120));
-
-        VOLTAR.setBackground(new java.awt.Color(217, 217, 217));
+        VOLTAR.setBackground(new java.awt.Color(204, 204, 204));
         VOLTAR.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         VOLTAR.setText("VOLTAR");
         VOLTAR.addActionListener(new java.awt.event.ActionListener() {
@@ -236,7 +248,7 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         });
         jPanel1.add(VOLTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, 20));
 
-        jButton2.setBackground(new java.awt.Color(217, 217, 217));
+        jButton2.setBackground(new java.awt.Color(204, 204, 204));
         jButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton2.setText("SALVAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -245,6 +257,25 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 20));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        CampoEncaminhamentos.setColumns(20);
+        CampoEncaminhamentos.setRows(5);
+        jScrollPane6.setViewportView(CampoEncaminhamentos);
+
+        jPanel1.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 770, 500, 110));
+
+        CampoConclusao.setColumns(20);
+        CampoConclusao.setRows(5);
+        jScrollPane7.setViewportView(CampoConclusao);
+
+        jPanel1.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 930, 500, 130));
+
+        CampoSituacao.setColumns(20);
+        CampoSituacao.setRows(5);
+        jScrollPane8.setViewportView(CampoSituacao);
+
+        jPanel1.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 620, 500, 110));
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -302,15 +333,19 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
         
     }// fim if
             } catch (ParseException ex) {
-              Logger.getLogger(RelatorioAtendimento.class.getName()).log(Level.SEVERE, null, ex);
-          }// fim catch
+              Logger.getLogger(RelatorioAtendimentoNovo.class.getName()).log(Level.SEVERE, null, ex);
+          }// fim catch// fim catch
          
          
           
   
       }// fim metodo
+      
+    
+      
     }//GEN-LAST:event_jButton2ActionPerformed
 
+   
     public static void main(String args[]) {
         
         try {
@@ -321,35 +356,40 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RelatorioAtendimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatorioAtendimentoNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RelatorioAtendimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatorioAtendimentoNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RelatorioAtendimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatorioAtendimentoNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RelatorioAtendimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatorioAtendimentoNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RelatorioAtendimento().setVisible(true);
+                try {
+                    new RelatorioAtendimentoNovo().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RelatorioAtendimentoNovo.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CampoConclusao;
+    private javax.swing.JTextArea CampoConclusao;
     private javax.swing.JTextField CampoData;
     private javax.swing.JTextField CampoDiscente;
-    private javax.swing.JTextField CampoEncaminhamentos;
+    private javax.swing.JTextArea CampoEncaminhamentos;
     private javax.swing.JTextField CampoHorario;
     private javax.swing.JTextField CampoId;
     private javax.swing.JTextField CampoLocal;
     private javax.swing.JTextField CampoObservacoes;
     private javax.swing.JTextField CampoPais;
-    private javax.swing.JTextField CampoSituacao;
+    private javax.swing.JTextArea CampoSituacao;
     private javax.swing.JTextField CampoTurma;
     private javax.swing.JButton VOLTAR;
     private javax.swing.JButton jButton2;
@@ -374,6 +414,10 @@ public class RelatorioAtendimento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator12;
