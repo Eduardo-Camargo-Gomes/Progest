@@ -1,4 +1,6 @@
 package controller;
+import View.AlterarRelatorio;
+import View.RelatorioAtendimentoAcessar;
 import model.*;
 import controller.*;
 import java.sql.Time;
@@ -7,8 +9,12 @@ import javax.swing.JOptionPane;
 import model.DAO.RelatorioAtendimentoDAO;
 import View.RelatorioAtendimentoNovo;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class RelatorioAtendimentoController {
+    
+     private ArrayList<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<> ();
+    
     
     public boolean verificarSeExisteRelatorio(int numeroRelatorio) throws SQLException{
         
@@ -48,8 +54,9 @@ public class RelatorioAtendimentoController {
             
             
              relatorioDAO.salvarRelatorio(relatorioASalvar);
-             
-            relatorioASalvar.setConcluido(true);
+                    
+             listaRelatorios.add(relatorioASalvar);
+                        
               JOptionPane.showMessageDialog(null, "Relatorio salvo com sucesso!");
               return true;
         }// fim if
@@ -73,24 +80,56 @@ public class RelatorioAtendimentoController {
         
         if(existe == true){
         relatorioDAO.excluirRelatorio(relatorioASerExcluido);
+        
+        
+        listaRelatorios.remove(relatorioASerExcluido);
+        
         JOptionPane.showMessageDialog(null, "Relatório excluído com sucesso!"); 
-        }
+        }// fim if
         
         else {
             JOptionPane.showMessageDialog(null, "Relatório inexistente!");
-        }
+        }// fim else 
     }// fim metodo
     
-    
-      public void  mostrarNumeroDeRelatorio() throws SQLException{
-        
-        RelatorioAtendimentoDAO modelo = new RelatorioAtendimentoDAO();
-        
  
-    }// fim metodo
-      
+      public boolean alterarRelatorio( Date dataOcorrido,
+            Time horarioOcorrido,
+            String localOcorrido, String nomeAluno, String turmaAluno, 
+            String nomeResponsavel, String situacao, String encaminhamentos, String conclusao,
+            int numeroRelatorio){
+          
+         
+         RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
+         
+        RelatorioAtendimentoModel relatorioAAlterar =
+                new RelatorioAtendimentoModel(dataOcorrido, horarioOcorrido,
+                        localOcorrido, nomeAluno, turmaAluno, nomeResponsavel, situacao,
+                        encaminhamentos, conclusao, numeroRelatorio);
+          
+        if(dataOcorrido != null && horarioOcorrido != null && localOcorrido.length() > 0 
+                && nomeAluno.length() > 0 && turmaAluno.length() > 0 && nomeResponsavel.length() >0
+                && situacao.length() > 0 && encaminhamentos.length() > 0 && conclusao.length() > 0){
+            
+            
+            relatorioDAO.alterarRelatorio(relatorioAAlterar);
+            
+            
+            
+            JOptionPane.showMessageDialog(null, "Alterações salvas com sucesso!");
+              return true;
+        }// fim if
+        
+        else {
+            JOptionPane.showMessageDialog(null, "Campos incompletos!");
+            return false;
+        }// fim else 
+            
     
-   
+      }// fim metodo
+      
+      
+
 }// fim classe 
 
  

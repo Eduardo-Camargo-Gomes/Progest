@@ -93,7 +93,7 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
         CampoObservacoes = new javax.swing.JTextField();
         CampoPais = new javax.swing.JTextField();
         VOLTAR = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        NOVO = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jScrollPane6 = new javax.swing.JScrollPane();
         CampoEncaminhamentos = new javax.swing.JTextArea();
@@ -248,15 +248,15 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
         });
         jPanel1.add(VOLTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, 20));
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jButton2.setText("SALVAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        NOVO.setBackground(new java.awt.Color(204, 204, 204));
+        NOVO.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        NOVO.setText("SALVAR");
+        NOVO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                NOVOActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 20));
+        jPanel1.add(NOVO, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 20));
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         CampoEncaminhamentos.setColumns(20);
@@ -304,8 +304,8 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_VOLTARActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      if(evt.getSource() == jButton2){
+    private void NOVOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NOVOActionPerformed
+      if(evt.getSource() == NOVO){
      
          try {
              
@@ -339,11 +339,11 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
          
           
   
-      }// fim metodo
+      }// fim botao
       
     
-      
-    }//GEN-LAST:event_jButton2ActionPerformed
+      // fim metodo
+    }//GEN-LAST:event_NOVOActionPerformed
 
    
     public static void main(String args[]) {
@@ -391,8 +391,8 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
     private javax.swing.JTextField CampoPais;
     private javax.swing.JTextArea CampoSituacao;
     private javax.swing.JTextField CampoTurma;
+    private javax.swing.JButton NOVO;
     private javax.swing.JButton VOLTAR;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

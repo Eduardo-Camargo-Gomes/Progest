@@ -3,6 +3,9 @@ package View;
 import model.*;
 import model.DAO.*;
 import controller.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -84,7 +87,11 @@ public class ExcluirRelatorio extends javax.swing.JFrame {
   int numRelatorio = Integer.parseInt(CampoIDRelatorio.getText());
   
      RelatorioAtendimentoController controlador = new RelatorioAtendimentoController();
-             controlador.excluirRelatorioAtendimento(numRelatorio);
+             try {
+                 controlador.excluirRelatorioAtendimento(numRelatorio);
+             } catch (SQLException ex) {
+                 Logger.getLogger(ExcluirRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+             }
 
         this.dispose();
      }// fim if
@@ -121,6 +128,13 @@ public class ExcluirRelatorio extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ExcluirRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

@@ -11,18 +11,22 @@ public class FichaAtendimentoModel {
     
     private int numeroFicha;
      private String nome;
-    private String turma;
+   
     private Date dataNascimento;
     private String telefone;
     private String rg;
     private String endereco;
     private String bairro;
-    private String nomeResponsavel;
-    private String emailResponsavel;
+    private String nomePai;
+     private String nomeMae;
+    private String emailPai;
+      private String emailMae;
     private String estadoCivil;
     private String moraCom;
-    private String telefoneResponsavel;
+    private String telefonePai;
+      private String telefoneMae;
     private String escolaConcluida;
+    private String tipoEscola;
     private int anoConclusao;
     
     private Date dataAcesso;
@@ -31,9 +35,114 @@ public class FichaAtendimentoModel {
       private Time horaAcesso;
       private Time horaModificacao;
 
-    public FichaAtendimentoModel(String nome, String turma, Date dataNascimento, String telefone, String rg, String endereco, String bairro, String nomeResponsavel, String emailResponsavel, String estadoCivil, String moraCom, String telefoneResponsavel, String escolaConcluida, int anoConclusao) {
+    
+
+    public FichaAtendimentoModel(String nome, Date dataNascimento, String telefone, String rg, String endereco, String bairro, String nomePai, String nomeMae, String emailPai, String emailMae, String estadoCivil, String moraCom, String telefonePai, String telefoneMae, String escolaConcluida, String tipoEscola, int anoConclusao) {
         this.nome = nome;
-        this.turma = turma;
+        this.dataNascimento = dataNascimento;
+        this.telefone = telefone;
+        this.rg = rg;
+        this.endereco = endereco;
+        this.bairro = bairro;
+        this.nomePai = nomePai;
+        this.nomeMae = nomeMae;
+        this.emailPai = emailPai;
+        this.emailMae = emailMae;
+        this.estadoCivil = estadoCivil;
+        this.moraCom = moraCom;
+        this.telefonePai = telefonePai;
+        this.telefoneMae = telefoneMae;
+        this.escolaConcluida = escolaConcluida;
+        this.tipoEscola = tipoEscola;
+        this.anoConclusao = anoConclusao;
+    }// fim construtor
+    
+    
+
+    public FichaAtendimentoModel(String nome, Date dataNascimento, String telefone, String rg, String endereco, String bairro, String nomePai, String nomeMae, String emailPai, String emailMae, String estadoCivil, String telefonePai, String telefoneMae, String escolaConcluida, int anoConclusao) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.telefone = telefone;
+        this.rg = rg;
+        this.endereco = endereco;
+        this.bairro = bairro;
+        this.nomePai = nomePai;
+        this.nomeMae = nomeMae;
+        this.emailPai = emailPai;
+        this.emailMae = emailMae;
+        this.estadoCivil = estadoCivil;
+        this.telefonePai = telefonePai;
+        this.telefoneMae = telefoneMae;
+        this.escolaConcluida = escolaConcluida;
+        this.anoConclusao = anoConclusao;
+    }// fim construtor sem mora com
+
+    public String getNomePai() {
+        return nomePai;
+    }
+
+    public void setNomePai(String nomePai) {
+        this.nomePai = nomePai;
+    }
+
+    public String getTipoEscola() {
+        return tipoEscola;
+    }
+
+    public void setTipoEscola(String tipoEscola) {
+        this.tipoEscola = tipoEscola;
+    }
+    
+    
+
+    public String getNomeMae() {
+        return nomeMae;
+    }
+
+    public void setNomeMae(String nomeMae) {
+        this.nomeMae = nomeMae;
+    }
+
+    public String getEmailPai() {
+        return emailPai;
+    }
+
+    public void setEmailPai(String emailPai) {
+        this.emailPai = emailPai;
+    }
+
+    public String getEmailMae() {
+        return emailMae;
+    }
+
+    public void setEmailMae(String emailMae) {
+        this.emailMae = emailMae;
+    }
+
+    public String getTelefonePai() {
+        return telefonePai;
+    }
+
+    public void setTelefonePai(String telefonePai) {
+        this.telefonePai = telefonePai;
+    }
+
+    public String getTelefoneMae() {
+        return telefoneMae;
+    }
+
+    public void setTelefoneMae(String telefoneMae) {
+        this.telefoneMae = telefoneMae;
+    }
+    
+    
+      
+      
+      
+
+   /* public FichaAtendimentoModel(String nome, Date dataNascimento, String telefone, String rg, String endereco, String bairro, String nomeResponsavel, String emailResponsavel, String estadoCivil, String moraCom, String telefoneResponsavel, String escolaConcluida, int anoConclusao) {
+        this.nome = nome;
+        
         this.dataNascimento = dataNascimento;
         this.telefone = telefone;
         this.rg = rg;
@@ -46,11 +155,36 @@ public class FichaAtendimentoModel {
         this.telefoneResponsavel = telefoneResponsavel;
         this.escolaConcluida = escolaConcluida;
         this.anoConclusao = anoConclusao;
-    }// fim construtor
+    }// fim construtor*/
+    
+     
+    
+
+    public FichaAtendimentoModel( String nome, Date dataNascimento, String telefone, String rg, String endereco, String bairro, String nomePai, String nomeMae, String emailPai, String emailMae, String estadoCivil, String moraCom, String telefonePai, String telefoneMae, String escolaConcluida, String tipoEscola, int anoConclusao, int numeroFicha) {
+       
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.telefone = telefone;
+        this.rg = rg;
+        this.endereco = endereco;
+        this.bairro = bairro;
+        this.nomePai = nomePai;
+        this.nomeMae = nomeMae;
+        this.emailPai = emailPai;
+        this.emailMae = emailMae;
+        this.estadoCivil = estadoCivil;
+        this.moraCom = moraCom;
+        this.telefonePai = telefonePai;
+        this.telefoneMae = telefoneMae;
+        this.escolaConcluida = escolaConcluida;
+        this.tipoEscola = tipoEscola;
+        this.anoConclusao = anoConclusao;
+         this.numeroFicha = numeroFicha;
+    }
 
     public FichaAtendimentoModel(int numeroFicha) {
         this.numeroFicha = numeroFicha;
-    }// fim construtor 2
+    } // fim construtor 2
     
     public FichaAtendimentoModel(){
         
@@ -113,13 +247,7 @@ public class FichaAtendimentoModel {
         this.nome = nome;
     }
 
-    public String getTurma() {
-        return turma;
-    }
-
-    public void setTurma(String turma) {
-        this.turma = turma;
-    }
+   
 
     public Date getDataNascimento() {
         return dataNascimento;
@@ -161,22 +289,7 @@ public class FichaAtendimentoModel {
         this.bairro = bairro;
     }
 
-    public String getNomeResponsavel() {
-        return nomeResponsavel;
-    }
-
-    public void setNomeResponsavel(String nomeResponsavel) {
-        this.nomeResponsavel = nomeResponsavel;
-    }
-
-    public String getEmailResponsavel() {
-        return emailResponsavel;
-    }
-
-    public void setEmailResponsavel(String emailResponsavel) {
-        this.emailResponsavel = emailResponsavel;
-    }
-
+   
     public String getEstadoCivil() {
         return estadoCivil;
     }
@@ -193,13 +306,7 @@ public class FichaAtendimentoModel {
         this.moraCom = moraCom;
     }
 
-    public String getTelefoneResponsavel() {
-        return telefoneResponsavel;
-    }
-
-    public void setTelefoneResponsavel(String telefoneResponsavel) {
-        this.telefoneResponsavel = telefoneResponsavel;
-    }
+   
 
     public String getEscolaConcluida() {
         return escolaConcluida;

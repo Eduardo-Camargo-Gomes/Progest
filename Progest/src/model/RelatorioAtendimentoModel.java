@@ -26,6 +26,22 @@ public class RelatorioAtendimentoModel {
                  private Time horaAcesso;
                  private Time horaModificacao;
 
+    public RelatorioAtendimentoModel(Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String nomeAluno, String turmaAluno, String nomeResponsavel, String situacao, String encaminhamentos, String conclusao, int numRelatorio) {
+        this.dataOcorrido = dataOcorrido;
+        this.horarioOcorrido = horarioOcorrido;
+        this.localOcorrido = localOcorrido;
+        this.nomeAluno = nomeAluno;
+        this.turmaAluno = turmaAluno;
+        this.nomeResponsavel = nomeResponsavel;
+        this.situacao = situacao;
+        this.encaminhamentos = encaminhamentos;
+        this.conclusao = conclusao;
+        this.numRelatorio = numRelatorio;
+    }
+                 
+                 
+                 
+
     public Date getDataAcesso() {
         return dataAcesso;
     }

@@ -11,37 +11,33 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.DAO.RelatorioAtendimentoDAO;
 import model.RelatorioAtendimentoModel;
 
-public class RelatorioAtendimentoPronto extends javax.swing.JFrame {
-    
-   RelatorioAtendimentoModel relatorioModel = new  RelatorioAtendimentoModel();
-    
-    Date data = new Date();
-      SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:ss");
+public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
 
-    public RelatorioAtendimentoPronto() throws SQLException {
+    
+   //RelatorioAtendimentoModel relatorioModel = new  RelatorioAtendimentoModel();
+ 
+     SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
+        
+        
+    
+      // formatacao de datas e horrio
+     
+      RelatorioAtendimentoDAO relatorioDAO = new  RelatorioAtendimentoDAO();
+    private RelatorioAtendimentoModel relatorioModel;
+
+    public RelatorioAtendimentoAcessar(RelatorioAtendimentoModel relatorioModel) throws SQLException {
+         this.relatorioModel = relatorioModel;
+         // define o construtor  
         initComponents();
         setLocationRelativeTo(null);
          setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-         preencherDados();
-         CampoId.setEditable(false);
-  
-    }// fim construtor
- 
-    
-  public void preencherDados() throws SQLException{
-
-      RelatorioAtendimentoDAO relatorioDAO = new  RelatorioAtendimentoDAO();
-      
-      relatorioModel = relatorioDAO.mostrarUltimoRelatorio();
-      
-      String dataOcorrido = formatoData.format(data);
-      String horaOcorrido = formatoHora.format(data);
-      String numeroRelatorio = Integer.toString( relatorioModel.getNumRelatorio());
-      
+                
+       relatorioModel  = relatorioDAO.acessarRelatorio(relatorioModel.getNumRelatorio());
       CampoId.setText(String.valueOf(relatorioModel.getNumRelatorio()));
       CampoData.setText(String.valueOf(relatorioModel.getDataOcorrido()));
         CampoHorario.setText(String.valueOf(relatorioModel.getHorarioOcorrido()));
@@ -52,9 +48,19 @@ public class RelatorioAtendimentoPronto extends javax.swing.JFrame {
       CampoSituacao.setText(relatorioModel.getSituacao());
       CampoEncaminhamentos.setText(relatorioModel.getEncaminhamentos());
       CampoConclusao.setText(relatorioModel.getConclusao());
+         CampoId.setEditable(false);
+  
+    }// fim construtor
+    
+   public RelatorioAtendimentoAcessar() throws SQLException{
         
-  }// fim metoodo
- 
+         initComponents();
+        setLocationRelativeTo(null);
+         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       //  preencherDados();
+         CampoId.setEditable(false);
+    }// fim cost
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -108,7 +114,7 @@ public class RelatorioAtendimentoPronto extends javax.swing.JFrame {
         CampoConclusao = new javax.swing.JTextArea();
         jScrollPane8 = new javax.swing.JScrollPane();
         CampoSituacao = new javax.swing.JTextArea();
-        CheckConcluido = new javax.swing.JCheckBox();
+        botaoSalvarAlteracao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -254,7 +260,7 @@ public class RelatorioAtendimentoPronto extends javax.swing.JFrame {
                 VOLTARActionPerformed(evt);
             }
         });
-        jPanel1.add(VOLTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 90, -1, 20));
+        jPanel1.add(VOLTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, 20));
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         CampoEncaminhamentos.setColumns(20);
@@ -275,13 +281,13 @@ public class RelatorioAtendimentoPronto extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 620, 500, 110));
 
-        CheckConcluido.setText("Marcar como concluído");
-        CheckConcluido.addActionListener(new java.awt.event.ActionListener() {
+        botaoSalvarAlteracao.setText("SALVAR ");
+        botaoSalvarAlteracao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CheckConcluidoActionPerformed(evt);
+                botaoSalvarAlteracaoActionPerformed(evt);
             }
         });
-        jPanel1.add(CheckConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        jPanel1.add(botaoSalvarAlteracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 20));
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -310,12 +316,47 @@ public class RelatorioAtendimentoPronto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_VOLTARActionPerformed
 
-    private void CheckConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckConcluidoActionPerformed
-          if(CheckConcluido.isSelected()){
-
-             relatorioModel.setConcluido(true);      
-         }// fim if
-    }//GEN-LAST:event_CheckConcluidoActionPerformed
+    private void botaoSalvarAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarAlteracaoActionPerformed
+        if(evt.getSource() == botaoSalvarAlteracao){
+            
+        RelatorioAtendimentoModel relatorioAAlterar = new RelatorioAtendimentoModel();
+        
+          RelatorioAtendimentoController relatorioController = new RelatorioAtendimentoController();
+          
+          RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
+          
+         Date dataOcorrencia = new Date();
+            try {
+                dataOcorrencia = formatoData.parse(CampoData.getText());
+            } catch (ParseException ex) {
+                Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             formatoData.format(dataOcorrencia);
+   
+          Date data = new Date();
+        
+            try {
+                data = formatoHora.parse(CampoHorario.getText());
+            } catch (ParseException ex) {
+                Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+     
+          Time horarioOcorrencia = new Time(data.getTime());
+           
+          int numeroRelatorio = Integer.parseInt(CampoId.getText());
+          
+       boolean salvou = relatorioController.alterarRelatorio(dataOcorrencia,  horarioOcorrencia,
+                          CampoLocal.getText(), CampoDiscente.getText(), CampoTurma.getText(),
+                          CampoPais.getText(), CampoSituacao.getText(),
+                CampoEncaminhamentos.getText(), CampoConclusao.getText(),
+                numeroRelatorio);
+         
+       if(salvou == true){
+          this.dispose();
+       }// fim if  salvou
+       
+        }
+    }//GEN-LAST:event_botaoSalvarAlteracaoActionPerformed
 
    
     public static void main(String args[]) {
@@ -328,26 +369,50 @@ public class RelatorioAtendimentoPronto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RelatorioAtendimentoPronto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RelatorioAtendimentoPronto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RelatorioAtendimentoPronto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RelatorioAtendimentoPronto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        
+        
+        /*CampoId.setText(numeroRelatorio);
+      CampoData.setText(String.valueOf(relatorioModel.getDataOcorrido()));
+        CampoHorario.setText(String.valueOf(relatorioModel.getHorarioOcorrido()));
+        CampoLocal.setText(relatorioModel.getLocalOcorrido());
+      CampoDiscente.setText(relatorioModel.getNomeAluno());
+      CampoTurma.setText(relatorioModel.getTurmaAluno());
+      CampoPais.setText(relatorioModel.getNomeResponsavel());
+      CampoSituacao.setText(relatorioModel.getSituacao());
+      CampoEncaminhamentos.setText(relatorioModel.getEncaminhamentos());
+      CampoConclusao.setText(relatorioModel.getConclusao());*/
 
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new RelatorioAtendimentoPronto().setVisible(true);
+                    new RelatorioAtendimentoAcessar().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(RelatorioAtendimentoPronto.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -365,8 +430,8 @@ public class RelatorioAtendimentoPronto extends javax.swing.JFrame {
     private javax.swing.JTextField CampoPais;
     private javax.swing.JTextArea CampoSituacao;
     private javax.swing.JTextField CampoTurma;
-    private javax.swing.JCheckBox CheckConcluido;
     private javax.swing.JButton VOLTAR;
+    private javax.swing.JButton botaoSalvarAlteracao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

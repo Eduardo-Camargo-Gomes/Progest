@@ -547,7 +547,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="700" y="90" width="-1" height="20"/>
+                  <AbsoluteConstraints x="110" y="90" width="-1" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -623,16 +623,16 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JCheckBox" name="CheckConcluido">
+            <Component class="javax.swing.JButton" name="botaoSalvarAlteracao">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Marcar como conclu&#xed;do"/>
+                <Property name="text" type="java.lang.String" value="SALVAR "/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CheckConcluidoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoSalvarAlteracaoActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="10" y="90" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="20" y="90" width="-1" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>

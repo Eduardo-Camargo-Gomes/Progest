@@ -16,10 +16,12 @@ public class FichaAtendimentoDAO {
     
     public void salvarFicha(FichaAtendimentoModel fichaASalvar, String estadoCivil, String moraCom){
   
-        String sql = "INSERT INTO fichaatendimento(nome_aluno, turma_aluno, data_nascimento, "
-                + "telefone, rg, endereco, bairro, nome_responsavel, email_responsavel, estado_civil,"
-                + "mora_com, telefone_responsavel, escola_concluida, ano_conclusao) "
-                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        String sql = "INSERT INTO fichaatendimento(nome_aluno, data_nascimento, "
+                + "telefone, rg, endereco, bairro, nome_pai, nome_mae, email_pai, email_mae,"
+                + " estado_civil,"
+                + "mora_com, telefone_pai, telefone_mae, escola_concluida, tipo_escola, ano_conclusao) "
+                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	PreparedStatement ps = null;
 	Connection connection = null;
@@ -29,52 +31,69 @@ public class FichaAtendimentoDAO {
 		
 		ps = connection.prepareStatement(sql);  
 		ps.setString(1,fichaASalvar.getNome() );
-		ps.setString(2, fichaASalvar.getTurma());
-                ps.setDate(3, new java.sql.Date(
+		
+                ps.setDate(2, new java.sql.Date(
                         fichaASalvar.getDataNascimento().getTime()));
-                ps.setString(4, fichaASalvar.getTelefone());
-                ps.setString(5, fichaASalvar.getRg());
-                ps.setString(6, fichaASalvar.getEndereco());
-                ps.setString(7, fichaASalvar.getBairro());
-                ps.setString(8, fichaASalvar.getNomeResponsavel());
-                ps.setString(9, fichaASalvar.getEmailResponsavel());
+                ps.setString(3, fichaASalvar.getTelefone());
+                ps.setString(4, fichaASalvar.getRg());
+                ps.setString(5, fichaASalvar.getEndereco());
+                ps.setString(6, fichaASalvar.getBairro());
+                ps.setString(7, fichaASalvar.getNomePai());
+                 ps.setString(8, fichaASalvar.getNomeMae());
+                ps.setString(9, fichaASalvar.getEmailPai());
+                ps.setString(10, fichaASalvar.getEmailMae());
                 
                 if(estadoCivil.equals("Casados")){
-                ps.setString(10, "Casados");
+                ps.setString(11, "Casados");
+                 ps.setString(12, "Ambos os pais");
                 }// fim if 
                 
                  else if(estadoCivil.equals("Separados")){
-                ps.setString(10, "Separados");
+                ps.setString(11, "Separados");
                   }// fim if 
                   
                  else  if(estadoCivil.equals("Outros")){
-                ps.setString(10, "Outros");
+                ps.setString(11, "Outros");
+                ps.setString(12, "Outros");
                     }// fim if
                  
+               
+                             
                 if(estadoCivil.equals("Separados")){
                 if(moraCom.equals("Pai")){
-                   ps.setString(11, "Pai");
+                   ps.setString(12, "Pai");
                 }// fi if
                 
                 else if(moraCom.equals("Mae")){
-                   ps.setString(11, "Mae");
+                   ps.setString(12, "Mae");
                 }// fim else 
                 
                  else if(moraCom.equals("Avos")){
-                   ps.setString(11, "Avos");
+                   ps.setString(12, "Avos");
                 }// fim else
                 
                  else if(moraCom.equals("Outros")){
-                   ps.setString(11, "Outros");
+                   ps.setString(12, "Outros");
                 }// fim else 
                 
-                    }// fim ifao
+                }// fim if 
                 
-                ps.setString(12, fichaASalvar.getTelefoneResponsavel());
+                    
                 
-                ps.setString(13, fichaASalvar.getEscolaConcluida());
+                ps.setString(13, fichaASalvar.getTelefonePai());
+                 ps.setString(14, fichaASalvar.getTelefoneMae());
                 
-                  ps.setInt(14, fichaASalvar.getAnoConclusao());
+                ps.setString(15, fichaASalvar.getEscolaConcluida());
+                
+                if(fichaASalvar.getTipoEscola().equals("Publica")){
+                    ps.setString(16, "Pública");
+                }// fim if 
+                
+                else if (fichaASalvar.getTipoEscola().equals("Particular")){
+                    ps.setString(16, "Particular");
+                }// fim else if
+                
+                  ps.setInt(17, fichaASalvar.getAnoConclusao());
                 
                     
                   ps.execute();
@@ -112,8 +131,8 @@ public class FichaAtendimentoDAO {
         
 	FichaAtendimentoModel ficha=new FichaAtendimentoModel();
    
-              String sql = "select * from ficha_atendimento where numero_ficha ="
-                      + " (select max(numero_ficha) from ficha_atendimento)";
+              String sql = "select * from fichaatendimento where numero_ficha ="
+                      + " (select max(numero_ficha) from fichaatendimento)";
 	 
 	PreparedStatement ps = null;
 	Connection connection = null;
@@ -154,7 +173,145 @@ public class FichaAtendimentoDAO {
     return false;
 }// fim metodo
     
+    public FichaAtendimentoModel acessarFicha(int numeroFicha) throws SQLException{
+        
+        FichaAtendimentoModel ficha = new FichaAtendimentoModel(numeroFicha);
+        
+        String sql = "select * from fichaatendimento where numero_ficha = ?";
+	
+	PreparedStatement ps = null;
+	Connection connection = null;
+            
+		connection = new Conexao().getConexao();
+		
+		ps = connection.prepareStatement(sql);  
+                 
+                 ps.setInt(1, numeroFicha);
+                 
+                 ResultSet resultSet = ps.executeQuery();
+                 
+              if(resultSet.next()){
+                  ficha.setNumeroFicha(resultSet.getInt("numero_ficha"));
+                  ficha.setNome(resultSet.getString("nome_aluno"));
+                  ficha.setDataNascimento(resultSet.getDate("data_nascimento"));
+                  ficha.setTelefone(resultSet.getString("telefone"));
+                  ficha.setRg(resultSet.getString("rg"));
+                  ficha.setEndereco(resultSet.getString("endereco"));
+                  ficha.setBairro(resultSet.getString("bairro"));
+                  ficha.setEstadoCivil(resultSet.getString("estado_civil"));
+                  ficha.setMoraCom(resultSet.getString("mora_com"));
+                  ficha.setAnoConclusao(resultSet.getInt("ano_conclusao"));
+                  ficha.setEscolaConcluida(resultSet.getString("escola_concluida"));
+                  ficha.setNomePai(resultSet.getString("nome_pai"));
+                  ficha.setNomeMae(resultSet.getString("nome_mae"));
+                  ficha.setEmailPai(resultSet.getString("email_pai"));
+                  ficha.setEmailMae(resultSet.getString("email_mae"));
+                  ficha.setTelefonePai(resultSet.getString("telefone_pai"));
+                    ficha.setTelefoneMae(resultSet.getString("telefone_mae"));
+                    ficha.setTipoEscola(resultSet.getString("tipo_escola"));
+
+         return ficha;
+         
+         // guarda os valores no objeto "ficha"
+                 }// fim if
+                 else {
+                     return null;
+                 }// fim else             
+        
+    }// fim metodo
     
+    public void alterarFicha(FichaAtendimentoModel fichaAAlterar, String estadoCivil,String moraCom){
+        
+          String sql = "update fichaatendimento set nome_aluno = ?, data_nascimento = ?, "
+                + "telefone = ?, rg = ?, endereco = ?, bairro = ?, nome_pai = ?, nome_mae = ?,"
+                  + " email_pai = ?, email_mae = ?,"
+                + " estado_civil = ?,"
+                + "mora_com = ?, telefone_pai = ?, telefone_mae = ?, escola_concluida = ?,"
+                  + " tipo_escola = ?, ano_conclusao = ? where numero_ficha = ?";
+               
+	
+	PreparedStatement ps = null;
+	Connection connection = null;
+  
+	try {
+		connection = new Conexao().getConexao();
+		
+		ps = connection.prepareStatement(sql);  
+		ps.setString(1,fichaAAlterar.getNome() );
+		
+                ps.setDate(2, new java.sql.Date(
+                        fichaAAlterar.getDataNascimento().getTime()));
+                ps.setString(3, fichaAAlterar.getTelefone());
+                ps.setString(4, fichaAAlterar.getRg());
+                ps.setString(5, fichaAAlterar.getEndereco());
+                ps.setString(6, fichaAAlterar.getBairro());
+                ps.setString(7, fichaAAlterar.getNomePai());
+                 ps.setString(8, fichaAAlterar.getNomeMae());
+                ps.setString(9, fichaAAlterar.getEmailPai());
+                ps.setString(10, fichaAAlterar.getEmailMae());
+                
+                if(estadoCivil.equals("Casados")){
+                ps.setString(11, "Casados");
+                }// fim if 
+                
+                 else if(estadoCivil.equals("Separados")){
+                ps.setString(11, "Separados");
+                  }// fim if 
+                  
+                 else  if(estadoCivil.equals("Outros")){
+                ps.setString(11, "Outros");
+                    }// fim if
+                 
+               
+                if(moraCom.equals("Pai")){
+                   ps.setString(12, "Pai");
+                }// fi if
+                
+                else if(moraCom.equals("Mae")){
+                   ps.setString(12, "Mae");
+                }// fim else 
+                
+                 else if(moraCom.equals("Avos")){
+                   ps.setString(12, "Avos");
+                }// fim else
+                
+                 else if(moraCom.equals("Outros")){
+                   ps.setString(12, "Outros");
+                }// fim else 
+                
+                 else if (moraCom.equals("Ambos os pais")){
+                     ps.setString(12, "Ambos os pais");
+                 }
+                
+                    
+                
+                ps.setString(13, fichaAAlterar.getTelefonePai());
+                 ps.setString(14, fichaAAlterar.getTelefoneMae());
+                
+                ps.setString(15, fichaAAlterar.getEscolaConcluida());
+                
+                if(fichaAAlterar.getTipoEscola().equals("Publica")){
+                    ps.setString(16, "Pública");
+                }// fim if 
+                
+                else if (fichaAAlterar.getTipoEscola().equals("Particular")){
+                    ps.setString(16, "Particular");
+                }// fim else if
+                
+                  ps.setInt(17, fichaAAlterar.getAnoConclusao());
+                
+                  ps.setInt(18, fichaAAlterar.getNumeroFicha());
+                    
+                  ps.execute();
+	
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();  
+	}// fim catch	
+        
+        
+        
+    }// fim metodo
     
    
 }// fim metodo
