@@ -6,6 +6,7 @@ import controller.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -22,7 +23,7 @@ public class AlterarRelatorio extends javax.swing.JFrame {
     public AlterarRelatorio() {
         initComponents();
         setLocationRelativeTo(null);
-        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
     

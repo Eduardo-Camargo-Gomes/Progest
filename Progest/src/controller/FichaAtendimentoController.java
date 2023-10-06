@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 public class FichaAtendimentoController {
     
-    private ArrayList <FichaAtendimentoModel> listaFichas = new ArrayList<>();
+    //private ArrayList <FichaAtendimentoModel> listaFichas = new ArrayList<>();
     
   public boolean verificarSeExisteFicha(int numeroFicha) throws SQLException{
         
@@ -63,7 +63,7 @@ public class FichaAtendimentoController {
         
         fichaDAO.salvarFicha(fichaSalvar, estadoCivil, moraCom);
         
-        JOptionPane.showMessageDialog(null, "Relatorio Salvo com sucesso!");
+        JOptionPane.showMessageDialog(null, "Ficha salva com sucesso!");
         return true;
             }// fim if 
         else {
@@ -83,7 +83,7 @@ public class FichaAtendimentoController {
         if(existe == true){
         fichaDAO.excluirFicha(fichaAExcluir);
         
-        listaFichas.remove(fichaAExcluir);
+//        listaFichas.remove(fichaAExcluir);
         
         JOptionPane.showMessageDialog(null, "Ficha excluída com sucesso!");
         }

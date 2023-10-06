@@ -6,6 +6,7 @@ import controller.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -17,6 +18,7 @@ public class ExcluirFicha extends javax.swing.JFrame {
     public ExcluirFicha() {
         initComponents();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
    

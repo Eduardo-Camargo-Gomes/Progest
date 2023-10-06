@@ -53,13 +53,12 @@ public class FichaAtendimentoDAO {
                   }// fim if 
                   
                  else  if(estadoCivil.equals("Outros")){
-                ps.setString(11, "Outros");
-                ps.setString(12, "Outros");
+                               ps.setString(11, "Outros");
                     }// fim if
                  
                
                              
-                if(estadoCivil.equals("Separados")){
+                if(estadoCivil.equals("Separados") || estadoCivil.equals(("Outros"))){
                 if(moraCom.equals("Pai")){
                    ps.setString(12, "Pai");
                 }// fi if
@@ -250,8 +249,9 @@ public class FichaAtendimentoDAO {
                 ps.setString(9, fichaAAlterar.getEmailPai());
                 ps.setString(10, fichaAAlterar.getEmailMae());
                 
-                if(estadoCivil.equals("Casados")){
+                 if(estadoCivil.equals("Casados")){
                 ps.setString(11, "Casados");
+                 ps.setString(12, "Ambos os pais");
                 }// fim if 
                 
                  else if(estadoCivil.equals("Separados")){
@@ -259,10 +259,12 @@ public class FichaAtendimentoDAO {
                   }// fim if 
                   
                  else  if(estadoCivil.equals("Outros")){
-                ps.setString(11, "Outros");
+                               ps.setString(11, "Outros");
                     }// fim if
                  
                
+                             
+                if(estadoCivil.equals("Separados") || estadoCivil.equals(("Outros"))){
                 if(moraCom.equals("Pai")){
                    ps.setString(12, "Pai");
                 }// fi if
@@ -279,9 +281,7 @@ public class FichaAtendimentoDAO {
                    ps.setString(12, "Outros");
                 }// fim else 
                 
-                 else if (moraCom.equals("Ambos os pais")){
-                     ps.setString(12, "Ambos os pais");
-                 }
+                }// fim if 
                 
                     
                 

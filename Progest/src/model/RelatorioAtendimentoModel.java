@@ -1,9 +1,12 @@
 package model;
 
+;
+import java.util.List;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,6 +28,8 @@ public class RelatorioAtendimentoModel {
                  private Date dataCriacao;
                  private Time horaAcesso;
                  private Time horaModificacao;
+                 
+            private List<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<>();
 
     public RelatorioAtendimentoModel(Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String nomeAluno, String turmaAluno, String nomeResponsavel, String situacao, String encaminhamentos, String conclusao, int numRelatorio) {
         this.dataOcorrido = dataOcorrido;
@@ -38,9 +43,12 @@ public class RelatorioAtendimentoModel {
         this.conclusao = conclusao;
         this.numRelatorio = numRelatorio;
     }
-                 
-                 
-                 
+
+   
+
+    public void setListaRelatorios(List<RelatorioAtendimentoModel> listaRelatorios) {
+        this.listaRelatorios = listaRelatorios;
+    }
 
     public Date getDataAcesso() {
         return dataAcesso;
@@ -189,17 +197,21 @@ public class RelatorioAtendimentoModel {
     }
 
    
+    public void adicionarRelatorio(RelatorioAtendimentoModel relatorioASalvar){
+        listaRelatorios.add(relatorioASalvar);
+    }
     
-    
+    public void removerRelatorio(RelatorioAtendimentoModel relatorioAExcluir){
+        
+        listaRelatorios.remove(relatorioAExcluir);
+    }// fim metodo
     
     public RelatorioAtendimentoModel(int numRelatorio) {
         this.numRelatorio = numRelatorio;
     }// fim metoo
     
-    
-    
-    
-    
-    
+   public List<RelatorioAtendimentoModel> getListaRelatorios() {
+        return listaRelatorios;
+    }// fim getLista
 
 }// fim classe

@@ -122,7 +122,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
          
         
          
-         if(fichaModel.getEstadoCivil().equals("Separados")){
+         if(fichaModel.getEstadoCivil().equals("Separados") || fichaModel.getEstadoCivil().equals("Outros")){
             if(fichaModel.getMoraCom().equals("Pai")){
                 pai.setSelected(true);
             }// fim if de dentro
@@ -133,6 +133,10 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
             else if (fichaModel.getMoraCom().equals("Outros")){
               outrosMoraCom.setSelected(true);
             }// fim else if 
+            
+            else if(fichaModel.getMoraCom().equals("Avos")){
+                avos.setSelected(true);
+            }
             
          }// fim if
          
@@ -746,13 +750,13 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
          }// fim else 
          
          else if(outrosEstadoCivil.isSelected()){
-            setEstadoCivil("Outos");
+            setEstadoCivil("Outros");
             setMoraCom("Outros");
              
          }//fim else if
          
          
-         if(getEstadoCivil().equals("Separados")){
+         if(getEstadoCivil().equals("Separados") || getEstadoCivil().equals("Outros")){
                
              
              if(pai.isSelected()){

@@ -5,6 +5,7 @@
 package View;
 
 import controller.FichaAtendimentoController;
+import controller.RelatorioAtendimentoController;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,7 @@ import model.RelatorioAtendimentoModel;
  */
 public class FichaDeAtendimentoNova extends javax.swing.JFrame {
     
+    RelatorioAtendimentoController controlador = new RelatorioAtendimentoController();
     private String estadoCivil;
     private String moraCom;
     private String tipoEscola;
@@ -666,14 +668,14 @@ public class FichaDeAtendimentoNova extends javax.swing.JFrame {
          }// fim else 
          
          else if(outros.isSelected()){
-            setEstadoCivil("Outos");
-            setMoraCom("Outros");
+            setEstadoCivil("Outros");
+             setMoraCom("Outros");
              
          }//fim else if
          
          
-         if(getEstadoCivil().equals("Separados")){
-               
+         if(getEstadoCivil().equals("Separados") || getEstadoCivil().equals("Outros")){
+               //se estado civil for igual a separados ou "outros, a codicao a segir podera ser maraada
              
              if(pai.isSelected()){
                  setMoraCom("Pai");
@@ -687,7 +689,7 @@ public class FichaDeAtendimentoNova extends javax.swing.JFrame {
              }
              else if (jRadioOutros.isSelected()){
                  setMoraCom("Outros");
-             }// im else 
+             }// ifm else 
             
          }// fim if de fora
 
@@ -713,6 +715,7 @@ public class FichaDeAtendimentoNova extends javax.swing.JFrame {
                   escolaConclusao.getText(), getTipoEscola(), anoQueConcluiu );
           
           if(sucesso == true){
+              
               this.dispose();
           }// fim if
           

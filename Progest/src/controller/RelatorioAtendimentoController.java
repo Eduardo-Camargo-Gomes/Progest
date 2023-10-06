@@ -10,11 +10,13 @@ import model.DAO.RelatorioAtendimentoDAO;
 import View.RelatorioAtendimentoNovo;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RelatorioAtendimentoController {
     
-     private ArrayList<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<> ();
-    
+   
+    RelatorioAtendimentoModel model = new RelatorioAtendimentoModel();
+     
     
     public boolean verificarSeExisteRelatorio(int numeroRelatorio) throws SQLException{
         
@@ -55,7 +57,7 @@ public class RelatorioAtendimentoController {
             
              relatorioDAO.salvarRelatorio(relatorioASalvar);
                     
-             listaRelatorios.add(relatorioASalvar);
+           model.adicionarRelatorio(relatorioASalvar);
                         
               JOptionPane.showMessageDialog(null, "Relatorio salvo com sucesso!");
               return true;
@@ -82,7 +84,7 @@ public class RelatorioAtendimentoController {
         relatorioDAO.excluirRelatorio(relatorioASerExcluido);
         
         
-        listaRelatorios.remove(relatorioASerExcluido);
+       model.removerRelatorio(relatorioASerExcluido);
         
         JOptionPane.showMessageDialog(null, "Relatório excluído com sucesso!"); 
         }// fim if
@@ -124,10 +126,24 @@ public class RelatorioAtendimentoController {
             JOptionPane.showMessageDialog(null, "Campos incompletos!");
             return false;
         }// fim else 
-            
-    
+             
       }// fim metodo
+     
+      int numroRelatorios = model.getListaRelatorios().size();
+
+    public int getNumroRelatorios() {
+        return numroRelatorios;
+    }
+
+    public void setNumroRelatorios(int numroRelatorios) {
+        this.numroRelatorios = numroRelatorios;
+    }
       
+      
+      
+      public List<RelatorioAtendimentoModel> consultarRelatorios(){   
+          return model.getListaRelatorios();
+      }// fim metodo
       
 
 }// fim classe 
