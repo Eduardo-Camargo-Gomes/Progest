@@ -139,8 +139,7 @@ public class RelatorioAtendimentoController {
         this.numroRelatorios = numroRelatorios;
     }
       
-      
-      
+          
       public List<RelatorioAtendimentoModel> consultarRelatorios(){   
           return model.getListaRelatorios();
       }// fim metodo

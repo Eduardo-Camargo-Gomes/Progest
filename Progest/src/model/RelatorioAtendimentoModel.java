@@ -29,7 +29,7 @@ public class RelatorioAtendimentoModel {
                  private Time horaAcesso;
                  private Time horaModificacao;
                  
-            private List<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<>();
+          private List<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<>();
 
     public RelatorioAtendimentoModel(Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String nomeAluno, String turmaAluno, String nomeResponsavel, String situacao, String encaminhamentos, String conclusao, int numRelatorio) {
         this.dataOcorrido = dataOcorrido;
@@ -212,6 +212,6 @@ public class RelatorioAtendimentoModel {
     
    public List<RelatorioAtendimentoModel> getListaRelatorios() {
         return listaRelatorios;
-    }// fim getLista
+    }// fim getLista*/
 
 }// fim classe

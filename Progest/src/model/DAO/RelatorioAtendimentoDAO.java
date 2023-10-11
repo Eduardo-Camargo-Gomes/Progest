@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RelatorioAtendimentoDAO {
     
@@ -133,54 +135,6 @@ public class RelatorioAtendimentoDAO {
     
     }// fim metodo
     
-    public RelatorioAtendimentoModel mostrarUltimosRelatorios(String tipoOrdenacao) throws SQLException{
-        
-        tipoOrdenacao = "horaAcesso";
-        
-        RelatorioAtendimentoModel relatorios =   new RelatorioAtendimentoModel();
-   
-              String sql = "select * from relatorio_atendimento order by ?";
-	 
-	PreparedStatement ps = null;
-	Connection connection = null;
-            
-		connection = new Conexao().getConexao();
-		
-		ps = connection.prepareStatement(sql);  
-                
-                if(tipoOrdenacao.equals("dataCriacao")){   
-                ps.setString(1, "dataCriacao");
-                }// fim if
-                
-                else if (tipoOrdenacao.equals("dataAcesso")){
-                     ps.setString(1, "dataAcesso");
-                }// fim else if
-                
-                else if (tipoOrdenacao.equals("dataModificacao")){
-                     ps.setString(1, "dataModificacao");
-                }// fim else if
-                
-                else if (tipoOrdenacao.equals("horaAcesso")){
-                     ps.setString(1, "horaAcesso");
-                }// fim else if
-                
-                else if (tipoOrdenacao.equals("horaModificacao")){
-                     ps.setString(1, "horaModificacao");
-                }// fim else if
-                
-                 ResultSet resultSet = ps.executeQuery();  
- 
-                 if(resultSet.next()){
-                     return relatorios; 
-                 } // fim if
-                 
-                 else {
-                    return null; 
-                     
-                 }// fim else 
-    
-    }// fim metodo
-    
     
     public boolean existeNumeroRelatorio(RelatorioAtendimentoModel relatorioAVerificar){
         
@@ -275,7 +229,42 @@ public class RelatorioAtendimentoDAO {
                      return null;
                  }// fim else             
     }// fim metodo
+    
+    public List<RelatorioAtendimentoModel> listaRelatorios() throws SQLException{
         
+        RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
+        List<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<>();
+        
+        
+         String sql = "select * from relatorio_atendimento";
+	
+	PreparedStatement ps = null;
+	Connection connection = null;
+            
+		connection = new Conexao().getConexao();
+		
+		ps = connection.prepareStatement(sql);  
+                 
+                 ResultSet resultSet = ps.executeQuery();
+        
+                 while(resultSet.next()){
+  relatorio.setNumRelatorio(resultSet.getInt("numero_relatorio"));
+ relatorio.setDataOcorrido(resultSet.getDate("data_ocorrido"));
+ relatorio.setHorarioOcorrido(resultSet.getTime("horario"));
+ relatorio.setLocalOcorrido(resultSet.getString("locall"));
+ relatorio.setNomeAluno(resultSet.getString("nome_aluno"));
+ relatorio.setTurmaAluno(resultSet.getString("turma_aluno"));
+ relatorio.setNomeResponsavel (resultSet.getString("nome_responsavel"));
+ relatorio.setSituacao (resultSet.getString("situacao"));
+ relatorio.setEncaminhamentos (resultSet.getString("encaminhamento"));
+ relatorio.setConclusao (resultSet.getString("conclusao"));
+                    
+listaRelatorios.add(relatorio);
+                 }// fim while
+        
+                 return listaRelatorios;
+    }// fim metodo
+      
     }// fim classe
     
                  
