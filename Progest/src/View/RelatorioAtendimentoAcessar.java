@@ -48,6 +48,10 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
       CampoSituacao.setText(relatorioModel.getSituacao());
       CampoEncaminhamentos.setText(relatorioModel.getEncaminhamentos());
       CampoConclusao.setText(relatorioModel.getConclusao());
+      if(CheckConcluido.isSelected()){
+
+            relatorioModel.setConcluido(true);
+        }// fim if
          CampoId.setEditable(false);
   
     }// fim construtor
@@ -115,6 +119,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         CampoSituacao = new javax.swing.JTextArea();
         botaoSalvarAlteracao = new javax.swing.JButton();
+        CheckConcluido = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -289,6 +294,14 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
         });
         jPanel1.add(botaoSalvarAlteracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 20));
 
+        CheckConcluido.setText("Marcar como concluído");
+        CheckConcluido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckConcluidoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CheckConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, -1, -1));
+
         jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -319,7 +332,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
     private void botaoSalvarAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarAlteracaoActionPerformed
         if(evt.getSource() == botaoSalvarAlteracao){
             
-        RelatorioAtendimentoModel relatorioAAlterar = new RelatorioAtendimentoModel();
+       
         
           RelatorioAtendimentoController relatorioController = new RelatorioAtendimentoController();
           
@@ -357,6 +370,10 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
        
         }
     }//GEN-LAST:event_botaoSalvarAlteracaoActionPerformed
+
+    private void CheckConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckConcluidoActionPerformed
+        
+    }//GEN-LAST:event_CheckConcluidoActionPerformed
 
    
     public static void main(String args[]) {
@@ -430,6 +447,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
     private javax.swing.JTextField CampoPais;
     private javax.swing.JTextArea CampoSituacao;
     private javax.swing.JTextField CampoTurma;
+    private javax.swing.JCheckBox CheckConcluido;
     private javax.swing.JButton VOLTAR;
     private javax.swing.JButton botaoSalvarAlteracao;
     private javax.swing.JLabel jLabel1;

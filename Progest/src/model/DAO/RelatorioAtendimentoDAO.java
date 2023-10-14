@@ -12,6 +12,8 @@ import java.util.List;
 
 public class RelatorioAtendimentoDAO {
     
+    List<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<>();
+    
    public void salvarRelatorio(RelatorioAtendimentoModel relatorioASalvar){
         
       
@@ -64,7 +66,8 @@ public class RelatorioAtendimentoDAO {
 		ps = connection.prepareStatement(sql);  
                 ps.setInt(1, relatorioADeletar.getNumRelatorio());
 		ps.executeUpdate();
-	
+                
+	listaRelatorios.remove(relatorioADeletar);
 	} catch (SQLException e) {
 		
 		e.printStackTrace();  
@@ -233,7 +236,7 @@ public class RelatorioAtendimentoDAO {
     public List<RelatorioAtendimentoModel> listaRelatorios() throws SQLException{
         
         RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
-        List<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<>();
+        
         
         
          String sql = "select * from relatorio_atendimento";

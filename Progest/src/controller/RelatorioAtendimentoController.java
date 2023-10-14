@@ -16,7 +16,9 @@ public class RelatorioAtendimentoController {
     
    
     RelatorioAtendimentoModel model = new RelatorioAtendimentoModel();
+     RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
      
+   
     
     public boolean verificarSeExisteRelatorio(int numeroRelatorio) throws SQLException{
         
@@ -57,7 +59,7 @@ public class RelatorioAtendimentoController {
             
              relatorioDAO.salvarRelatorio(relatorioASalvar);
                     
-           model.adicionarRelatorio(relatorioASalvar);
+          
                         
               JOptionPane.showMessageDialog(null, "Relatorio salvo com sucesso!");
               return true;
@@ -129,19 +131,13 @@ public class RelatorioAtendimentoController {
              
       }// fim metodo
      
-      int numroRelatorios = model.getListaRelatorios().size();
-
-    public int getNumroRelatorios() {
-        return numroRelatorios;
-    }
-
-    public void setNumroRelatorios(int numroRelatorios) {
-        this.numroRelatorios = numroRelatorios;
-    }
       
+     
+
+   
           
-      public List<RelatorioAtendimentoModel> consultarRelatorios(){   
-          return model.getListaRelatorios();
+      public List<RelatorioAtendimentoModel> consultarRelatorios() throws SQLException{   
+          return   relatorioDAO.listaRelatorios();
       }// fim metodo
       
 
