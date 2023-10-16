@@ -17,8 +17,7 @@ public class RelatorioAtendimentoController {
    
     RelatorioAtendimentoModel model = new RelatorioAtendimentoModel();
      RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-     
-   
+       
     
     public boolean verificarSeExisteRelatorio(int numeroRelatorio) throws SQLException{
         
@@ -42,19 +41,19 @@ public class RelatorioAtendimentoController {
     public boolean salvarRelatorioAtendimento(Date dataOcorrido,
             Time horarioOcorrido,
             String localOcorrido, String nomeAluno, String turmaAluno, 
-            String nomeResponsavel, String situacao, String encaminhamentos, String conclusao ){
+            String nomeResponsavel, String situacao, String encaminhamentos, String conclusao, boolean concluido ){
 
          RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
          
         RelatorioAtendimentoModel relatorioASalvar =
                 new RelatorioAtendimentoModel(dataOcorrido, horarioOcorrido,
                         localOcorrido, nomeAluno, turmaAluno, nomeResponsavel, situacao,
-                        encaminhamentos, conclusao);
+                        encaminhamentos, conclusao, concluido);
         
         
         if(dataOcorrido != null && horarioOcorrido != null && localOcorrido.length() > 0 
                 && nomeAluno.length() > 0 && turmaAluno.length() > 0 && nomeResponsavel.length() >0
-                && situacao.length() > 0 && encaminhamentos.length() > 0 && conclusao.length() > 0){
+                && situacao.length() > 0  ){
             
             
              relatorioDAO.salvarRelatorio(relatorioASalvar);
@@ -77,6 +76,8 @@ public class RelatorioAtendimentoController {
 
         RelatorioAtendimentoModel relatorioASerExcluido = 
                 new RelatorioAtendimentoModel(numRelatorio);
+          List <RelatorioAtendimentoModel> listaRelatorios = relatorioDAO.listaRelatorios(null);
+
         
         RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
         
@@ -84,10 +85,9 @@ public class RelatorioAtendimentoController {
         
         if(existe == true){
         relatorioDAO.excluirRelatorio(relatorioASerExcluido);
+        listaRelatorios.remove(relatorioASerExcluido);
         
-        
-       model.removerRelatorio(relatorioASerExcluido);
-        
+       
         JOptionPane.showMessageDialog(null, "Relatório excluído com sucesso!"); 
         }// fim if
         
@@ -101,7 +101,7 @@ public class RelatorioAtendimentoController {
             Time horarioOcorrido,
             String localOcorrido, String nomeAluno, String turmaAluno, 
             String nomeResponsavel, String situacao, String encaminhamentos, String conclusao,
-            int numeroRelatorio){
+            int numeroRelatorio, boolean concluido){
           
          
          RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
@@ -109,17 +109,14 @@ public class RelatorioAtendimentoController {
         RelatorioAtendimentoModel relatorioAAlterar =
                 new RelatorioAtendimentoModel(dataOcorrido, horarioOcorrido,
                         localOcorrido, nomeAluno, turmaAluno, nomeResponsavel, situacao,
-                        encaminhamentos, conclusao, numeroRelatorio);
+                        encaminhamentos, conclusao, numeroRelatorio, concluido);
           
         if(dataOcorrido != null && horarioOcorrido != null && localOcorrido.length() > 0 
                 && nomeAluno.length() > 0 && turmaAluno.length() > 0 && nomeResponsavel.length() >0
-                && situacao.length() > 0 && encaminhamentos.length() > 0 && conclusao.length() > 0){
-            
-            
+                && situacao.length() > 0 ){
+         
             relatorioDAO.alterarRelatorio(relatorioAAlterar);
-            
-            
-            
+     
             JOptionPane.showMessageDialog(null, "Alterações salvas com sucesso!");
               return true;
         }// fim if
@@ -130,16 +127,7 @@ public class RelatorioAtendimentoController {
         }// fim else 
              
       }// fim metodo
-     
-      
-     
-
-   
-          
-      public List<RelatorioAtendimentoModel> consultarRelatorios() throws SQLException{   
-          return   relatorioDAO.listaRelatorios();
-      }// fim metodo
-      
+ 
 
 }// fim classe 
 

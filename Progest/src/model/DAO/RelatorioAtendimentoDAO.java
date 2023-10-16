@@ -19,8 +19,9 @@ public class RelatorioAtendimentoDAO {
       
         
         String sql = "INSERT INTO relatorio_atendimento(nome_aluno, turma_aluno, "
-                + "nome_responsavel, data_ocorrido, horario, locall, situacao, encaminhamento, conclusao) "
-                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "nome_responsavel, data_ocorrido, horario, locall, situacao, encaminhamento, conclusao,"
+                + "concluido) "
+                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	PreparedStatement ps = null;
 	Connection connection = null;
@@ -40,6 +41,7 @@ public class RelatorioAtendimentoDAO {
                   ps.setString(7, relatorioASalvar.getSituacao());
                    ps.setString(8, relatorioASalvar.getEncaminhamentos());
                     ps.setString(9, relatorioASalvar.getConclusao());
+                    ps.setBoolean(10, relatorioASalvar.getConcluido());
                     
                   ps.execute();
 	
@@ -65,9 +67,10 @@ public class RelatorioAtendimentoDAO {
 		
 		ps = connection.prepareStatement(sql);  
                 ps.setInt(1, relatorioADeletar.getNumRelatorio());
+                listaRelatorios.remove(relatorioADeletar);
 		ps.executeUpdate();
                 
-	listaRelatorios.remove(relatorioADeletar);
+	
 	} catch (SQLException e) {
 		
 		e.printStackTrace();  
@@ -100,44 +103,7 @@ public class RelatorioAtendimentoDAO {
         return relatorio;
     }// fim metodo
     
-    
-    
-    public RelatorioAtendimentoModel mostrarUltimoRelatorio() throws SQLException{
-
-        
-        RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
-        
-              String sql = " select * from relatorio_atendimento where numero_relatorio ="
-                      + " (select max(numero_relatorio) from relatorio_atendimento)";
-	 
-	PreparedStatement ps = null;
-	Connection connection = null;
-            
-		connection = new Conexao().getConexao();
-		
-		ps = connection.prepareStatement(sql);  
-                
-                 ResultSet resultSet = ps.executeQuery();
-                 
-                 if(resultSet.next()){
- relatorio.setNumRelatorio(resultSet.getInt("numero_relatorio"));
- relatorio.setDataOcorrido(resultSet.getDate("data_ocorrido"));
- relatorio.setHorarioOcorrido(resultSet.getTime("horario"));
- relatorio.setLocalOcorrido(resultSet.getString("locall"));
- relatorio.setNomeAluno(resultSet.getString("nome_aluno"));
- relatorio.setTurmaAluno(resultSet.getString("turma_aluno"));
- relatorio.setNomeResponsavel (resultSet.getString("nome_responsavel"));
- relatorio.setSituacao (resultSet.getString("situacao"));
- relatorio.setEncaminhamentos (resultSet.getString("encaminhamento"));
- relatorio.setConclusao (resultSet.getString("conclusao"));
-         return relatorio;
-                 }// fim if
-                 else {
-                     return null;
-                 }// fim else 
-    
-    }// fim metodo
-    
+   
     
     public boolean existeNumeroRelatorio(RelatorioAtendimentoModel relatorioAVerificar){
         
@@ -168,7 +134,7 @@ public class RelatorioAtendimentoDAO {
                 
         String sql = "update relatorio_atendimento set nome_aluno = ? , turma_aluno= ?, "
                 + "nome_responsavel = ?, data_ocorrido= ?, horario = ? , locall= ? ,"
-                + "situacao = ?, encaminhamento = ?, conclusao= ? where numero_relatorio = ?";
+                + "situacao = ?, encaminhamento = ?, conclusao= ?, concluido = ? where numero_relatorio = ?";
         
         PreparedStatement ps = null;
 	Connection connection = null;
@@ -186,7 +152,9 @@ public class RelatorioAtendimentoDAO {
                   ps.setString(7, relatorioAAlterar.getSituacao());
                   ps.setString(8, relatorioAAlterar.getEncaminhamentos());
                   ps.setString(9, relatorioAAlterar.getConclusao());
-                  ps.setInt(10, relatorioAAlterar.getNumRelatorio());
+                   ps.setBoolean(10, relatorioAAlterar.getConcluido());
+                  ps.setInt(11, relatorioAAlterar.getNumRelatorio());
+                 
                   ps.execute();
                 
                 
@@ -224,6 +192,7 @@ public class RelatorioAtendimentoDAO {
  relatorio.setSituacao (resultSet.getString("situacao"));
  relatorio.setEncaminhamentos (resultSet.getString("encaminhamento"));
  relatorio.setConclusao (resultSet.getString("conclusao"));
+ relatorio.setConcluido(resultSet.getBoolean("concluido"));
          return relatorio;
          
          // guarda os valores no objeto "relatorio"
@@ -233,21 +202,27 @@ public class RelatorioAtendimentoDAO {
                  }// fim else             
     }// fim metodo
     
-    public List<RelatorioAtendimentoModel> listaRelatorios() throws SQLException{
+    public List<RelatorioAtendimentoModel> listaRelatorios(String tipoOrdenacao) throws SQLException{
         
         RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
         
+        String sql = null;
+        if(tipoOrdenacao.equals("concluidos")){ 
+         sql = "select * from relatorio_atendimento where concluido = true";
+        }// fim if 
+        
+        else if (tipoOrdenacao.equals("todosRelatorios")){
+            sql = "select * from relatorio_atendimento";
+        }// fim else if
         
         
-         String sql = "select * from relatorio_atendimento";
-	
 	PreparedStatement ps = null;
 	Connection connection = null;
             
 		connection = new Conexao().getConexao();
 		
-		ps = connection.prepareStatement(sql);  
-                 
+		ps = connection.prepareStatement(sql); 
+             
                  ResultSet resultSet = ps.executeQuery();
         
                  while(resultSet.next()){
@@ -261,6 +236,7 @@ public class RelatorioAtendimentoDAO {
  relatorio.setSituacao (resultSet.getString("situacao"));
  relatorio.setEncaminhamentos (resultSet.getString("encaminhamento"));
  relatorio.setConclusao (resultSet.getString("conclusao"));
+ relatorio.setConcluido (resultSet.getBoolean("concluido"));
                     
 listaRelatorios.add(relatorio);
                  }// fim while

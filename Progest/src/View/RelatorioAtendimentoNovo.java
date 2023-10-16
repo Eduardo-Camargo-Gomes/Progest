@@ -101,6 +101,7 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
         CampoConclusao = new javax.swing.JTextArea();
         jScrollPane8 = new javax.swing.JScrollPane();
         CampoSituacao = new javax.swing.JTextArea();
+        CheckConcluido = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -277,6 +278,14 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 620, 500, 110));
 
+        CheckConcluido.setText("Marcar como concluído");
+        CheckConcluido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckConcluidoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CheckConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, -1, -1));
+
         jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -308,8 +317,15 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
       if(evt.getSource() == NOVO){
      
          try {
-             
-             
+             boolean concluido = false;
+             if(CheckConcluido.isSelected()){
+                 concluido = true;
+             }// fim if
+             else {
+                 concluido = false;
+             }/// fim else 
+                     
+  
              Date dataOcorrencia;  
               dataOcorrencia = formatoData.parse(CampoData.getText());
              formatoData.format(dataOcorrencia);
@@ -322,10 +338,10 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
 
       RelatorioAtendimentoController relatorioPraSalvar = new RelatorioAtendimentoController();
        
-    boolean sucesso =relatorioPraSalvar.salvarRelatorioAtendimento(dataOcorrencia,  horarioOcorrencia,
+    boolean sucesso = relatorioPraSalvar.salvarRelatorioAtendimento(dataOcorrencia,  horarioOcorrencia,
                           CampoLocal.getText(), CampoDiscente.getText(), CampoTurma.getText(),
                           CampoPais.getText(), CampoSituacao.getText(),
-                CampoEncaminhamentos.getText(), CampoConclusao.getText());
+                CampoEncaminhamentos.getText(), CampoConclusao.getText(), concluido);
     
     if (sucesso == true){
        
@@ -344,6 +360,10 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
     
       // fim metodo
     }//GEN-LAST:event_NOVOActionPerformed
+
+    private void CheckConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckConcluidoActionPerformed
+
+    }//GEN-LAST:event_CheckConcluidoActionPerformed
 
    
     public static void main(String args[]) {
@@ -391,6 +411,7 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
     private javax.swing.JTextField CampoPais;
     private javax.swing.JTextArea CampoSituacao;
     private javax.swing.JTextField CampoTurma;
+    private javax.swing.JCheckBox CheckConcluido;
     private javax.swing.JButton NOVO;
     private javax.swing.JButton VOLTAR;
     private javax.swing.JLabel jLabel1;

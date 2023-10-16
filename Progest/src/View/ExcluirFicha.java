@@ -4,6 +4,7 @@ import model.*;
 import model.DAO.*;
 import controller.*;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -86,11 +87,16 @@ public class ExcluirFicha extends javax.swing.JFrame {
     private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
          if(evt.getSource()== botaoExcluir){
               
+             RelatorioAtendimentoDAO dao = new RelatorioAtendimentoDAO();
+             
+           
+             
   int numFicha = Integer.parseInt(CampoIDFicha.getText());
   
      FichaAtendimentoController controlador = new FichaAtendimentoController();
              try {
                  controlador.excluirFicha(numFicha);
+                 
              } catch (SQLException ex) {
                  Logger.getLogger(ExcluirFicha.class.getName()).log(Level.SEVERE, null, ex);
              }

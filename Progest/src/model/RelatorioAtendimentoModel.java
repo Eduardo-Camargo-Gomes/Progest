@@ -31,7 +31,7 @@ public class RelatorioAtendimentoModel {
                  
           private List<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<>();
 
-    public RelatorioAtendimentoModel(Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String nomeAluno, String turmaAluno, String nomeResponsavel, String situacao, String encaminhamentos, String conclusao, int numRelatorio) {
+    public RelatorioAtendimentoModel(Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String nomeAluno, String turmaAluno, String nomeResponsavel, String situacao, String encaminhamentos, String conclusao, int numRelatorio, boolean concluido) {
         this.dataOcorrido = dataOcorrido;
         this.horarioOcorrido = horarioOcorrido;
         this.localOcorrido = localOcorrido;
@@ -42,8 +42,15 @@ public class RelatorioAtendimentoModel {
         this.encaminhamentos = encaminhamentos;
         this.conclusao = conclusao;
         this.numRelatorio = numRelatorio;
+        this.concluido = concluido;
     }
 
+    public boolean isConcluido() {
+        return concluido;
+    }
+
+    
+    
    
 
     public void setListaRelatorios(List<RelatorioAtendimentoModel> listaRelatorios) {
@@ -91,7 +98,7 @@ public class RelatorioAtendimentoModel {
     }
                  
                
-    public RelatorioAtendimentoModel(Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String nomeAluno, String turmaAluno, String nomeResponsavel, String situacao, String encaminhamentos, String conclusao) {
+    public RelatorioAtendimentoModel(Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String nomeAluno, String turmaAluno, String nomeResponsavel, String situacao, String encaminhamentos, String conclusao, boolean concluido) {
         this.dataOcorrido = dataOcorrido;
         this.horarioOcorrido = horarioOcorrido;
         this.localOcorrido = localOcorrido;
@@ -101,6 +108,7 @@ public class RelatorioAtendimentoModel {
         this.situacao = situacao;
         this.encaminhamentos = encaminhamentos;
         this.conclusao = conclusao;
+        this.concluido = concluido;
     }
 
     public RelatorioAtendimentoModel() {

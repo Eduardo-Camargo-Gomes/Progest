@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,12 +29,15 @@ import javax.swing.JOptionPane;
 
 public class Menu extends javax.swing.JFrame {
     
+    //Todos relatórios, Já concluídos
+    String tipoOrdenacao = null;
     
-    
+ 
+ 
    
     RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
     private RelatorioAtendimentoController controlador;
-   List <RelatorioAtendimentoModel> listaRelatorios = relatorioDAO.listaRelatorios();
+   
      
  
     /**
@@ -51,16 +55,30 @@ public class Menu extends javax.swing.JFrame {
     
     public void mostrarRelatorios() throws SQLException{
   
+        if(filtroJanela.getSelectedIndex() == 0)  {
+            tipoOrdenacao = "todosRelatorios";
+        } 
+        else if (filtroJanela.getSelectedIndex()== 1){
+             tipoOrdenacao = "concluidos";
+        }
+        
+        List <JLabel> listaDeMiniaturas = new ArrayList<>();
+        List <RelatorioAtendimentoModel> listaRelatorios = relatorioDAO.listaRelatorios(tipoOrdenacao);
+        
          Map <Integer, JLabel> mapaRelatorios = new HashMap<>();    
           
-        
+  
    ImageIcon imagemRelatorio = new ImageIcon(getClass().getResource("Cap.relatorio1.jpg"));
                 
           for(int i =1; i <=listaRelatorios.size(); i ++){
            
+              final int id = listaRelatorios.get(i).getNumRelatorio();
           JLabel miniaturaRelatorios = new JLabel(imagemRelatorio);
           
-             miniaturaRelatorios.putClientProperty("numeroRelatorio", i);
+          listaDeMiniaturas.add(miniaturaRelatorios);
+          
+          mapaRelatorios.put(id, miniaturaRelatorios);
+             //miniaturaRelatorios.putClientProperty("numeroRelatorio", i);
          
           miniaturaRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
          
@@ -68,9 +86,36 @@ public class Menu extends javax.swing.JFrame {
         painelRelatorios.add(miniaturaRelatorios);
     painelRelatorios.setVisible(true);
    painelRelatorios.revalidate();
-    painelRelatorios.repaint();
+    painelRelatorios.repaint(); 
+          
+      miniaturaRelatorios.addMouseListener(new MouseAdapter(){   
+         
+        
+        @Override 
+        public void mouseClicked(MouseEvent e ){
+        
+            RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
+  RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel();
     
-    miniaturaRelatorios.addMouseListener(new MouseAdapter(){   
+    
+    
+        }// fim mouse clicek
+        
+      });// fim mouse adapter 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+   /* miniaturaRelatorios.addMouseListener(new MouseAdapter(){   
         
         
         @Override 
@@ -88,11 +133,13 @@ public class Menu extends javax.swing.JFrame {
              new RelatorioAtendimentoAcessar(relatorioAcessar).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
         }   
-    });
+    });*/
    
-          }// fim for  
+          }// fim 
           
            
     }// fim metodo
@@ -144,6 +191,12 @@ public class Menu extends javax.swing.JFrame {
         filtroJanela.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         filtroJanela.setForeground(new java.awt.Color(51, 51, 51));
         filtroJanela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos relatórios", "Já concluídos" }));
+        filtroJanela.setSelectedIndex(1);
+        filtroJanela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroJanelaActionPerformed(evt);
+            }
+        });
         jPanel1.add(filtroJanela, new org.netbeans.lib.awtextra.AbsoluteConstraints(815, 398, -1, -1));
 
         painelLateral.setBackground(new java.awt.Color(210, 225, 233));
@@ -501,6 +554,10 @@ public class Menu extends javax.swing.JFrame {
     private void alterarFichaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterarFichaMouseClicked
        new AlterarFicha().setVisible(true);
     }//GEN-LAST:event_alterarFichaMouseClicked
+
+    private void filtroJanelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroJanelaActionPerformed
+   
+    }//GEN-LAST:event_filtroJanelaActionPerformed
  
      
     

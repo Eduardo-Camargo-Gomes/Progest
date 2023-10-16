@@ -30,6 +30,9 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
     private String estadoCivil;
     private String moraCom;
     private String tipoEscola;
+    private boolean concluido = false;
+    
+    
     
     
      public void mostrarIdFicha() throws SQLException{
@@ -73,6 +76,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
     
 
     SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+     SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
     /**
      * Creates new form FichaDeAtendimento
      * 
@@ -87,16 +91,19 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
         
     }// fim metodo
     
-    public FichaDeAtendimentoAcessar(FichaAtendimentoModel fichaModel) throws SQLException {
+    public FichaDeAtendimentoAcessar(FichaAtendimentoModel fichaModel) throws SQLException, ParseException {
         this.fichaModel = fichaModel;
           initComponents();
        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
        
+       Date data = formatoBanco.parse(String.valueOf(fichaModel.getDataNascimento()));
+       
+       String dataOcorrencia = formatoData.format(data);
        
          fichaModel = fichaDao.acessarFicha(fichaModel.getNumeroFicha());
         campoId.setText(String.valueOf(fichaModel.getNumeroFicha()));
         campoNome.setText(fichaModel.getNome());
-        dataNascimento.setText(String.valueOf(fichaModel.getDataNascimento()));
+        dataNascimento.setText(dataOcorrencia);
         alunoCelular.setText(fichaModel.getTelefone());
         RG.setText(fichaModel.getRg());
         endereco.setText(fichaModel.getEndereco());
@@ -151,6 +158,15 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
                 else if (fichaModel.getTipoEscola().equals("Particular")){
                     particular.setSelected(true);
                 }// fim metodo
+                
+                  if(fichaModel.getConcluido() == true){
+           checkConcluido.setSelected(true);
+       }// fim if 
+       
+       else{
+           checkConcluido.setSelected(false);
+       }// fim else  
+       
                 
                String anoQueConcluiu = String.valueOf(fichaModel.getAnoConclusao());
        
@@ -298,6 +314,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
         jLabel36 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         campoId = new javax.swing.JTextField();
+        checkConcluido = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -665,6 +682,14 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
         campoId.setForeground(new java.awt.Color(51, 51, 51));
         jPanel1.add(campoId, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 50, 50, 30));
 
+        checkConcluido.setText("Marcar como concluído");
+        checkConcluido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkConcluidoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(checkConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
         jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -774,6 +799,15 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
              }// im else 
             
          }// fim if de fora
+         
+           if(checkConcluido.isSelected()){
+              concluido = true;
+         }// fim if 
+   
+         else {
+             concluido = false ;
+         }// fim else 
+
 
              Date dataNasc = null;
                
@@ -795,7 +829,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
                   emailPai.getText(), emailMae.getText() , getEstadoCivil(), getMoraCom(),
                   celularPai.getText(), celularMae.getText(),
                   escolaConclusao.getText(), getTipoEscola(), anoQueConcluiu ,
-                  numeroFicha);
+                  numeroFicha, concluido);
           
           if(sucesso == true){
               this.dispose();
@@ -824,6 +858,10 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
     private void avosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_avosActionPerformed
+
+    private void checkConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkConcluidoActionPerformed
+
+    }//GEN-LAST:event_checkConcluidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -894,6 +932,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
     private javax.swing.JTextField celularMae;
     private javax.swing.JTextField celularOutros;
     private javax.swing.JTextField celularPai;
+    private javax.swing.JCheckBox checkConcluido;
     private javax.swing.JTextField dataNascimento;
     private javax.swing.JTextField emailMae;
     private javax.swing.JTextField emailPai;

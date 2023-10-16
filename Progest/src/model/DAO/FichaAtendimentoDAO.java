@@ -9,10 +9,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class FichaAtendimentoDAO {
+    
+    List<FichaAtendimentoModel> listaFichas = new ArrayList<>();
     
     public void salvarFicha(FichaAtendimentoModel fichaASalvar, String estadoCivil, String moraCom){
   
@@ -20,8 +24,8 @@ public class FichaAtendimentoDAO {
         String sql = "INSERT INTO fichaatendimento(nome_aluno, data_nascimento, "
                 + "telefone, rg, endereco, bairro, nome_pai, nome_mae, email_pai, email_mae,"
                 + " estado_civil,"
-                + "mora_com, telefone_pai, telefone_mae, escola_concluida, tipo_escola, ano_conclusao) "
-                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "mora_com, telefone_pai, telefone_mae, escola_concluida, tipo_escola, ano_conclusao, concluido) "
+                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?)";
 	
 	PreparedStatement ps = null;
 	Connection connection = null;
@@ -76,6 +80,7 @@ public class FichaAtendimentoDAO {
                 }// fim else 
                 
                 }// fim if 
+               
                 
                     
                 
@@ -94,6 +99,7 @@ public class FichaAtendimentoDAO {
                 
                   ps.setInt(17, fichaASalvar.getAnoConclusao());
                 
+                   ps.setBoolean(18,fichaASalvar.getConcluido());
                     
                   ps.execute();
 	
@@ -208,7 +214,7 @@ public class FichaAtendimentoDAO {
                   ficha.setTelefonePai(resultSet.getString("telefone_pai"));
                     ficha.setTelefoneMae(resultSet.getString("telefone_mae"));
                     ficha.setTipoEscola(resultSet.getString("tipo_escola"));
-
+                    ficha.setConcluido(resultSet.getBoolean("concluido"));
          return ficha;
          
          // guarda os valores no objeto "ficha"
@@ -226,7 +232,7 @@ public class FichaAtendimentoDAO {
                   + " email_pai = ?, email_mae = ?,"
                 + " estado_civil = ?,"
                 + "mora_com = ?, telefone_pai = ?, telefone_mae = ?, escola_concluida = ?,"
-                  + " tipo_escola = ?, ano_conclusao = ? where numero_ficha = ?";
+                  + " tipo_escola = ?, ano_conclusao = ?, concluido = ? where numero_ficha = ?";
                
 	
 	PreparedStatement ps = null;
@@ -299,8 +305,10 @@ public class FichaAtendimentoDAO {
                 }// fim else if
                 
                   ps.setInt(17, fichaAAlterar.getAnoConclusao());
+                  
+                  ps.setBoolean(18, fichaAAlterar.getConcluido());
                 
-                  ps.setInt(18, fichaAAlterar.getNumeroFicha());
+                  ps.setInt(19, fichaAAlterar.getNumeroFicha());
                     
                   ps.execute();
 	
@@ -308,10 +316,62 @@ public class FichaAtendimentoDAO {
 		// TODO Auto-generated catch block
 		e.printStackTrace();  
 	}// fim catch	
-        
-        
+  
         
     }// fim metodo
     
+    public List<FichaAtendimentoModel> listaFichas(String tipoOrdenacao) throws SQLException{
+        
+        FichaAtendimentoModel ficha= new FichaAtendimentoModel();
+        // cria a lista com as fichas de Atendimento disponiveis 
+        
+        String sql = null;
+        if(tipoOrdenacao.equals("concluidos")){ 
+         sql = "select * from fichaatendimento where concluido = true";
+        }// fim if 
+        
+        else if (tipoOrdenacao.equals("todasFichas")){
+            sql = "select * from fichaatendimento";
+        }// fim else if
+ 
+	PreparedStatement ps = null;
+	Connection connection = null;
+            
+		connection = new Conexao().getConexao();
+		
+		ps = connection.prepareStatement(sql); 
+             
+                 ResultSet resultSet = ps.executeQuery();
+        
+                 while(resultSet.next()){
+   ficha.setNumeroFicha(resultSet.getInt("numero_ficha"));
+                  ficha.setNome(resultSet.getString("nome_aluno"));
+                  ficha.setDataNascimento(resultSet.getDate("data_nascimento"));
+                  ficha.setTelefone(resultSet.getString("telefone"));
+                  ficha.setRg(resultSet.getString("rg"));
+                  ficha.setEndereco(resultSet.getString("endereco"));
+                  ficha.setBairro(resultSet.getString("bairro"));
+                  ficha.setEstadoCivil(resultSet.getString("estado_civil"));
+                  ficha.setMoraCom(resultSet.getString("mora_com"));
+                  ficha.setAnoConclusao(resultSet.getInt("ano_conclusao"));
+                  ficha.setEscolaConcluida(resultSet.getString("escola_concluida"));
+                  ficha.setNomePai(resultSet.getString("nome_pai"));
+                  ficha.setNomeMae(resultSet.getString("nome_mae"));
+                  ficha.setEmailPai(resultSet.getString("email_pai"));
+                  ficha.setEmailMae(resultSet.getString("email_mae"));
+                  ficha.setTelefonePai(resultSet.getString("telefone_pai"));
+                    ficha.setTelefoneMae(resultSet.getString("telefone_mae"));
+                    ficha.setTipoEscola(resultSet.getString("tipo_escola"));
+                    ficha.setConcluido(resultSet.getBoolean("concluido"));
+                    
+listaFichas.add(ficha);
+                 }// fim while
+        
+                 return listaFichas;
+    }// fim metodo
+        
+
+    }// fim classe 
+    
    
-}// fim metodo
+

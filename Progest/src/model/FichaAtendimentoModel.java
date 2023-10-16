@@ -34,10 +34,23 @@ public class FichaAtendimentoModel {
       private Date dataCriacao;
       private Time horaAcesso;
       private Time horaModificacao;
+     private boolean concluido;
+
+    public boolean getConcluido() {
+        return concluido;
+    }
+
+    public void setConcluido(boolean concluido) {
+        this.concluido = concluido;
+    }
+     
+     
+     
+     
 
     
 
-    public FichaAtendimentoModel(String nome, Date dataNascimento, String telefone, String rg, String endereco, String bairro, String nomePai, String nomeMae, String emailPai, String emailMae, String estadoCivil, String moraCom, String telefonePai, String telefoneMae, String escolaConcluida, String tipoEscola, int anoConclusao) {
+    public FichaAtendimentoModel(String nome, Date dataNascimento, String telefone, String rg, String endereco, String bairro, String nomePai, String nomeMae, String emailPai, String emailMae, String estadoCivil, String moraCom, String telefonePai, String telefoneMae, String escolaConcluida, String tipoEscola, int anoConclusao, boolean concluido ) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.telefone = telefone;
@@ -55,11 +68,12 @@ public class FichaAtendimentoModel {
         this.escolaConcluida = escolaConcluida;
         this.tipoEscola = tipoEscola;
         this.anoConclusao = anoConclusao;
+        this.concluido = concluido;
     }// fim construtor
     
     
 
-    public FichaAtendimentoModel(String nome, Date dataNascimento, String telefone, String rg, String endereco, String bairro, String nomePai, String nomeMae, String emailPai, String emailMae, String estadoCivil, String telefonePai, String telefoneMae, String escolaConcluida, int anoConclusao) {
+    public FichaAtendimentoModel(String nome, Date dataNascimento, String telefone, String rg, String endereco, String bairro, String nomePai, String nomeMae, String emailPai, String emailMae, String estadoCivil, String telefonePai, String telefoneMae, String escolaConcluida, int anoConclusao, boolean concluido) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.telefone = telefone;
@@ -75,6 +89,7 @@ public class FichaAtendimentoModel {
         this.telefoneMae = telefoneMae;
         this.escolaConcluida = escolaConcluida;
         this.anoConclusao = anoConclusao;
+        this.concluido = concluido;
     }// fim construtor sem mora com
 
     public String getNomePai() {
@@ -160,7 +175,7 @@ public class FichaAtendimentoModel {
      
     
 
-    public FichaAtendimentoModel( String nome, Date dataNascimento, String telefone, String rg, String endereco, String bairro, String nomePai, String nomeMae, String emailPai, String emailMae, String estadoCivil, String moraCom, String telefonePai, String telefoneMae, String escolaConcluida, String tipoEscola, int anoConclusao, int numeroFicha) {
+    public FichaAtendimentoModel( String nome, Date dataNascimento, String telefone, String rg, String endereco, String bairro, String nomePai, String nomeMae, String emailPai, String emailMae, String estadoCivil, String moraCom, String telefonePai, String telefoneMae, String escolaConcluida, String tipoEscola, int anoConclusao, int numeroFicha, boolean concluido) {
        
         this.nome = nome;
         this.dataNascimento = dataNascimento;
@@ -180,6 +195,7 @@ public class FichaAtendimentoModel {
         this.tipoEscola = tipoEscola;
         this.anoConclusao = anoConclusao;
          this.numeroFicha = numeroFicha;
+         this.concluido = concluido;
     }
 
     public FichaAtendimentoModel(int numeroFicha) {

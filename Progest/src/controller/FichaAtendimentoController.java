@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 public class FichaAtendimentoController {
     
-    //private ArrayList <FichaAtendimentoModel> listaFichas = new ArrayList<>();
+   
     
   public boolean verificarSeExisteFicha(int numeroFicha) throws SQLException{
         
@@ -40,7 +40,7 @@ public class FichaAtendimentoController {
             String emailMae,
             String estadoCivil, String moraCom, String telefonePai, String telefoneMae, String escolaConcluida,
             String tipoEscola,
-            int anoConclusao){
+            int anoConclusao, boolean concluido){
 
         // ao implementar a classe da view colocar como parametro "Estado civil e moraCom"
         
@@ -50,7 +50,7 @@ public class FichaAtendimentoController {
                 telefone,
             rg,  endereco, bairro, nomePai, nomeMae,  emailPai, emailMae,
             estadoCivil, moraCom, telefonePai, telefoneMae,  escolaConcluida, tipoEscola, 
-            anoConclusao);
+            anoConclusao, concluido );
         
         FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
         
@@ -98,13 +98,13 @@ public class FichaAtendimentoController {
             String emailMae,
             String estadoCivil, String moraCom, String telefonePai, String telefoneMae, String escolaConcluida,
             String tipoEscola,
-            int anoConclusao, int numeroFicha){
+            int anoConclusao, int numeroFicha, boolean concluido){
         
         FichaAtendimentoModel fichaAAlterar = new FichaAtendimentoModel(nome, dataNascimento,
                 telefone,
             rg,  endereco, bairro, nomePai, nomeMae,  emailPai, emailMae,
             estadoCivil, moraCom, telefonePai, telefoneMae,  escolaConcluida, tipoEscola, 
-            anoConclusao, numeroFicha);
+            anoConclusao, numeroFicha, concluido);
         
         FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
         

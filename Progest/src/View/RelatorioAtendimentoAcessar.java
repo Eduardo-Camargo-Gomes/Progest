@@ -21,7 +21,10 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
    //RelatorioAtendimentoModel relatorioModel = new  RelatorioAtendimentoModel();
  
      SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+      SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
+     
     SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
+        boolean concluido = false;
         
         
     
@@ -30,7 +33,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
       RelatorioAtendimentoDAO relatorioDAO = new  RelatorioAtendimentoDAO();
     private RelatorioAtendimentoModel relatorioModel;
 
-    public RelatorioAtendimentoAcessar(RelatorioAtendimentoModel relatorioModel) throws SQLException {
+    public RelatorioAtendimentoAcessar(RelatorioAtendimentoModel relatorioModel) throws SQLException, ParseException {
          this.relatorioModel = relatorioModel;
          // define o construtor  
         initComponents();
@@ -38,8 +41,22 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
          setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 
        relatorioModel  = relatorioDAO.acessarRelatorio(relatorioModel.getNumRelatorio());
+       
+       Date data = formatoBanco.parse(String.valueOf(relatorioModel.getDataOcorrido()));
+       
+     String dataOcorrencia; 
+       dataOcorrencia = formatoData.format(data);
+       
+       if(relatorioModel.getConcluido() == true){
+           CheckConcluido.setSelected(true);
+       }// fim if 
+       
+       else{
+           CheckConcluido.setSelected(false);
+       }// fim else  
+       
       CampoId.setText(String.valueOf(relatorioModel.getNumRelatorio()));
-      CampoData.setText(String.valueOf(relatorioModel.getDataOcorrido()));
+      CampoData.setText(String.valueOf(dataOcorrencia));
         CampoHorario.setText(String.valueOf(relatorioModel.getHorarioOcorrido()));
         CampoLocal.setText(relatorioModel.getLocalOcorrido());
       CampoDiscente.setText(relatorioModel.getNomeAluno());
@@ -48,10 +65,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
       CampoSituacao.setText(relatorioModel.getSituacao());
       CampoEncaminhamentos.setText(relatorioModel.getEncaminhamentos());
       CampoConclusao.setText(relatorioModel.getConclusao());
-      if(CheckConcluido.isSelected()){
-
-            relatorioModel.setConcluido(true);
-        }// fim if
+      
          CampoId.setEditable(false);
   
     }// fim construtor
@@ -300,7 +314,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
                 CheckConcluidoActionPerformed(evt);
             }
         });
-        jPanel1.add(CheckConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, -1, -1));
+        jPanel1.add(CheckConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, -1, -1));
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -331,13 +345,16 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
 
     private void botaoSalvarAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarAlteracaoActionPerformed
         if(evt.getSource() == botaoSalvarAlteracao){
-            
-       
-        
+   
           RelatorioAtendimentoController relatorioController = new RelatorioAtendimentoController();
           
           RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
           
+             
+             if(CheckConcluido.isSelected()){
+                 concluido = true;
+             }// fim if
+       
          Date dataOcorrencia = new Date();
             try {
                 dataOcorrencia = formatoData.parse(CampoData.getText());
@@ -362,7 +379,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
                           CampoLocal.getText(), CampoDiscente.getText(), CampoTurma.getText(),
                           CampoPais.getText(), CampoSituacao.getText(),
                 CampoEncaminhamentos.getText(), CampoConclusao.getText(),
-                numeroRelatorio);
+                numeroRelatorio, concluido);
          
        if(salvou == true){
           this.dispose();
