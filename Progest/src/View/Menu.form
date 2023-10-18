@@ -65,7 +65,6 @@
                 <StringItem index="1" value="J&#xe1; conclu&#xed;dos"/>
               </StringArray>
             </Property>
-            <Property name="selectedIndex" type="int" value="1"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filtroJanelaActionPerformed"/>

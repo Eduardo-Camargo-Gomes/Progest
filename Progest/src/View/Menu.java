@@ -43,8 +43,7 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    public Menu() throws SQLException {
-        initComponents();    
+    public Menu() throws SQLException {       
        mostrarRelatorios();
         
     }// fim construtor 
@@ -54,6 +53,7 @@ public class Menu extends javax.swing.JFrame {
  
     
     public void mostrarRelatorios() throws SQLException{
+          initComponents(); 
   
         if(filtroJanela.getSelectedIndex() == 0)  {
             tipoOrdenacao = "todosRelatorios";
@@ -62,23 +62,23 @@ public class Menu extends javax.swing.JFrame {
              tipoOrdenacao = "concluidos";
         }
         
-        List <JLabel> listaDeMiniaturas = new ArrayList<>();
-        List <RelatorioAtendimentoModel> listaRelatorios = relatorioDAO.listaRelatorios(tipoOrdenacao);
-        
+        List <Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(tipoOrdenacao);
+        //List <RelatorioAtendimentoModel> listaRelatorios = relatorioDAO.listaRelatorios(tipoOrdenacao);
+       // List <JLabel> listaLabel = new ArrayList<>();
+       
          Map <Integer, JLabel> mapaRelatorios = new HashMap<>();    
           
   
    ImageIcon imagemRelatorio = new ImageIcon(getClass().getResource("Cap.relatorio1.jpg"));
                 
-          for(int i =1; i <=listaRelatorios.size(); i ++){
-           
-              final int id = listaRelatorios.get(i).getNumRelatorio();
+  // for (RelatorioAtendimentoModel relatorio : listaRelatorios){
+         for(int i = 0; i < listaIdsRelatorios.size() ; i++){
+      
           JLabel miniaturaRelatorios = new JLabel(imagemRelatorio);
-          
-          listaDeMiniaturas.add(miniaturaRelatorios);
-          
-          mapaRelatorios.put(id, miniaturaRelatorios);
-             //miniaturaRelatorios.putClientProperty("numeroRelatorio", i);
+      miniaturaRelatorios.putClientProperty("numeroRelatorio", listaIdsRelatorios.get(i));
+        // mapaRelatorios.put(relatorio.getNumRelatorio(), miniaturaRelatorios);
+         
+        
          
           miniaturaRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
          
@@ -87,46 +87,22 @@ public class Menu extends javax.swing.JFrame {
     painelRelatorios.setVisible(true);
    painelRelatorios.revalidate();
     painelRelatorios.repaint(); 
-          
-      miniaturaRelatorios.addMouseListener(new MouseAdapter(){   
-         
-        
-        @Override 
-        public void mouseClicked(MouseEvent e ){
-        
-            RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-  RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel();
     
     
-    
-        }// fim mouse clicek
-        
-      });// fim mouse adapter 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-   /* miniaturaRelatorios.addMouseListener(new MouseAdapter(){   
+   
+    miniaturaRelatorios.addMouseListener(new MouseAdapter(){   
         
         
         @Override 
         public void mouseClicked(MouseEvent e ){
         
-            JLabel relatorioClicado = (JLabel) e.getSource();
+             JLabel relatorioClicado = (JLabel) e.getSource();
             
             Object idObj = relatorioClicado.getClientProperty("numeroRelatorio");
             
             final int id = (int) idObj;
-            
+           
+        
   RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
   RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel(id);
             try {
@@ -137,11 +113,11 @@ public class Menu extends javax.swing.JFrame {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
         }   
-    });*/
+    });
    
           }// fim 
           
-           
+          
     }// fim metodo
     
    
@@ -191,7 +167,6 @@ public class Menu extends javax.swing.JFrame {
         filtroJanela.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         filtroJanela.setForeground(new java.awt.Color(51, 51, 51));
         filtroJanela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos relatórios", "Já concluídos" }));
-        filtroJanela.setSelectedIndex(1);
         filtroJanela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filtroJanelaActionPerformed(evt);

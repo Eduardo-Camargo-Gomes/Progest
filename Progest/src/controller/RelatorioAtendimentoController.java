@@ -76,8 +76,8 @@ public class RelatorioAtendimentoController {
 
         RelatorioAtendimentoModel relatorioASerExcluido = 
                 new RelatorioAtendimentoModel(numRelatorio);
-          List <RelatorioAtendimentoModel> listaRelatorios = relatorioDAO.listaRelatorios(null);
-
+         // List <RelatorioAtendimentoModel> listaRelatorios = relatorioDAO.listaRelatorios(null);
+// List <Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(null);
         
         RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
         
@@ -85,7 +85,7 @@ public class RelatorioAtendimentoController {
         
         if(existe == true){
         relatorioDAO.excluirRelatorio(relatorioASerExcluido);
-        listaRelatorios.remove(relatorioASerExcluido);
+//        listaIdsRelatorios.remove(relatorioASerExcluido);
         
        
         JOptionPane.showMessageDialog(null, "Relatório excluído com sucesso!"); 

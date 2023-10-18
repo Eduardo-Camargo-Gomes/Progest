@@ -12,7 +12,9 @@ import java.util.List;
 
 public class RelatorioAtendimentoDAO {
     
-    List<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<>();
+     List<Integer> listaIdsRelatorios = new ArrayList<>();
+   
+  //  List<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<>();
     
    public void salvarRelatorio(RelatorioAtendimentoModel relatorioASalvar){
         
@@ -67,9 +69,9 @@ public class RelatorioAtendimentoDAO {
 		
 		ps = connection.prepareStatement(sql);  
                 ps.setInt(1, relatorioADeletar.getNumRelatorio());
-                listaRelatorios.remove(relatorioADeletar);
+                listaIdsRelatorios.remove(relatorioADeletar);
 		ps.executeUpdate();
-                
+                 
 	
 	} catch (SQLException e) {
 		
@@ -202,17 +204,17 @@ public class RelatorioAtendimentoDAO {
                  }// fim else             
     }// fim metodo
     
-    public List<RelatorioAtendimentoModel> listaRelatorios(String tipoOrdenacao) throws SQLException{
+    public List<Integer> listaIdsRelatorios(String tipoOrdenacao) throws SQLException{
         
         RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
         
         String sql = null;
         if(tipoOrdenacao.equals("concluidos")){ 
-         sql = "select * from relatorio_atendimento where concluido = true";
+         sql = "select numero_relatorio from relatorio_atendimento where concluido = true";
         }// fim if 
         
         else if (tipoOrdenacao.equals("todosRelatorios")){
-            sql = "select * from relatorio_atendimento";
+            sql = "select numero_relatorio from relatorio_atendimento";
         }// fim else if
         
         
@@ -227,21 +229,11 @@ public class RelatorioAtendimentoDAO {
         
                  while(resultSet.next()){
   relatorio.setNumRelatorio(resultSet.getInt("numero_relatorio"));
- relatorio.setDataOcorrido(resultSet.getDate("data_ocorrido"));
- relatorio.setHorarioOcorrido(resultSet.getTime("horario"));
- relatorio.setLocalOcorrido(resultSet.getString("locall"));
- relatorio.setNomeAluno(resultSet.getString("nome_aluno"));
- relatorio.setTurmaAluno(resultSet.getString("turma_aluno"));
- relatorio.setNomeResponsavel (resultSet.getString("nome_responsavel"));
- relatorio.setSituacao (resultSet.getString("situacao"));
- relatorio.setEncaminhamentos (resultSet.getString("encaminhamento"));
- relatorio.setConclusao (resultSet.getString("conclusao"));
- relatorio.setConcluido (resultSet.getBoolean("concluido"));
                     
-listaRelatorios.add(relatorio);
+listaIdsRelatorios.add(relatorio.getNumRelatorio());
                  }// fim while
         
-                 return listaRelatorios;
+                 return listaIdsRelatorios;
     }// fim metodo
       
     }// fim classe
