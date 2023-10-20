@@ -1,5 +1,6 @@
 package controller;
 import View.AlterarRelatorio;
+import View.Menu;
 import View.RelatorioAtendimentoAcessar;
 import model.*;
 import controller.*;
@@ -17,8 +18,7 @@ public class RelatorioAtendimentoController {
    
     RelatorioAtendimentoModel model = new RelatorioAtendimentoModel();
      RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-       
-    
+         
     public boolean verificarSeExisteRelatorio(int numeroRelatorio) throws SQLException{
         
         RelatorioAtendimentoModel relatorio = new  RelatorioAtendimentoModel(numeroRelatorio);
@@ -41,10 +41,13 @@ public class RelatorioAtendimentoController {
     public boolean salvarRelatorioAtendimento(Date dataOcorrido,
             Time horarioOcorrido,
             String localOcorrido, String nomeAluno, String turmaAluno, 
-            String nomeResponsavel, String situacao, String encaminhamentos, String conclusao, boolean concluido ){
+            String nomeResponsavel, String situacao, String encaminhamentos, String conclusao, boolean concluido ) throws SQLException{
 
+        
          RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
          
+        
+     
         RelatorioAtendimentoModel relatorioASalvar =
                 new RelatorioAtendimentoModel(dataOcorrido, horarioOcorrido,
                         localOcorrido, nomeAluno, turmaAluno, nomeResponsavel, situacao,
@@ -55,12 +58,16 @@ public class RelatorioAtendimentoController {
                 && nomeAluno.length() > 0 && turmaAluno.length() > 0 && nomeResponsavel.length() >0
                 && situacao.length() > 0  ){
             
-            
+             
              relatorioDAO.salvarRelatorio(relatorioASalvar);
-                    
-          
-                        
+             
+             Menu menu =  new Menu(); 
+             
+    menu.adicionarRelatorio(relatorioASalvar.getNumRelatorio());
+                 
               JOptionPane.showMessageDialog(null, "Relatorio salvo com sucesso!");
+             
+            
               return true;
         }// fim if
         
@@ -127,7 +134,8 @@ public class RelatorioAtendimentoController {
         }// fim else 
              
       }// fim metodo
- 
+      
+     
 
 }// fim classe 
 

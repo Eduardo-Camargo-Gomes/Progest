@@ -169,6 +169,7 @@ public class TelaLogin extends javax.swing.JFrame {
               boolean logado =  usuarioController.Autenticar(USUARIO.getText(), SENHA.getText());
                 
               if(logado == true){
+                  
                      new Menu().setVisible(true);
                this.dispose();
               }

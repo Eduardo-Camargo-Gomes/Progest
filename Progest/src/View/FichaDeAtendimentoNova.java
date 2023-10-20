@@ -36,6 +36,8 @@ public class FichaDeAtendimentoNova extends javax.swing.JFrame {
 
          fichaModel = fichaDAO.mostrarNumeroFicha();
          
+         
+        
         
           
           campoId.setText(String.valueOf(fichaModel.getNumeroFicha() + 1));

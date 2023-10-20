@@ -8,6 +8,7 @@ import model.*;
 import controller.*;
 import model.DAO.*;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
@@ -17,79 +18,87 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 
 
 public class Menu extends javax.swing.JFrame {
     
-    //Todos relatórios, Já concluídos
-    String tipoOrdenacao = null;
-    
- 
- 
-   
+    String tipoOrdenacao = "Todos relatórios";
+    //Todos relatórios, Já concluídos   
     RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
     private RelatorioAtendimentoController controlador;
+   List <Integer> listaIdsRelatorios;
+     List <Integer> listaIdsRelatoriosProntos;
+   Map<String, Boolean> selecaoJlabel = new HashMap<>();
+  private boolean labelsCriados= false;
    
-     
- 
-    /**
-     * Creates new form Menu
-     */
-    public Menu() throws SQLException {       
-       mostrarRelatorios();
-        
+   List <JLabel> listaJlabel  = new ArrayList<>();
+   
+   
+    public Menu() throws SQLException {  
+          
+        initComponents();
+           
+         mostrarRelatorios(tipoOrdenacao);
+  
     }// fim construtor 
+
+    public boolean getLabelsCriados() {
+        return labelsCriados;
+    }
+
+    public void setLabelsCriados(boolean labelsCriados) {
+        this.labelsCriados = labelsCriados;
+    }
+    
+    
     
  
     RelatorioAtendimentoModel relatorioModel = new RelatorioAtendimentoModel();
- 
     
-    public void mostrarRelatorios() throws SQLException{
-          initComponents(); 
-  
-        if(filtroJanela.getSelectedIndex() == 0)  {
-            tipoOrdenacao = "todosRelatorios";
-        } 
-        else if (filtroJanela.getSelectedIndex()== 1){
-             tipoOrdenacao = "concluidos";
-        }
-        
-        List <Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(tipoOrdenacao);
-        //List <RelatorioAtendimentoModel> listaRelatorios = relatorioDAO.listaRelatorios(tipoOrdenacao);
-       // List <JLabel> listaLabel = new ArrayList<>();
+  /* public void atualizarTela(String tipoOrdenacao) throws SQLException{
        
-         Map <Integer, JLabel> mapaRelatorios = new HashMap<>();    
-          
+        listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(tipoOrdenacao);
+       listaIdsRelatoriosProntos = relatorioDAO.listaIdsRelatoriosProntos(tipoOrdenacao);
+        
+        painelRelatorios.removeAll();
+            
+     if(tipoOrdenacao.equals("Todos relatórios")){
+ 
+ 
+   // List <Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(tipoOrdenacao);
+     Map <Integer, JLabel> mapaRelatorios = new HashMap<>();    
+          List <JLabel> listaLabel = new ArrayList<>();
   
    ImageIcon imagemRelatorio = new ImageIcon(getClass().getResource("Cap.relatorio1.jpg"));
-                
-  // for (RelatorioAtendimentoModel relatorio : listaRelatorios){
-         for(int i = 0; i < listaIdsRelatorios.size() ; i++){
+     for(int i = 0; i < listaIdsRelatorios.size() ; i++){
+           
+             
+   JLabel miniaturaRelatorios = new JLabel(imagemRelatorio);
+         
+  miniaturaRelatorios.putClientProperty("numeroRelatorio", listaIdsRelatorios.get(i));
       
-          JLabel miniaturaRelatorios = new JLabel(imagemRelatorio);
-      miniaturaRelatorios.putClientProperty("numeroRelatorio", listaIdsRelatorios.get(i));
-        // mapaRelatorios.put(relatorio.getNumRelatorio(), miniaturaRelatorios);
-         
-        
-         
-          miniaturaRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        miniaturaRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
          
           miniaturaRelatorios.setVisible(true);
-        painelRelatorios.add(miniaturaRelatorios);
+         
+        painelRelatorios.add(miniaturaRelatorios);  
     painelRelatorios.setVisible(true);
-   painelRelatorios.revalidate();
-    painelRelatorios.repaint(); 
     
     
-   
+
     miniaturaRelatorios.addMouseListener(new MouseAdapter(){   
         
         
@@ -102,7 +111,7 @@ public class Menu extends javax.swing.JFrame {
             
             final int id = (int) idObj;
            
-        
+      
   RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
   RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel(id);
             try {
@@ -115,20 +124,147 @@ public class Menu extends javax.swing.JFrame {
         }   
     });
    
-          }// fim 
+          }// fim for 
+     
+     
+    painelRelatorios.revalidate();
+  painelRelatorios.repaint();
+  
+         }// fim if
+         
+          if (tipoOrdenacao.equals("Já concluídos")){
+             
+            
+             // listaIdsRelatoriosProntos = relatorioDAO.listaIdsRelatoriosProntos(tipoOrdenacao);
+  
+     // List <Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(tipoOrdenacao);
+     Map <Integer, JLabel> mapaRelatorios = new HashMap<>();    
           
+  
+   ImageIcon imagemRelatorio = new ImageIcon(getClass().getResource("Cap.relatorio1.jpg"));
+     for(int i = 0; i < listaIdsRelatoriosProntos.size() ; i++){
+           
+             
+   JLabel miniaturaRelatorios = new JLabel(imagemRelatorio);
           
-    }// fim metodo
+  miniaturaRelatorios.putClientProperty("numeroRelatorio", listaIdsRelatoriosProntos.get(i));
+  miniaturaRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+         
+          miniaturaRelatorios.setVisible(true);
+         
+        painelRelatorios.add(miniaturaRelatorios);  
+    painelRelatorios.setVisible(true);
+    
+    
+
+    miniaturaRelatorios.addMouseListener(new MouseAdapter(){   
+        
+        
+        @Override 
+        public void mouseClicked(MouseEvent e ){
+        
+             JLabel relatorioClicado = (JLabel) e.getSource();
+            
+            Object idObj = relatorioClicado.getClientProperty("numeroRelatorio");
+            
+            final int id = (int) idObj;
+           
+      
+  RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
+  RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel(id);
+            try {
+             new RelatorioAtendimentoAcessar(relatorioAcessar).setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }   
+    });
+   
+          }// fim for 
+    
+    painelRelatorios.revalidate();
+  painelRelatorios.repaint();
+            
+         }// fim else if
+    }//fim metodo */
+    
+    
+public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
+       
+    
+     
+      if(tipoOrdenacao.equals("Todos relatórios")){
+   listaIdsRelatorios  = relatorioDAO.listaIdsRelatorios();
+              
+          }// fim if 
+        
+        else  if (tipoOrdenacao.equals("Já concluídos")){
+        listaIdsRelatorios = relatorioDAO.listaIdsRelatoriosProntos();
+        }// fim else if
+        
+       // List <Integer> listaIdsRelatorios = obterArray(tipoOrdenacao);
+      
+      //  List <Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios();
+     Map <Integer, JLabel> mapaRelatorios = new HashMap<>();    
+
+   ImageIcon imagemRelatorio = new ImageIcon(getClass().getResource("Cap.relatorio1.jpg"));
     
    
+   for(int i = 0; i < listaIdsRelatorios.size() ; i++){
+           
+             
+   JLabel miniaturaRelatorios = new JLabel(imagemRelatorio);
+         
+  miniaturaRelatorios.putClientProperty("numeroRelatorio", listaIdsRelatorios.get(i));
+      miniaturaRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+         
+          miniaturaRelatorios.setVisible(true);
+         
+        painelRelatorios.add(miniaturaRelatorios);  
+   
+  
+    miniaturaRelatorios.addMouseListener(new MouseAdapter(){   
+        
+        
+        @Override 
+        public void mouseClicked(MouseEvent e ){
+        
+             JLabel relatorioClicado = (JLabel) e.getSource();
+            
+            Object idObj = relatorioClicado.getClientProperty("numeroRelatorio");
+            
+            final int id = (int) idObj;
+           
+      
+  RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
+  RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel(id);
+            try {
+             new RelatorioAtendimentoAcessar(relatorioAcessar).setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }   
+    });
+   
+          }// fim for
+   
+      
+    painelRelatorios.revalidate();
+        painelRelatorios.repaint();
+    setLabelsCriados(true);
+         
+    }//fim metodo 
 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         documentoSelecionado = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
-        filtroJanela = new javax.swing.JComboBox<>();
         painelLateral = new javax.swing.JPanel();
         tresPontosLateral = new javax.swing.JLabel();
         logoProgestLateral = new javax.swing.JLabel();
@@ -140,6 +276,9 @@ public class Menu extends javax.swing.JFrame {
         excluirRelatorio = new javax.swing.JLabel();
         excluirFicha = new javax.swing.JLabel();
         alterarFicha = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        atualizar = new javax.swing.JLabel();
+        filtroJanela = new javax.swing.JComboBox<>();
         janelaPrincipal = new javax.swing.JPanel();
         Iniciarumnovodocumento = new javax.swing.JLabel();
         novolbl = new javax.swing.JLabel();
@@ -155,24 +294,6 @@ public class Menu extends javax.swing.JFrame {
         documentosRecentes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setMinimumSize(new java.awt.Dimension(1535, 785));
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel1MouseClicked(evt);
-            }
-        });
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        filtroJanela.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
-        filtroJanela.setForeground(new java.awt.Color(51, 51, 51));
-        filtroJanela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos relatórios", "Já concluídos" }));
-        filtroJanela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filtroJanelaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(filtroJanela, new org.netbeans.lib.awtextra.AbsoluteConstraints(815, 398, -1, -1));
 
         painelLateral.setBackground(new java.awt.Color(210, 225, 233));
         painelLateral.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -283,7 +404,31 @@ public class Menu extends javax.swing.JFrame {
         });
         painelLateral.add(alterarFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
 
-        jPanel1.add(painelLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 785));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1535, 785));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        atualizar.setText("REFRESH");
+        atualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                atualizarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 70, 30));
+
+        filtroJanela.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
+        filtroJanela.setForeground(new java.awt.Color(51, 51, 51));
+        filtroJanela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos relatórios", "Já concluídos" }));
+        filtroJanela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroJanelaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(filtroJanela, new org.netbeans.lib.awtextra.AbsoluteConstraints(815, 398, -1, -1));
 
         janelaPrincipal.setBackground(new java.awt.Color(210, 225, 233));
         janelaPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -355,7 +500,7 @@ public class Menu extends javax.swing.JFrame {
         jPanel1.add(janelaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 1535, 316));
 
         painelRelatorios.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 35, 35));
-        jPanel1.add(painelRelatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 1120, 340));
+        jPanel1.add(painelRelatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 1350, 340));
 
         logoProgest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logoProgest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/contrato (8).png"))); // NOI18N
@@ -387,10 +532,20 @@ public class Menu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(painelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(painelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -399,12 +554,12 @@ public class Menu extends javax.swing.JFrame {
      int x =280;
     
     private void tresPontosLateralMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosLateralMouseClicked
-         if ( x == 280 ) {
+        if ( x == 280 ) {
             painelLateral.setSize (280, 785);
             Thread th = new Thread() {
                 @Override
                 public void run() {
-                    try {
+                    try {  
                         for (int i = 280; i >=0;  i--) {
                             Thread.sleep(1); 
                             painelLateral.setSize(i, 785);
@@ -531,28 +686,33 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_alterarFichaMouseClicked
 
     private void filtroJanelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroJanelaActionPerformed
-   
-    }//GEN-LAST:event_filtroJanelaActionPerformed
- 
-     
-    
-    
-    /* private void miniaturaRelatoriosMouseClicked(java.awt.event.MouseEvent evt) throws SQLException {  
+                    limpar();
+        try {
        
-         new AlterarFicha().setVisible(true);
+   mostrarRelatorios((String)filtroJanela.getSelectedItem());
         
-          int numeroRelatorios = relatorioDAO.listaRelatorios().size();
-           RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-          
-          for(int i = 0; i < numeroRelatorios; i++){
-          RelatorioAtendimentoModel relatorioModel = new RelatorioAtendimentoModel(i);
-            
-          relatorioDAO.acessarRelatorio(i);
-          }// fim for
-     
-           }    // fim metodo  */                                  
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_filtroJanelaActionPerformed
 
-    
+    private void atualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atualizarMouseClicked
+     
+  
+        try {
+             painelRelatorios.removeAll();
+    painelRelatorios.revalidate();
+    painelRelatorios.repaint();
+            mostrarRelatorios(tipoOrdenacao);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_atualizarMouseClicked
+ 
+
     /**
      * @param args the command line arguments
      */
@@ -593,6 +753,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel ajudalbl;
     private javax.swing.JLabel alterarFicha;
     private javax.swing.JLabel alterarRelatorio;
+    private javax.swing.JLabel atualizar;
     private javax.swing.JLabel configlbl;
     private javax.swing.ButtonGroup documentoSelecionado;
     private javax.swing.JLabel documentosRecentes;
@@ -635,5 +796,62 @@ public class Menu extends javax.swing.JFrame {
             throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }
     }
+    
+    public void adicionarRelatorio(int numeroRelatorio) throws SQLException{
+        
+        ImageIcon imagemRelatorio = new ImageIcon(getClass().getResource("Cap.relatorio1.jpg"));
+          
+   JLabel miniaturaRelatorios = new JLabel(imagemRelatorio);
+         
+    miniaturaRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+         
+        
+    miniaturaRelatorios.setVisible(true);
+         
+        painelRelatorios.add(miniaturaRelatorios); 
+        
+            
+        revalidate();
+        repaint();
+        
+    }// fim metodo
+    
+    public void limparjLabels(){
+       if(labelsCriados){
+           for(Component component : painelRelatorios.getComponents()){
+               if(component instanceof JLabel){
+                   painelRelatorios.remove(component);
+               }// fim if
+           }//fim for 
+           labelsCriados = false;
+       }// fim if
+    }// fim metodo
+    
+    public List<Integer> obterArray(String tipoOrdenacao) throws SQLException{
+        
+       
+        List<Integer> listaIds = new ArrayList<>();
+        
+        if(tipoOrdenacao.equals("Todos relatórios")){
+              
+            
+            listaIds = relatorioDAO.listaIdsRelatorios();
+              
+          }// fim if 
+        
+        else  if (tipoOrdenacao.equals("Já concluídos")){
+            listaIds = relatorioDAO.listaIdsRelatoriosProntos();
+        }// fim else if
+        
+        
+        return listaIds;
+        
+    }// fim metodo
+    
+    public void limpar(){
+        painelRelatorios.removeAll();
+        painelRelatorios.revalidate();
+        painelRelatorios.repaint();
+    }
 
-}
+}// fim classe 

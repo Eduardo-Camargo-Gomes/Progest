@@ -13,6 +13,7 @@ import java.util.List;
 public class RelatorioAtendimentoDAO {
     
      List<Integer> listaIdsRelatorios = new ArrayList<>();
+      List<Integer> listaIdsRelatoriosProntos = new ArrayList<>();
    
   //  List<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<>();
     
@@ -204,21 +205,13 @@ public class RelatorioAtendimentoDAO {
                  }// fim else             
     }// fim metodo
     
-    public List<Integer> listaIdsRelatorios(String tipoOrdenacao) throws SQLException{
+    public List<Integer> listaIdsRelatorios() throws SQLException{
         
         RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
         
-        String sql = null;
-        if(tipoOrdenacao.equals("concluidos")){ 
-         sql = "select numero_relatorio from relatorio_atendimento where concluido = true";
-        }// fim if 
-        
-        else if (tipoOrdenacao.equals("todosRelatorios")){
-            sql = "select numero_relatorio from relatorio_atendimento";
-        }// fim else if
-        
-        
-	PreparedStatement ps = null;
+         
+       String  sql = "select numero_relatorio from relatorio_atendimento order by numero_relatorio desc;";
+ PreparedStatement ps = null;
 	Connection connection = null;
             
 		connection = new Conexao().getConexao();
@@ -234,6 +227,33 @@ listaIdsRelatorios.add(relatorio.getNumRelatorio());
                  }// fim while
         
                  return listaIdsRelatorios;
+       
+    }// fim metodo
+    
+    
+    public List<Integer> listaIdsRelatoriosProntos() throws SQLException{
+        
+        RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
+   String  sql = "select numero_relatorio from relatorio_atendimento where concluido = true order by numero_relatorio desc;";
+  
+	PreparedStatement ps = null;
+	Connection connection = null;
+            
+		connection = new Conexao().getConexao();
+		
+		ps = connection.prepareStatement(sql); 
+             
+                 ResultSet resultSet = ps.executeQuery();
+        
+                 while(resultSet.next()){
+  relatorio.setNumRelatorio(resultSet.getInt("numero_relatorio"));
+                    
+listaIdsRelatoriosProntos.add(relatorio.getNumRelatorio());
+                 }// fim while
+        
+                 return listaIdsRelatoriosProntos;
+      
+      
     }// fim metodo
       
     }// fim classe

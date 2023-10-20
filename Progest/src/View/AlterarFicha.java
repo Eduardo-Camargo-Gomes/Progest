@@ -4,6 +4,7 @@ import model.*;
 import model.DAO.*;
 import controller.*;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -115,6 +116,8 @@ public class AlterarFicha extends javax.swing.JFrame {
 
         this.dispose();
      }       catch (SQLException ex) {
+                 Logger.getLogger(AlterarFicha.class.getName()).log(Level.SEVERE, null, ex);
+             } catch (ParseException ex) {
                  Logger.getLogger(AlterarFicha.class.getName()).log(Level.SEVERE, null, ex);
              }// fim catch// fim catch
              

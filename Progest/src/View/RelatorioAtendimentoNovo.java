@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -16,14 +18,12 @@ import model.RelatorioAtendimentoModel;
 
 public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
     
-      
-    
+ 
     SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
-    
+    // Menu menu = new Menu();
     RelatorioAtendimentoController controlador = new RelatorioAtendimentoController ();
-    
-  
+     
     public RelatorioAtendimentoNovo() throws SQLException {
         initComponents();
         setLocationRelativeTo(null);
@@ -344,14 +344,15 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
                 CampoEncaminhamentos.getText(), CampoConclusao.getText(), concluido);
     
     if (sucesso == true){
-       
+      
         this.dispose();
-        
+    
     }// fim if
             } catch (ParseException ex) {
               Logger.getLogger(RelatorioAtendimentoNovo.class.getName()).log(Level.SEVERE, null, ex);
-          }// fim catch// fim catch
-         
+          } catch (SQLException ex) {
+              Logger.getLogger(RelatorioAtendimentoNovo.class.getName()).log(Level.SEVERE, null, ex);
+          }
          
           
   
