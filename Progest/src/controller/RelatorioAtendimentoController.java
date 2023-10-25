@@ -61,14 +61,8 @@ public class RelatorioAtendimentoController {
              
              relatorioDAO.salvarRelatorio(relatorioASalvar);
              
-             Menu menu =  new Menu(); 
-             
-    menu.adicionarRelatorio(relatorioASalvar.getNumRelatorio());
-                 
-              JOptionPane.showMessageDialog(null, "Relatorio salvo com sucesso!");
-             
-            
-              return true;
+     JOptionPane.showMessageDialog(null, "Relatorio salvo com sucesso!");
+         return true;
         }// fim if
         
         else {
@@ -83,8 +77,7 @@ public class RelatorioAtendimentoController {
 
         RelatorioAtendimentoModel relatorioASerExcluido = 
                 new RelatorioAtendimentoModel(numRelatorio);
-         // List <RelatorioAtendimentoModel> listaRelatorios = relatorioDAO.listaRelatorios(null);
-// List <Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(null);
+      
         
         RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
         

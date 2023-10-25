@@ -13,15 +13,10 @@ import java.util.List;
 public class RelatorioAtendimentoDAO {
     
      List<Integer> listaIdsRelatorios = new ArrayList<>();
-      List<Integer> listaIdsRelatoriosProntos = new ArrayList<>();
-   
-  //  List<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<>();
     
    public void salvarRelatorio(RelatorioAtendimentoModel relatorioASalvar){
         
-      
-        
-        String sql = "INSERT INTO relatorio_atendimento(nome_aluno, turma_aluno, "
+    String sql = "INSERT INTO relatorio_atendimento(nome_aluno, turma_aluno, "
                 + "nome_responsavel, data_ocorrido, horario, locall, situacao, encaminhamento, conclusao,"
                 + "concluido) "
                 + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -205,12 +200,20 @@ public class RelatorioAtendimentoDAO {
                  }// fim else             
     }// fim metodo
     
-    public List<Integer> listaIdsRelatorios() throws SQLException{
+   public List<Integer> listaIdsRelatorios(String tipoOrdenacao) throws SQLException{
         
         RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
-        
+        String sql = null;
+         if(tipoOrdenacao.equals("Todos relatórios")){
+          sql = "select numero_relatorio from relatorio_atendimento order by numero_relatorio desc;";
+         }// fim if 
          
-       String  sql = "select numero_relatorio from relatorio_atendimento order by numero_relatorio desc;";
+         else if (tipoOrdenacao.equals("Já concluídos")){
+             
+              sql = "select numero_relatorio from relatorio_atendimento where concluido = true order by numero_relatorio desc;";
+  
+         }// fim else if
+       
  PreparedStatement ps = null;
 	Connection connection = null;
             
@@ -231,30 +234,9 @@ listaIdsRelatorios.add(relatorio.getNumRelatorio());
     }// fim metodo
     
     
-    public List<Integer> listaIdsRelatoriosProntos() throws SQLException{
-        
-        RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
-   String  sql = "select numero_relatorio from relatorio_atendimento where concluido = true order by numero_relatorio desc;";
-  
-	PreparedStatement ps = null;
-	Connection connection = null;
-            
-		connection = new Conexao().getConexao();
-		
-		ps = connection.prepareStatement(sql); 
-             
-                 ResultSet resultSet = ps.executeQuery();
-        
-                 while(resultSet.next()){
-  relatorio.setNumRelatorio(resultSet.getInt("numero_relatorio"));
-                    
-listaIdsRelatoriosProntos.add(relatorio.getNumRelatorio());
-                 }// fim while
-        
-                 return listaIdsRelatoriosProntos;
-      
-      
-    }// fim metodo
+    
+    
+   
       
     }// fim classe
     

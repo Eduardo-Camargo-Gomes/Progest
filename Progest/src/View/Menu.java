@@ -34,7 +34,7 @@ import javax.swing.JOptionPane;
 
 public class Menu extends javax.swing.JFrame {
     
-    String tipoOrdenacao = "Todos relatórios";
+    String tipoOrdenacao = null;
     //Todos relatórios, Já concluídos   
     RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
     private RelatorioAtendimentoController controlador;
@@ -50,163 +50,25 @@ public class Menu extends javax.swing.JFrame {
           
         initComponents();
            
-         mostrarRelatorios(tipoOrdenacao);
+         mostrarRelatorios("Todos relatórios");
   
     }// fim construtor 
 
-    public boolean getLabelsCriados() {
-        return labelsCriados;
-    }
-
-    public void setLabelsCriados(boolean labelsCriados) {
-        this.labelsCriados = labelsCriados;
-    }
-    
-    
-    
- 
-    RelatorioAtendimentoModel relatorioModel = new RelatorioAtendimentoModel();
-    
-  /* public void atualizarTela(String tipoOrdenacao) throws SQLException{
-       
-        listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(tipoOrdenacao);
-       listaIdsRelatoriosProntos = relatorioDAO.listaIdsRelatoriosProntos(tipoOrdenacao);
-        
-        painelRelatorios.removeAll();
-            
-     if(tipoOrdenacao.equals("Todos relatórios")){
- 
- 
-   // List <Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(tipoOrdenacao);
-     Map <Integer, JLabel> mapaRelatorios = new HashMap<>();    
-          List <JLabel> listaLabel = new ArrayList<>();
-  
-   ImageIcon imagemRelatorio = new ImageIcon(getClass().getResource("Cap.relatorio1.jpg"));
-     for(int i = 0; i < listaIdsRelatorios.size() ; i++){
-           
-             
-   JLabel miniaturaRelatorios = new JLabel(imagemRelatorio);
-         
-  miniaturaRelatorios.putClientProperty("numeroRelatorio", listaIdsRelatorios.get(i));
-      
-
-        miniaturaRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-         
-          miniaturaRelatorios.setVisible(true);
-         
-        painelRelatorios.add(miniaturaRelatorios);  
-    painelRelatorios.setVisible(true);
-    
-    
-
-    miniaturaRelatorios.addMouseListener(new MouseAdapter(){   
-        
-        
-        @Override 
-        public void mouseClicked(MouseEvent e ){
-        
-             JLabel relatorioClicado = (JLabel) e.getSource();
-            
-            Object idObj = relatorioClicado.getClientProperty("numeroRelatorio");
-            
-            final int id = (int) idObj;
-           
-      
-  RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-  RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel(id);
-            try {
-             new RelatorioAtendimentoAcessar(relatorioAcessar).setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }   
-    });
    
-          }// fim for 
-     
-     
-    painelRelatorios.revalidate();
-  painelRelatorios.repaint();
-  
-         }// fim if
-         
-          if (tipoOrdenacao.equals("Já concluídos")){
-             
-            
-             // listaIdsRelatoriosProntos = relatorioDAO.listaIdsRelatoriosProntos(tipoOrdenacao);
-  
-     // List <Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(tipoOrdenacao);
-     Map <Integer, JLabel> mapaRelatorios = new HashMap<>();    
-          
-  
-   ImageIcon imagemRelatorio = new ImageIcon(getClass().getResource("Cap.relatorio1.jpg"));
-     for(int i = 0; i < listaIdsRelatoriosProntos.size() ; i++){
-           
-             
-   JLabel miniaturaRelatorios = new JLabel(imagemRelatorio);
-          
-  miniaturaRelatorios.putClientProperty("numeroRelatorio", listaIdsRelatoriosProntos.get(i));
-  miniaturaRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-         
-          miniaturaRelatorios.setVisible(true);
-         
-        painelRelatorios.add(miniaturaRelatorios);  
-    painelRelatorios.setVisible(true);
-    
-    
-
-    miniaturaRelatorios.addMouseListener(new MouseAdapter(){   
-        
-        
-        @Override 
-        public void mouseClicked(MouseEvent e ){
-        
-             JLabel relatorioClicado = (JLabel) e.getSource();
-            
-            Object idObj = relatorioClicado.getClientProperty("numeroRelatorio");
-            
-            final int id = (int) idObj;
-           
-      
-  RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-  RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel(id);
-            try {
-             new RelatorioAtendimentoAcessar(relatorioAcessar).setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }   
-    });
-   
-          }// fim for 
-    
-    painelRelatorios.revalidate();
-  painelRelatorios.repaint();
-            
-         }// fim else if
-    }//fim metodo */
-    
     
 public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
        
+  /*if(filtroJanela.getSelectedIndex() == 0  ){
+      tipoOrdenacao = "Todos relatórios";
+  }// fim iif 
+  
+  else if (filtroJanela.getSelectedIndex()== 1){
+      tipoOrdenacao = "Já concluídos";
+  }// fimelse if */
     
-     
-      if(tipoOrdenacao.equals("Todos relatórios")){
-   listaIdsRelatorios  = relatorioDAO.listaIdsRelatorios();
-              
-          }// fim if 
+        listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(tipoOrdenacao);
         
-        else  if (tipoOrdenacao.equals("Já concluídos")){
-        listaIdsRelatorios = relatorioDAO.listaIdsRelatoriosProntos();
-        }// fim else if
-        
-       // List <Integer> listaIdsRelatorios = obterArray(tipoOrdenacao);
-      
-      //  List <Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios();
+   
      Map <Integer, JLabel> mapaRelatorios = new HashMap<>();    
 
    ImageIcon imagemRelatorio = new ImageIcon(getClass().getResource("Cap.relatorio1.jpg"));
@@ -255,7 +117,7 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
       
     painelRelatorios.revalidate();
         painelRelatorios.repaint();
-    setLabelsCriados(true);
+   
          
     }//fim metodo 
 
@@ -265,6 +127,9 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
     private void initComponents() {
 
         documentoSelecionado = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
+        atualizar = new javax.swing.JLabel();
+        filtroJanela = new javax.swing.JComboBox<>();
         painelLateral = new javax.swing.JPanel();
         tresPontosLateral = new javax.swing.JLabel();
         logoProgestLateral = new javax.swing.JLabel();
@@ -276,17 +141,16 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
         excluirRelatorio = new javax.swing.JLabel();
         excluirFicha = new javax.swing.JLabel();
         alterarFicha = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        atualizar = new javax.swing.JLabel();
-        filtroJanela = new javax.swing.JComboBox<>();
         janelaPrincipal = new javax.swing.JPanel();
         Iniciarumnovodocumento = new javax.swing.JLabel();
         novolbl = new javax.swing.JLabel();
         relatorio1 = new javax.swing.JButton();
+        relatorio3 = new javax.swing.JButton();
         novo = new javax.swing.JButton();
         relatorio2 = new javax.swing.JButton();
-        relatorioRadio = new javax.swing.JRadioButton();
         fichaRadio = new javax.swing.JRadioButton();
+        parecerRadio = new javax.swing.JRadioButton();
+        relatorioRadio = new javax.swing.JRadioButton();
         painelRelatorios = new javax.swing.JPanel();
         logoProgest = new javax.swing.JLabel();
         tresPontosJanela = new javax.swing.JLabel();
@@ -294,6 +158,32 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
         documentosRecentes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setMinimumSize(new java.awt.Dimension(1535, 785));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        atualizar.setText("REFRESH");
+        atualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                atualizarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 70, 30));
+
+        filtroJanela.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
+        filtroJanela.setForeground(new java.awt.Color(51, 51, 51));
+        filtroJanela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos relatórios", "Já concluídos" }));
+        filtroJanela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroJanelaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(filtroJanela, new org.netbeans.lib.awtextra.AbsoluteConstraints(815, 398, -1, -1));
 
         painelLateral.setBackground(new java.awt.Color(210, 225, 233));
         painelLateral.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -404,31 +294,7 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
         });
         painelLateral.add(alterarFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
 
-        jPanel1.setMinimumSize(new java.awt.Dimension(1535, 785));
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel1MouseClicked(evt);
-            }
-        });
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        atualizar.setText("REFRESH");
-        atualizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                atualizarMouseClicked(evt);
-            }
-        });
-        jPanel1.add(atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 70, 30));
-
-        filtroJanela.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
-        filtroJanela.setForeground(new java.awt.Color(51, 51, 51));
-        filtroJanela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos relatórios", "Já concluídos" }));
-        filtroJanela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filtroJanelaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(filtroJanela, new org.netbeans.lib.awtextra.AbsoluteConstraints(815, 398, -1, -1));
+        jPanel1.add(painelLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 785));
 
         janelaPrincipal.setBackground(new java.awt.Color(210, 225, 233));
         janelaPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -450,6 +316,14 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
             }
         });
         janelaPrincipal.add(relatorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 58, 150, 185));
+
+        relatorio3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Cap.relatorio1 (1).jpg"))); // NOI18N
+        relatorio3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorio3ActionPerformed(evt);
+            }
+        });
+        janelaPrincipal.add(relatorio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 150, 185));
 
         novo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/mais (1).png"))); // NOI18N
@@ -475,17 +349,6 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
         });
         janelaPrincipal.add(relatorio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 58, 150, 185));
 
-        relatorioRadio.setBackground(new java.awt.Color(210, 225, 233));
-        documentoSelecionado.add(relatorioRadio);
-        relatorioRadio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        relatorioRadio.setText("Relatório ");
-        relatorioRadio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                relatorioRadioActionPerformed(evt);
-            }
-        });
-        janelaPrincipal.add(relatorioRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 244, 99, 16));
-
         fichaRadio.setBackground(new java.awt.Color(210, 225, 233));
         documentoSelecionado.add(fichaRadio);
         fichaRadio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -495,7 +358,29 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
                 fichaRadioActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(fichaRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 244, 150, 16));
+        janelaPrincipal.add(fichaRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 250, 150, 16));
+
+        parecerRadio.setBackground(new java.awt.Color(210, 225, 233));
+        documentoSelecionado.add(parecerRadio);
+        parecerRadio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        parecerRadio.setText("Parecer");
+        parecerRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                parecerRadioActionPerformed(evt);
+            }
+        });
+        janelaPrincipal.add(parecerRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 250, 99, 16));
+
+        relatorioRadio.setBackground(new java.awt.Color(210, 225, 233));
+        documentoSelecionado.add(relatorioRadio);
+        relatorioRadio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        relatorioRadio.setText("Relatório ");
+        relatorioRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioRadioActionPerformed(evt);
+            }
+        });
+        janelaPrincipal.add(relatorioRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 99, 16));
 
         jPanel1.add(janelaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 1535, 316));
 
@@ -532,20 +417,10 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(painelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(painelLateral, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -610,9 +485,9 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
         resetcolor(tresPontosLateral);
     }//GEN-LAST:event_tresPontosLateralMouseExited
 
-    private void relatorio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorio1ActionPerformed
+    private void relatorio3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorio3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_relatorio1ActionPerformed
+    }//GEN-LAST:event_relatorio3ActionPerformed
 
     private void novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoActionPerformed
       
@@ -637,7 +512,18 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
                }
                
            }// fim if
+    
        }// fim else if 
+        
+         else if (parecerRadio.isSelected()){
+               if(evt.getSource() == novo){
+                   try {
+                       new ParecerNovo().setVisible(true);
+                   } catch (SQLException ex) {
+                       Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                   }// fim catch
+               }// fim fif
+           }// fim else ifG
          
     }//GEN-LAST:event_novoActionPerformed
 
@@ -686,31 +572,23 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
     }//GEN-LAST:event_alterarFichaMouseClicked
 
     private void filtroJanelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroJanelaActionPerformed
-                    limpar();
-        try {
        
-   mostrarRelatorios((String)filtroJanela.getSelectedItem());
-        
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
        
     }//GEN-LAST:event_filtroJanelaActionPerformed
 
     private void atualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atualizarMouseClicked
      
   
-        try {
-             painelRelatorios.removeAll();
-    painelRelatorios.revalidate();
-    painelRelatorios.repaint();
-            mostrarRelatorios(tipoOrdenacao);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      
     }//GEN-LAST:event_atualizarMouseClicked
+
+    private void relatorio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorio1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_relatorio1ActionPerformed
+
+    private void parecerRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parecerRadioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_parecerRadioActionPerformed
  
 
     /**
@@ -770,9 +648,11 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
     private javax.swing.JLabel novolbl;
     private javax.swing.JPanel painelLateral;
     private javax.swing.JPanel painelRelatorios;
+    private javax.swing.JRadioButton parecerRadio;
     private javax.swing.JLabel progestLogo;
     private javax.swing.JButton relatorio1;
     private javax.swing.JButton relatorio2;
+    private javax.swing.JButton relatorio3;
     private javax.swing.JRadioButton relatorioRadio;
     private javax.swing.JLabel tresPontosJanela;
     private javax.swing.JLabel tresPontosLateral;
@@ -827,26 +707,7 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
        }// fim if
     }// fim metodo
     
-    public List<Integer> obterArray(String tipoOrdenacao) throws SQLException{
-        
-       
-        List<Integer> listaIds = new ArrayList<>();
-        
-        if(tipoOrdenacao.equals("Todos relatórios")){
-              
-            
-            listaIds = relatorioDAO.listaIdsRelatorios();
-              
-          }// fim if 
-        
-        else  if (tipoOrdenacao.equals("Já concluídos")){
-            listaIds = relatorioDAO.listaIdsRelatoriosProntos();
-        }// fim else if
-        
-        
-        return listaIds;
-        
-    }// fim metodo
+   
     
     public void limpar(){
         painelRelatorios.removeAll();
