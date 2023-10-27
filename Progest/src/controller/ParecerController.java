@@ -78,23 +78,22 @@ public class ParecerController {
         }// fim else 
     }// fim metodo
      
-      public boolean alterarRelatorio( String assuntoParecer, String interessadoParecer, String matriculaAluno,
+     
+     
+      public boolean alterarParecer  ( String assuntoParecer, String interessadoParecer, String matriculaAluno,
             String texto,
             String local, Date dataOcorrido, boolean concluido, int numParecer){
           
+       ParecerDAO parecerDAO = new ParecerDAO();
          
-         RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-         
-        ParecerModel parecerAAlterar =
-                new ParecerModel( assuntoParecer, interessadoParecer,  matriculaAluno,
-            texto,
-             local dataOcorrido, boolean concluido, numParecer);
+        ParecerModel parecerAAlterar = new ParecerModel
+        ( assuntoParecer, interessadoParecer, matriculaAluno, texto,
+             local, dataOcorrido, concluido, numParecer);
           
-        if(dataOcorrido != null && horarioOcorrido != null && localOcorrido.length() > 0 
-                && nomeAluno.length() > 0 && turmaAluno.length() > 0 && nomeResponsavel.length() >0
-                && situacao.length() > 0 ){
+       if(assuntoParecer.length() > 0 && interessadoParecer.length() >0 && matriculaAluno.length() > 0&& texto.length()>0 
+             && local.length() > 0 && dataOcorrido != null ){
          
-            relatorioDAO.alterarRelatorio(relatorioAAlterar);
+            parecerDAO.alterarParecer(parecerAAlterar);
      
             JOptionPane.showMessageDialog(null, "Alterações salvas com sucesso!");
               return true;

@@ -22,27 +22,53 @@ import model.ParecerModel;
 public class ParecerAcessar extends javax.swing.JFrame {
     
     SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+      SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
 
-    /**
-     * Creates new form ParecerNovo
-     */
-    public ParecerAcessar() throws SQLException{
+      boolean concluido = false;
+    
+       public ParecerAcessar() throws SQLException{
         initComponents();
         setLocationRelativeTo(null);
          setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-         mostrarIdParecer();
-         numeroDoParecer.setEditable(false);
-    }//fim construtor
-    
-    public void mostrarIdParecer() throws SQLException{
         
-        ParecerModel parecerModel = new ParecerModel();
-        ParecerDAO parecerDAO = new ParecerDAO();
+       }
+       
+    public ParecerAcessar(ParecerModel parecerAcessar) throws SQLException, ParseException{
         
-        parecerModel = parecerDAO.mostrarNumeroParecer();
-        numeroDoParecer.setText(String.valueOf(parecerModel.getNumeroDoParecer()+ 1));
-    }// fim metodo
+        initComponents();
+        setLocationRelativeTo(null);
+         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+         
+         ParecerDAO parecerDAO = new ParecerDAO();
+         
+         parecerAcessar = parecerDAO.acessarParecer(parecerAcessar.getNumParecer());
+         
+           Date data = formatoBanco.parse(String.valueOf(parecerAcessar.getDataOcorrido()));
+           
+            String dataOcorrencia; 
+       dataOcorrencia = formatoData.format(data);
+       
+        if(parecerAcessar.getConcluido() == true){
+           CheckConcluido.setSelected(true);
+       }// fim if 
+       
+       else{
+           CheckConcluido.setSelected(false);
+       }// fim else  
+        
+        numeroDoParecer.setText(String.valueOf(parecerAcessar.getNumParecer()));
+        assuntoDoParecer.setText(parecerAcessar.getAssuntoParecer());
+        nomeInteressado.setText(parecerAcessar.getInteressadoParecer());
+        codMatricula.setText(parecerAcessar.getMatriculaAluno());
+        localDoTexto.setText(parecerAcessar.getTexto());
+        local.setText(parecerAcessar.getLocal());
+        campoData.setText(String.valueOf(dataOcorrencia));
+        
+        numeroDoParecer.setEditable(false);
+        
+    }//fim construtor  de preenchimento
     
+   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -83,7 +109,7 @@ public class ParecerAcessar extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
         local = new javax.swing.JTextField();
-        data = new javax.swing.JTextField();
+        campoData = new javax.swing.JTextField();
         CheckConcluido = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -102,6 +128,11 @@ public class ParecerAcessar extends javax.swing.JFrame {
         jPanel1.add(novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
         voltar.setText("VOLTAR");
+        voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarActionPerformed(evt);
+            }
+        });
         jPanel1.add(voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 121, -1));
 
@@ -148,7 +179,7 @@ public class ParecerAcessar extends javax.swing.JFrame {
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 264, -1, -1));
 
         nomeInteressado.setBorder(null);
-        jPanel1.add(nomeInteressado, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 264, 198, -1));
+        jPanel1.add(nomeInteressado, new org.netbeans.lib.awtextra.AbsoluteConstraints(128, 264, 190, -1));
 
         jLabel12.setText("MATRICULADO:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 294, -1, -1));
@@ -178,8 +209,8 @@ public class ParecerAcessar extends javax.swing.JFrame {
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 220, -1));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 200, -1));
         jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 190, 10));
-        jPanel1.add(local, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 682, 100, -1));
-        jPanel1.add(data, new org.netbeans.lib.awtextra.AbsoluteConstraints(596, 682, 60, -1));
+        jPanel1.add(local, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 682, 90, -1));
+        jPanel1.add(campoData, new org.netbeans.lib.awtextra.AbsoluteConstraints(586, 682, 70, -1));
 
         CheckConcluido.setText("Marcar como concluído");
         CheckConcluido.addActionListener(new java.awt.event.ActionListener() {
@@ -216,12 +247,50 @@ public class ParecerAcessar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoActionPerformed
-         //AQ MARCOS
+         if(evt.getSource()==novo){
+             ParecerModel parecerModel = new ParecerModel();
+             ParecerDAO parecerDAO = new ParecerDAO();
+             ParecerController controlador = new ParecerController();
+             
+             boolean concluido = false;
+             
+              if(CheckConcluido.isSelected()){
+                 concluido = true;
+             }// fim if
+              
+                Date dataOcorrencia = new Date();
+             try {
+                 dataOcorrencia = formatoData.parse(campoData.getText());
+             } catch (ParseException ex) {
+                 Logger.getLogger(ParecerAcessar.class.getName()).log(Level.SEVERE, null, ex);
+             }
+               formatoData.format(dataOcorrencia);
+               
+                int numParecer = Integer.parseInt(numeroDoParecer.getText());
+                
+                boolean salvou = controlador.alterarParecer(assuntoDoParecer.getText(), nomeInteressado.getText(), 
+         
+                        codMatricula.getText(),localDoTexto.getText(), local.getText(), dataOcorrencia , concluido, numParecer);
+         if(salvou){
+             this.dispose();
+             
+         }
+         
+         }// fim if
+         
+         
+             
     }//GEN-LAST:event_novoActionPerformed
 
     private void CheckConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckConcluidoActionPerformed
 
     }//GEN-LAST:event_CheckConcluidoActionPerformed
+
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
+      if(evt.getSource() == voltar){
+          this.dispose();
+      }// fim if
+    }//GEN-LAST:event_voltarActionPerformed
 
     /**
      * 
@@ -270,8 +339,8 @@ public class ParecerAcessar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox CheckConcluido;
     private javax.swing.JTextField assuntoDoParecer;
+    private javax.swing.JTextField campoData;
     private javax.swing.JTextField codMatricula;
-    private javax.swing.JTextField data;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

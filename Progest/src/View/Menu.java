@@ -128,7 +128,6 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
 
         documentoSelecionado = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        atualizar = new javax.swing.JLabel();
         filtroJanela = new javax.swing.JComboBox<>();
         painelLateral = new javax.swing.JPanel();
         tresPontosLateral = new javax.swing.JLabel();
@@ -141,6 +140,7 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
         excluirRelatorio = new javax.swing.JLabel();
         excluirFicha = new javax.swing.JLabel();
         alterarFicha = new javax.swing.JLabel();
+        alterarParecer = new javax.swing.JLabel();
         janelaPrincipal = new javax.swing.JPanel();
         Iniciarumnovodocumento = new javax.swing.JLabel();
         novolbl = new javax.swing.JLabel();
@@ -166,14 +166,6 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
             }
         });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        atualizar.setText("REFRESH");
-        atualizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                atualizarMouseClicked(evt);
-            }
-        });
-        jPanel1.add(atualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 70, 30));
 
         filtroJanela.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         filtroJanela.setForeground(new java.awt.Color(51, 51, 51));
@@ -294,7 +286,15 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
         });
         painelLateral.add(alterarFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
 
-        jPanel1.add(painelLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 785));
+        alterarParecer.setText("Alterar Parecer");
+        alterarParecer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                alterarParecerMouseClicked(evt);
+            }
+        });
+        painelLateral.add(alterarParecer, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 140, -1));
+
+        jPanel1.add(painelLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 785));
 
         janelaPrincipal.setBackground(new java.awt.Color(210, 225, 233));
         janelaPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -315,7 +315,7 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
                 relatorio1ActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(relatorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 58, 150, 185));
+        janelaPrincipal.add(relatorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 150, 185));
 
         relatorio3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Cap.relatorio1 (1).jpg"))); // NOI18N
         relatorio3.addActionListener(new java.awt.event.ActionListener() {
@@ -323,7 +323,7 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
                 relatorio3ActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(relatorio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 150, 185));
+        janelaPrincipal.add(relatorio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 60, 150, 185));
 
         novo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/mais (1).png"))); // NOI18N
@@ -338,7 +338,7 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
                 novoActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 58, 150, 185));
+        janelaPrincipal.add(novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 150, 185));
 
         relatorio2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         relatorio2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ficha de atendimento.jpg"))); // NOI18N
@@ -347,7 +347,7 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
                 relatorio2ActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(relatorio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 58, 150, 185));
+        janelaPrincipal.add(relatorio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 60, 150, 185));
 
         fichaRadio.setBackground(new java.awt.Color(210, 225, 233));
         documentoSelecionado.add(fichaRadio);
@@ -358,7 +358,7 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
                 fichaRadioActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(fichaRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 250, 150, 16));
+        janelaPrincipal.add(fichaRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 250, 150, 16));
 
         parecerRadio.setBackground(new java.awt.Color(210, 225, 233));
         documentoSelecionado.add(parecerRadio);
@@ -369,7 +369,7 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
                 parecerRadioActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(parecerRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 250, 99, 16));
+        janelaPrincipal.add(parecerRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 250, 99, 16));
 
         relatorioRadio.setBackground(new java.awt.Color(210, 225, 233));
         documentoSelecionado.add(relatorioRadio);
@@ -380,7 +380,7 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
                 relatorioRadioActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(relatorioRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 99, 16));
+        janelaPrincipal.add(relatorioRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 99, 16));
 
         jPanel1.add(janelaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 1535, 316));
 
@@ -576,12 +576,6 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
        
     }//GEN-LAST:event_filtroJanelaActionPerformed
 
-    private void atualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atualizarMouseClicked
-     
-  
-      
-    }//GEN-LAST:event_atualizarMouseClicked
-
     private void relatorio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorio1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_relatorio1ActionPerformed
@@ -589,6 +583,10 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
     private void parecerRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parecerRadioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_parecerRadioActionPerformed
+
+    private void alterarParecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterarParecerMouseClicked
+        new AlterarParecer().setVisible(true);
+    }//GEN-LAST:event_alterarParecerMouseClicked
  
 
     /**
@@ -630,8 +628,8 @@ public void mostrarRelatorios(String tipoOrdenacao) throws SQLException{
     private javax.swing.JLabel Iniciarumnovodocumento;
     private javax.swing.JLabel ajudalbl;
     private javax.swing.JLabel alterarFicha;
+    private javax.swing.JLabel alterarParecer;
     private javax.swing.JLabel alterarRelatorio;
-    private javax.swing.JLabel atualizar;
     private javax.swing.JLabel configlbl;
     private javax.swing.ButtonGroup documentoSelecionado;
     private javax.swing.JLabel documentosRecentes;

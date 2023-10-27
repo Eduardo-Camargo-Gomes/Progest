@@ -126,7 +126,7 @@ public class ParecerDAO {
                 
         String sql = "update parecer set assunto_parecer = ? , interessado_parecer = ?, "
                 + "matricula_aluno = ?, locall= ?, data_ocorrido = ? , texto = ?,"
-                + "texto = ? where numero_parecer = ?";
+                + "concluido = ? where numero_parecer = ?";
                        
         PreparedStatement ps = null;
 	Connection connection = null;
@@ -152,6 +152,42 @@ public class ParecerDAO {
         e.printStackTrace();       
     }// fim catch
         
+    }// fim metodo
+        
+          public ParecerModel acessarParecer(int numeroParecer) throws SQLException{
+
+       ParecerModel parecer = new ParecerModel(numeroParecer);
+// instancia um objeto model e passa por parametro o id para consultar
+              String sql = "select * from parecer where numero_parecer = ?";
+	
+	PreparedStatement ps = null;
+	Connection connection = null;
+            
+		connection = new Conexao().getConexao();
+		
+		ps = connection.prepareStatement(sql);  
+                 
+                 ps.setInt(1, numeroParecer);
+                 
+                 ResultSet resultSet = ps.executeQuery();
+                 
+              if(resultSet.next()){
+
+                  parecer.setNumParecer(resultSet.getInt("numero_parecer"));
+                  parecer.setAssuntoParecer(resultSet.getString("assunto_parecer"));
+                  parecer.setInteressadoParecer(resultSet.getString("interessado_parecer"));
+                  parecer.setMatriculaAluno(resultSet.getString("matricula_aluno"));
+                  parecer.setTexto(resultSet.getString("texto"));
+                  parecer.setDataOcorrido(resultSet.getDate("data_ocorrido"));
+                  parecer.setLocal(resultSet.getString("locall"));
+                  parecer.setConcluido(resultSet.getBoolean("concluido"));
+         return parecer;
+         
+         // guarda os valores no objeto "relatorio"
+                 }// fim if
+                 else {
+                     return null;
+                 }// fim else             
     }// fim metodo
     
     

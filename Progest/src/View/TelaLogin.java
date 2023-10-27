@@ -113,13 +113,13 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 60, 380, 120));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Georgia", 1, 48)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Georgia", 0, 48)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(30, 30, 31));
         jLabel3.setText("Senha");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 380, -1, -1));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("Georgia", 1, 48)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Georgia", 0, 48)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(30, 30, 31));
         jLabel4.setText("Usuario");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 250, 200, -1));

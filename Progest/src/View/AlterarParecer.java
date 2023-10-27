@@ -3,8 +3,12 @@ package View;
 
 import controller.ParecerController;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import model.DAO.ParecerDAO;
 import model.ParecerModel;
 
 /**
@@ -18,6 +22,8 @@ public class AlterarParecer extends javax.swing.JFrame {
      */
     public AlterarParecer() {
         initComponents();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     AlterarParecer(ParecerModel parecerAcessar) {
@@ -35,7 +41,7 @@ public class AlterarParecer extends javax.swing.JFrame {
 
         CampoIDParecer = new javax.swing.JTextField();
         botaoCancel = new javax.swing.JButton();
-        botaoExcluir = new javax.swing.JButton();
+        botaoAcessar = new javax.swing.JButton();
         InsiraIdLbl = new javax.swing.JLabel();
         LabelInsiraID = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -58,13 +64,13 @@ public class AlterarParecer extends javax.swing.JFrame {
             }
         });
 
-        botaoExcluir.setBackground(new java.awt.Color(51, 51, 51));
-        botaoExcluir.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        botaoExcluir.setForeground(new java.awt.Color(255, 255, 255));
-        botaoExcluir.setText("Excluir");
-        botaoExcluir.addActionListener(new java.awt.event.ActionListener() {
+        botaoAcessar.setBackground(new java.awt.Color(51, 51, 51));
+        botaoAcessar.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        botaoAcessar.setForeground(new java.awt.Color(255, 255, 255));
+        botaoAcessar.setText("Acessar");
+        botaoAcessar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoExcluirActionPerformed(evt);
+                botaoAcessarActionPerformed(evt);
             }
         });
 
@@ -72,7 +78,7 @@ public class AlterarParecer extends javax.swing.JFrame {
         InsiraIdLbl.setText(" ID:");
 
         LabelInsiraID.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        LabelInsiraID.setText("Insira o número da parecer que desejas excluir");
+        LabelInsiraID.setText("Insira o número da parecer que desejas alterar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,7 +97,7 @@ public class AlterarParecer extends javax.swing.JFrame {
                             .addComponent(InsiraIdLbl))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(80, 80, 80)
-                            .addComponent(botaoExcluir))
+                            .addComponent(botaoAcessar))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(260, 260, 260)
                             .addComponent(botaoCancel))
@@ -114,7 +120,7 @@ public class AlterarParecer extends javax.swing.JFrame {
                             .addGap(20, 20, 20)
                             .addComponent(InsiraIdLbl)
                             .addGap(32, 32, 32)
-                            .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(botaoAcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(140, 140, 140)
                             .addComponent(botaoCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -138,23 +144,35 @@ public class AlterarParecer extends javax.swing.JFrame {
         }// fim if
     }//GEN-LAST:event_botaoCancelActionPerformed
 
-    private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
-        if(evt.getSource() == botaoExcluir){
-
+    private void botaoAcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAcessarActionPerformed
+        if(evt.getSource() == botaoAcessar){
+            boolean existe;
             int numParecer = Integer.parseInt(CampoIDParecer.getText());
-
+            ParecerModel parecerModel = new ParecerModel(numParecer);
             ParecerController controlador = new ParecerController();
+            ParecerDAO parecerDAO = new ParecerDAO();
             
-            try {
-                controlador.excluirParecer(numParecer);
-            } catch (SQLException ex) {
-                Logger.getLogger(AlterarParecer.class.getName()).log(Level.SEVERE, null, ex);
+            existe = parecerDAO.existeNumeroParecer(parecerModel);
+            if(existe){
+                try {
+                    new ParecerAcessar(parecerModel).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AlterarParecer.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(AlterarParecer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }// fim if
+            else {
+                JOptionPane.showMessageDialog(null, "Número de parecer inexistente!");
             }
+            
+           
             
 
             this.dispose();
         }// fim if
-    }//GEN-LAST:event_botaoExcluirActionPerformed
+    }//GEN-LAST:event_botaoAcessarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,8 +216,8 @@ public class AlterarParecer extends javax.swing.JFrame {
     private javax.swing.JTextField CampoIDParecer;
     private javax.swing.JLabel InsiraIdLbl;
     private javax.swing.JLabel LabelInsiraID;
+    private javax.swing.JButton botaoAcessar;
     private javax.swing.JButton botaoCancel;
-    private javax.swing.JButton botaoExcluir;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

@@ -97,7 +97,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         jPanel1.add(VOLTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 610, 160, -1));
 
         pedido1.setBackground(new java.awt.Color(255, 255, 255));
-        pedido1.setFont(new java.awt.Font("Georgia", 1, 30)); // NOI18N
+        pedido1.setFont(new java.awt.Font("Georgia", 0, 30)); // NOI18N
         pedido1.setText("Nome de Usuario");
         jPanel1.add(pedido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 220, 350, 40));
 
@@ -110,7 +110,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         jPanel1.add(CampoNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 260, 350, 40));
 
         pedido2.setBackground(new java.awt.Color(255, 255, 255));
-        pedido2.setFont(new java.awt.Font("Georgia", 1, 30)); // NOI18N
+        pedido2.setFont(new java.awt.Font("Georgia", 0, 30)); // NOI18N
         pedido2.setText("Digite sua senha");
         jPanel1.add(pedido2, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 330, 290, 40));
 
@@ -123,7 +123,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         jPanel1.add(CampoSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 370, 350, 40));
 
         pedido3.setBackground(new java.awt.Color(255, 255, 255));
-        pedido3.setFont(new java.awt.Font("Georgia", 1, 30)); // NOI18N
+        pedido3.setFont(new java.awt.Font("Georgia", 0, 30)); // NOI18N
         pedido3.setText("Digite CPF");
         jPanel1.add(pedido3, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 440, 270, 40));
 

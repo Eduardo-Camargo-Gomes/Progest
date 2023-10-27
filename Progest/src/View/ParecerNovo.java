@@ -209,14 +209,14 @@ public class ParecerNovo extends javax.swing.JFrame {
                 localActionPerformed(evt);
             }
         });
-        jPanel1.add(local, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 682, 100, -1));
+        jPanel1.add(local, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 682, 90, -1));
 
         data.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dataActionPerformed(evt);
             }
         });
-        jPanel1.add(data, new org.netbeans.lib.awtextra.AbsoluteConstraints(596, 682, 60, -1));
+        jPanel1.add(data, new org.netbeans.lib.awtextra.AbsoluteConstraints(586, 682, 70, -1));
 
         CheckConcluido.setText("Marcar como concluído");
         CheckConcluido.addActionListener(new java.awt.event.ActionListener() {

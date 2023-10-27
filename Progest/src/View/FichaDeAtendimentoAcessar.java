@@ -77,12 +77,8 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
 
     SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
      SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
-    /**
-     * Creates new form FichaDeAtendimento
-     * 
-     * 
-                  getTipoEscola(), anoQueConcluiu 
-     */
+   
+     
     public FichaDeAtendimentoAcessar() throws SQLException {
         initComponents();
        campoId.setEditable(false);
