@@ -205,11 +205,12 @@ public class RelatorioAtendimentoDAO {
         RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
         String sql = null;
          if(tipoOrdenacao.equals("Todos relatórios")){
+              listaIdsRelatorios.clear();
           sql = "select numero_relatorio from relatorio_atendimento order by numero_relatorio desc;";
          }// fim if 
          
          else if (tipoOrdenacao.equals("Já concluídos")){
-             
+             listaIdsRelatorios.clear();
               sql = "select numero_relatorio from relatorio_atendimento where concluido = true order by numero_relatorio desc;";
   
          }// fim else if
@@ -234,7 +235,7 @@ listaIdsRelatorios.add(relatorio.getNumRelatorio());
     }// fim metodo
     
     
-    
+   
     
    
       

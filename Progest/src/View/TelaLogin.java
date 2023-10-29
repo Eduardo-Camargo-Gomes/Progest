@@ -78,6 +78,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.add(esqueciSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 500, 160, 20));
 
         USUARIO.setBackground(new java.awt.Color(210, 225, 233));
+        USUARIO.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         USUARIO.setForeground(new java.awt.Color(30, 30, 31));
         USUARIO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +88,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.add(USUARIO, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 300, 250, 40));
 
         SENHA.setBackground(new java.awt.Color(210, 225, 233));
+        SENHA.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         SENHA.setForeground(new java.awt.Color(30, 30, 31));
         jPanel1.add(SENHA, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 430, 250, 40));
 

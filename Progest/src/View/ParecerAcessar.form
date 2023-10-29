@@ -386,14 +386,14 @@
             <Component class="javax.swing.JTextField" name="local">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="490" y="682" width="90" height="-1"/>
+                  <AbsoluteConstraints x="490" y="682" width="80" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="campoData">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="586" y="682" width="70" height="-1"/>
+                  <AbsoluteConstraints x="576" y="682" width="80" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>

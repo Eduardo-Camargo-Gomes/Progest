@@ -209,8 +209,8 @@ public class ParecerAcessar extends javax.swing.JFrame {
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 220, -1));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 200, -1));
         jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 190, 10));
-        jPanel1.add(local, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 682, 90, -1));
-        jPanel1.add(campoData, new org.netbeans.lib.awtextra.AbsoluteConstraints(586, 682, 70, -1));
+        jPanel1.add(local, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 682, 80, -1));
+        jPanel1.add(campoData, new org.netbeans.lib.awtextra.AbsoluteConstraints(576, 682, 80, -1));
 
         CheckConcluido.setText("Marcar como concluído");
         CheckConcluido.addActionListener(new java.awt.event.ActionListener() {
@@ -277,9 +277,7 @@ public class ParecerAcessar extends javax.swing.JFrame {
          }
          
          }// fim if
-         
-         
-             
+                     
     }//GEN-LAST:event_novoActionPerformed
 
     private void CheckConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckConcluidoActionPerformed
