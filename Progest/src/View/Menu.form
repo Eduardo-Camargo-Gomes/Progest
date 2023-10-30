@@ -514,9 +514,12 @@
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
+              <StringArray count="5">
                 <StringItem index="0" value="Todos relat&#xf3;rios"/>
                 <StringItem index="1" value="J&#xe1; conclu&#xed;dos"/>
+                <StringItem index="2" value="&#xda;ltimos acessados"/>
+                <StringItem index="3" value="&#xda;ltima modifica&#xe7;&#xe3;o"/>
+                <StringItem index="4" value=" "/>
               </StringArray>
             </Property>
           </Properties>

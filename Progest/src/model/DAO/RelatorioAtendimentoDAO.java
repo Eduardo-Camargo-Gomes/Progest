@@ -7,13 +7,17 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RelatorioAtendimentoDAO {
     
      List<Integer> listaIdsRelatorios = new ArrayList<>();
-    
+    LocalDateTime dataHoraAtual = LocalDateTime.now();
+    Timestamp timestamp = Timestamp.valueOf(dataHoraAtual);
+     
    public void salvarRelatorio(RelatorioAtendimentoModel relatorioASalvar){
         
     String sql = "INSERT INTO relatorio_atendimento(nome_aluno, turma_aluno, "
@@ -132,7 +136,7 @@ public class RelatorioAtendimentoDAO {
                 
         String sql = "update relatorio_atendimento set nome_aluno = ? , turma_aluno= ?, "
                 + "nome_responsavel = ?, data_ocorrido= ?, horario = ? , locall= ? ,"
-                + "situacao = ?, encaminhamento = ?, conclusao= ?, concluido = ? where numero_relatorio = ?";
+                + "situacao = ?, encaminhamento = ?, conclusao= ?, concluido = ?,  dataModificacao = ? where numero_relatorio = ?";
         
         PreparedStatement ps = null;
 	Connection connection = null;
@@ -151,7 +155,9 @@ public class RelatorioAtendimentoDAO {
                   ps.setString(8, relatorioAAlterar.getEncaminhamentos());
                   ps.setString(9, relatorioAAlterar.getConclusao());
                    ps.setBoolean(10, relatorioAAlterar.getConcluido());
-                  ps.setInt(11, relatorioAAlterar.getNumRelatorio());
+                    ps.setTimestamp(11, timestamp );
+                  ps.setInt(12, relatorioAAlterar.getNumRelatorio());
+                 
                  
                   ps.execute();
                 
@@ -179,6 +185,20 @@ public class RelatorioAtendimentoDAO {
                  
                  ResultSet resultSet = ps.executeQuery();
                  
+       String sql2 = "update relatorio_atendimento set dataAcesso = ? where numero_relatorio = ?;"; 
+       
+       PreparedStatement ps2 = null;
+	Connection connection2 = null;
+            
+		connection2 = new Conexao().getConexao();
+		
+		ps2 = connection2.prepareStatement(sql2);  
+                 
+                 ps2.setTimestamp(1, timestamp);
+                 ps2.setInt(2, numeroRelatorio);
+
+                 ps2.execute();
+                 
               if(resultSet.next()){
  relatorio.setNumRelatorio(resultSet.getInt("numero_relatorio"));
  relatorio.setDataOcorrido(resultSet.getDate("data_ocorrido"));
@@ -197,7 +217,10 @@ public class RelatorioAtendimentoDAO {
                  }// fim if
                  else {
                      return null;
-                 }// fim else             
+                 }// fim else  
+              
+              
+      
     }// fim metodo
     
    public List<Integer> listaIdsRelatorios(String tipoOrdenacao) throws SQLException{
@@ -214,6 +237,18 @@ public class RelatorioAtendimentoDAO {
               sql = "select numero_relatorio from relatorio_atendimento where concluido = true order by numero_relatorio desc;";
   
          }// fim else if
+         
+         else if (tipoOrdenacao.equals("Últimos acessados")){
+             listaIdsRelatorios.clear();
+             sql = "select numero_relatorio from relatorio_atendimento order by dataAcesso desc;";
+         }// fim else if
+         
+          else if (tipoOrdenacao.equals("Última modificação")){
+              listaIdsRelatorios.clear();
+             sql = "select numero_relatorio from relatorio_atendimento order by dataModificacao desc;";
+         }// fim else if
+         
+    
        
  PreparedStatement ps = null;
 	Connection connection = null;

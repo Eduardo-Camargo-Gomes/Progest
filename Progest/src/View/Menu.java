@@ -364,7 +364,7 @@ public class Menu extends javax.swing.JFrame {
 
         filtroJanela.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         filtroJanela.setForeground(new java.awt.Color(51, 51, 51));
-        filtroJanela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos relatórios", "Já concluídos" }));
+        filtroJanela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos relatórios", "Já concluídos", "Últimos acessados", "Última modificação", " " }));
         filtroJanela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filtroJanelaActionPerformed(evt);
@@ -558,15 +558,12 @@ public class Menu extends javax.swing.JFrame {
     private void filtroJanelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroJanelaActionPerformed
 
         tipoOrdenacao = (String) filtroJanela.getSelectedItem();
-
-       
-
         try {
             mostrarRelatorios(tipoOrdenacao);
         } catch (SQLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
 
     }//GEN-LAST:event_filtroJanelaActionPerformed
 
