@@ -78,7 +78,9 @@ public class AlterarParecer extends javax.swing.JFrame {
         InsiraIdLbl.setText(" ID:");
 
         LabelInsiraID.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        LabelInsiraID.setText("Insira o número da parecer que desejas alterar");
+        LabelInsiraID.setText("Insira o número do parecer que desejas alterar");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura de tela login2.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

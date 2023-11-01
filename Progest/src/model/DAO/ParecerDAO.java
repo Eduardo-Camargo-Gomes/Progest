@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import model.FichaAtendimentoModel;
 import model.ParecerModel;
 import model.RelatorioAtendimentoModel;
 
@@ -18,11 +21,13 @@ import model.RelatorioAtendimentoModel;
 public class ParecerDAO {
     
     List<Integer> listaIdsParecer = new ArrayList<>();
+    LocalDateTime dataHoraAtual = LocalDateTime.now();
+    Timestamp timestamp = Timestamp.valueOf(dataHoraAtual);
     
      public void salvarParecer(ParecerModel parecerASalvar){
         
     String sql = "INSERT INTO parecer (assunto_parecer, interessado_parecer, "
-                + "matricula_aluno, texto, locall, data_ocorrido, concluido) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                + "matricula_aluno, texto, locall, data_ocorrido, concluido, dataAcesso, dataModificacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 
 	
 	PreparedStatement ps = null;
@@ -41,6 +46,8 @@ public class ParecerDAO {
                  ps.setDate(6, new java.sql.Date(
                          parecerASalvar.getDataOcorrido().getTime()));  
     ps.setBoolean(7, parecerASalvar.getConcluido());
+     ps.setTimestamp(8, timestamp);
+            ps.setTimestamp(9, timestamp);
                     
                   ps.execute();
 	
@@ -126,7 +133,7 @@ public class ParecerDAO {
                 
         String sql = "update parecer set assunto_parecer = ? , interessado_parecer = ?, "
                 + "matricula_aluno = ?, locall= ?, data_ocorrido = ? , texto = ?,"
-                + "concluido = ? where numero_parecer = ?";
+                + "concluido = ?, dataModificacao = ? where numero_parecer = ?";
                        
         PreparedStatement ps = null;
 	Connection connection = null;
@@ -142,8 +149,9 @@ public class ParecerDAO {
                          parecerAAlterar.getDataOcorrido().getTime()));              
                   ps.setString(6, parecerAAlterar.getTexto());
                    ps.setBoolean(7, parecerAAlterar.getConcluido());
+                   ps.setTimestamp(8, timestamp);
                
-                  ps.setInt(8, parecerAAlterar.getNumParecer());
+                  ps.setInt(9, parecerAAlterar.getNumParecer());
                  
                   ps.execute();
                 
@@ -171,6 +179,20 @@ public class ParecerDAO {
                  
                  ResultSet resultSet = ps.executeQuery();
                  
+       String sql2 = "update parecer set dataAcesso = ? where numero_parecer = ?;"; 
+       
+       PreparedStatement ps2 = null;
+	Connection connection2 = null;
+            
+		connection2 = new Conexao().getConexao();
+		
+		ps2 = connection2.prepareStatement(sql2);  
+                 
+                 ps2.setTimestamp(1, timestamp);
+                 ps2.setInt(2, numeroParecer);
+
+                 ps2.execute();
+                 
               if(resultSet.next()){
 
                   parecer.setNumParecer(resultSet.getInt("numero_parecer"));
@@ -188,6 +210,47 @@ public class ParecerDAO {
                  else {
                      return null;
                  }// fim else             
+    }// fim metodo
+          
+          public List<Integer> listaIdsParecer(String tipoOrdenacao) throws SQLException {
+
+        ParecerModel parecer = new ParecerModel();
+
+        String sql = null;
+        if (tipoOrdenacao.equals("Todos documentos")) {
+            listaIdsParecer.clear();
+            sql = "select numero_parecer from parecer order by numero_parecer desc";
+        }// fim if 
+        else if (tipoOrdenacao.equals("Já concluídos")) {
+            listaIdsParecer.clear();
+            sql = "select numero_parecer from parecer where concluido = true order by numero_parecer desc";
+        }// fim else if
+        else if (tipoOrdenacao.equals("Últimos acessados")) {
+            listaIdsParecer.clear();
+            sql = "select numero_parecer from parecer order by dataAcesso desc;";
+        }// fim else if
+        else if (tipoOrdenacao.equals("Última modificação")) {
+            listaIdsParecer.clear();
+            sql = "select numero_parecer from parecer order by dataModificacao desc;";
+        }// fim else if
+
+        PreparedStatement ps = null;
+        Connection connection = null;
+
+        connection = new Conexao().getConexao();
+
+        ps = connection.prepareStatement(sql);
+
+        ResultSet resultSet = ps.executeQuery();
+
+        while (resultSet.next()) {
+
+            parecer.setNumParecer(resultSet.getInt("numero_parecer"));
+
+            listaIdsParecer.add(parecer.getNumParecer());
+        }// fim while
+
+        return listaIdsParecer;
     }// fim metodo
     
     

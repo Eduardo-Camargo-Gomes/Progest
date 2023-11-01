@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import model.DAO.FichaAtendimentoDAO;
 import model.DAO.RelatorioAtendimentoDAO;
 import model.FichaAtendimentoModel;
@@ -78,7 +79,7 @@ public class FichaDeAtendimentoNova extends javax.swing.JFrame {
     public FichaDeAtendimentoNova() throws SQLException {
         initComponents();
         mostrarIdFicha();
-        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
    

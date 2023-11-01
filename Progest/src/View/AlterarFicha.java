@@ -1,5 +1,5 @@
-
 package View;
+
 import model.*;
 import model.DAO.*;
 import controller.*;
@@ -10,14 +10,12 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
 public class AlterarFicha extends javax.swing.JFrame {
 
     private int idFicha;
-     FichaDeAtendimentoAcessar fichaAcessar;
-    AlterarFicha interfaceAlterar;  
-    
-    
+    FichaDeAtendimentoAcessar fichaAcessar;
+    AlterarFicha interfaceAlterar;
+
     /**
      * Creates new form ExcluirRelatorio
      */
@@ -26,9 +24,7 @@ public class AlterarFicha extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-    
-   
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -91,43 +87,41 @@ public class AlterarFicha extends javax.swing.JFrame {
     }//GEN-LAST:event_CampoIDFichaActionPerformed
 
     private void botaoAcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAcessarActionPerformed
-         if(evt.getSource()== botaoAcessar){
-             try {
-                 
-                 
-                int numeroFicha = Integer.parseInt(CampoIDFicha.getText());
-        
-   FichaAtendimentoModel fichaAcessar = new  FichaAtendimentoModel(numeroFicha);
-     
-   FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
-   
-   boolean existe = fichaDAO.existeNumeroFicha(fichaAcessar);
- 
-   if(existe == true ){
-        
-    new FichaDeAtendimentoAcessar(fichaAcessar).setVisible(true);
-        
-    }// fim if
-   else {
-       JOptionPane.showMessageDialog(null, "ficha inexistente!");
-       
-   }// fim else 
-   
+        if (evt.getSource() == botaoAcessar) {
+            try {
 
-        this.dispose();
-     }       catch (SQLException ex) {
-                 Logger.getLogger(AlterarFicha.class.getName()).log(Level.SEVERE, null, ex);
-             } catch (ParseException ex) {
-                 Logger.getLogger(AlterarFicha.class.getName()).log(Level.SEVERE, null, ex);
-             }// fim catch// fim catch
-             
-         }//fim if
+                int numeroFicha = Integer.parseInt(CampoIDFicha.getText());
+
+                FichaAtendimentoModel fichaAcessar = new FichaAtendimentoModel(numeroFicha);
+
+                FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
+
+                boolean existe = fichaDAO.existeNumeroFicha(fichaAcessar);
+
+                if (existe == true) {
+
+                    new FichaDeAtendimentoAcessar(fichaAcessar).setVisible(true);
+
+                }// fim if
+                else {
+                    JOptionPane.showMessageDialog(null, "ficha inexistente!");
+
+                }// fim else 
+
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlterarFicha.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(AlterarFicha.class.getName()).log(Level.SEVERE, null, ex);
+            }// fim catch// fim catch
+
+        }//fim if
     }//GEN-LAST:event_botaoAcessarActionPerformed
 
     private void botaoCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelActionPerformed
-       if(evt.getSource() == botaoCancel){
-           this.dispose();  
-       }// fim if
+        if (evt.getSource() == botaoCancel) {
+            this.dispose();
+        }// fim if
     }//GEN-LAST:event_botaoCancelActionPerformed
 
     /**

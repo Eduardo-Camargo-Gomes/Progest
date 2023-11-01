@@ -1,8 +1,8 @@
-
 package View;
 
 import controller.RelatorioAtendimentoController;
 import controller.UsuarioController;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
@@ -12,73 +12,74 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import model.DAO.RelatorioAtendimentoDAO;
 import model.RelatorioAtendimentoModel;
 
-public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
+public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements DocumentListener {
 
-    
-   //RelatorioAtendimentoModel relatorioModel = new  RelatorioAtendimentoModel();
- 
-     SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-      SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
-     
+    //RelatorioAtendimentoModel relatorioModel = new  RelatorioAtendimentoModel();
+    SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
+
     SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
-        boolean concluido = false;
-        
-        
-    
-      // formatacao de datas e horrio
-     
-      RelatorioAtendimentoDAO relatorioDAO = new  RelatorioAtendimentoDAO();
+    boolean concluido = false;
+
+    // formatacao de datas e horrio
+    RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
     private RelatorioAtendimentoModel relatorioModel;
 
     public RelatorioAtendimentoAcessar(RelatorioAtendimentoModel relatorioModel) throws SQLException, ParseException {
-         this.relatorioModel = relatorioModel;
-         // define o construtor  
+        this.relatorioModel = relatorioModel;
+        // define o construtor  
         initComponents();
         setLocationRelativeTo(null);
-         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                
-       relatorioModel  = relatorioDAO.acessarRelatorio(relatorioModel.getNumRelatorio());
-       
-       Date data = formatoBanco.parse(String.valueOf(relatorioModel.getDataOcorrido()));
-       
-     String dataOcorrencia; 
-       dataOcorrencia = formatoData.format(data);
-       
-       if(relatorioModel.getConcluido() == true){
-           CheckConcluido.setSelected(true);
-       }// fim if 
-       
-       else{
-           CheckConcluido.setSelected(false);
-       }// fim else  
-       
-      CampoId.setText(String.valueOf(relatorioModel.getNumRelatorio()));
-      CampoData.setText(String.valueOf(dataOcorrencia));
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        relatorioModel = relatorioDAO.acessarRelatorio(relatorioModel.getNumRelatorio());
+
+        Date data = formatoBanco.parse(String.valueOf(relatorioModel.getDataOcorrido()));
+
+        String dataOcorrencia;
+        dataOcorrencia = formatoData.format(data);
+
+        if (relatorioModel.getConcluido() == true) {
+            CheckConcluido.setSelected(true);
+        }// fim if 
+        else {
+            CheckConcluido.setSelected(false);
+        }// fim else  
+
+        CampoId.setText(String.valueOf(relatorioModel.getNumRelatorio()));
+        CampoData.setText(String.valueOf(dataOcorrencia));
         CampoHorario.setText(String.valueOf(relatorioModel.getHorarioOcorrido()));
         CampoLocal.setText(relatorioModel.getLocalOcorrido());
-      CampoDiscente.setText(relatorioModel.getNomeAluno());
-      CampoTurma.setText(relatorioModel.getTurmaAluno());
-      CampoPais.setText(relatorioModel.getNomeResponsavel());
-      CampoSituacao.setText(relatorioModel.getSituacao());
-      CampoEncaminhamentos.setText(relatorioModel.getEncaminhamentos());
-      CampoConclusao.setText(relatorioModel.getConclusao());
-      
-         CampoId.setEditable(false);
-  
-    }// fim construtor
-    
-   public RelatorioAtendimentoAcessar() throws SQLException{
-        
-         initComponents();
-        setLocationRelativeTo(null);
-         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-       //  preencherDados();
-         CampoId.setEditable(false);
-    }// fim cost
+        CampoDiscente.setText(relatorioModel.getNomeAluno());
+        CampoTurma.setText(relatorioModel.getTurmaAluno());
+        CampoPais.setText(relatorioModel.getNomeResponsavel());
+        CampoSituacao.setText(relatorioModel.getSituacao());
+        CampoEncaminhamentos.setText(relatorioModel.getEncaminhamentos());
+        CampoConclusao.setText(relatorioModel.getConclusao());
 
+        CampoId.setEditable(false);
+
+        barraProgresso.setStringPainted(true);
+        UIManager.put("ProgressBar.selectionBackground", Color.GREEN);
+        CampoSituacao.getDocument().addDocumentListener(this);
+         CampoEncaminhamentos.getDocument().addDocumentListener(this);
+          CampoConclusao.getDocument().addDocumentListener(this);
+    }// fim construtor
+
+    public RelatorioAtendimentoAcessar() throws SQLException {
+
+        initComponents();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //  preencherDados();
+        CampoId.setEditable(false);
+    }// fim cost
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -134,6 +135,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
         CampoSituacao = new javax.swing.JTextArea();
         botaoSalvarAlteracao = new javax.swing.JButton();
         CheckConcluido = new javax.swing.JCheckBox();
+        barraProgresso = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -316,6 +318,10 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
         });
         jPanel1.add(CheckConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, -1, -1));
 
+        barraProgresso.setBackground(new java.awt.Color(0, 204, 0));
+        barraProgresso.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(barraProgresso, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 250, 30));
+
         jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -338,63 +344,61 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
     }//GEN-LAST:event_CampoDataActionPerformed
 
     private void VOLTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VOLTARActionPerformed
-        if (evt.getSource()==VOLTAR){
-           this.dispose();
+        if (evt.getSource() == VOLTAR) {
+            this.dispose();
         }
     }//GEN-LAST:event_VOLTARActionPerformed
 
     private void botaoSalvarAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarAlteracaoActionPerformed
-        if(evt.getSource() == botaoSalvarAlteracao){
-   
-          RelatorioAtendimentoController relatorioController = new RelatorioAtendimentoController();
-          
-          RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-          
-             
-             if(CheckConcluido.isSelected()){
-                 concluido = true;
-             }// fim if
-       
-         Date dataOcorrencia = new Date();
+        if (evt.getSource() == botaoSalvarAlteracao) {
+
+            RelatorioAtendimentoController relatorioController = new RelatorioAtendimentoController();
+
+            RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
+
+            if (CheckConcluido.isSelected()) {
+                concluido = true;
+            }// fim if
+
+            Date dataOcorrencia = new Date();
             try {
                 dataOcorrencia = formatoData.parse(CampoData.getText());
             } catch (ParseException ex) {
                 Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
             }
-             formatoData.format(dataOcorrencia);
-   
-          Date data = new Date();
-        
+            formatoData.format(dataOcorrencia);
+
+            Date data = new Date();
+
             try {
                 data = formatoHora.parse(CampoHorario.getText());
             } catch (ParseException ex) {
                 Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
             }
-     
-          Time horarioOcorrencia = new Time(data.getTime());
-           
-          int numeroRelatorio = Integer.parseInt(CampoId.getText());
-          
-       boolean salvou = relatorioController.alterarRelatorio(dataOcorrencia,  horarioOcorrencia,
-                          CampoLocal.getText(), CampoDiscente.getText(), CampoTurma.getText(),
-                          CampoPais.getText(), CampoSituacao.getText(),
-                CampoEncaminhamentos.getText(), CampoConclusao.getText(),
-                numeroRelatorio, concluido);
-         
-       if(salvou == true){
-          this.dispose();
-       }// fim if  salvou
-       
+
+            Time horarioOcorrencia = new Time(data.getTime());
+
+            int numeroRelatorio = Integer.parseInt(CampoId.getText());
+
+            boolean salvou = relatorioController.alterarRelatorio(dataOcorrencia, horarioOcorrencia,
+                    CampoLocal.getText(), CampoDiscente.getText(), CampoTurma.getText(),
+                    CampoPais.getText(), CampoSituacao.getText(),
+                    CampoEncaminhamentos.getText(), CampoConclusao.getText(),
+                    numeroRelatorio, concluido);
+
+            if (salvou == true) {
+                this.dispose();
+            }// fim if  salvou
+
         }
     }//GEN-LAST:event_botaoSalvarAlteracaoActionPerformed
 
     private void CheckConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckConcluidoActionPerformed
-        
+
     }//GEN-LAST:event_CheckConcluidoActionPerformed
 
-   
     public static void main(String args[]) {
-        
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -427,8 +431,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        
-        
+
         /*CampoId.setText(numeroRelatorio);
       CampoData.setText(String.valueOf(relatorioModel.getDataOcorrido()));
         CampoHorario.setText(String.valueOf(relatorioModel.getHorarioOcorrido()));
@@ -439,8 +442,6 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
       CampoSituacao.setText(relatorioModel.getSituacao());
       CampoEncaminhamentos.setText(relatorioModel.getEncaminhamentos());
       CampoConclusao.setText(relatorioModel.getConclusao());*/
-
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -466,6 +467,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
     private javax.swing.JTextField CampoTurma;
     private javax.swing.JCheckBox CheckConcluido;
     private javax.swing.JButton VOLTAR;
+    private javax.swing.JProgressBar barraProgresso;
     private javax.swing.JButton botaoSalvarAlteracao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -504,4 +506,42 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     // End of variables declaration//GEN-END:variables
-}
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        atualizarBarra();
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        atualizarBarra();
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        atualizarBarra();
+    }
+
+    
+    public void atualizarBarra() {
+        int preenchido = 0;
+        
+        if(!CampoSituacao.getText().isEmpty()){
+            preenchido = 33;
+        }
+        
+        if(!CampoSituacao.getText().isEmpty() &&!CampoEncaminhamentos.getText().isEmpty()){
+            preenchido = 66;
+        }// fim metodo
+        
+        if(!CampoSituacao.getText().isEmpty() &&!CampoEncaminhamentos.getText().isEmpty() && !CampoConclusao.getText().isEmpty()){
+            preenchido = 100;
+        }
+        
+       barraProgresso.setValue(preenchido);
+       barraProgresso.revalidate();
+       barraProgresso.repaint();
+        
+    }// fim metodo
+
+}// fim classe 
