@@ -47,6 +47,7 @@ public class Menu extends javax.swing.JFrame {
     Map<String, Boolean> selecaoJlabel = new HashMap<>();
     private boolean labelsCriados = false;
     private boolean visivel = false;
+    private boolean tresPontosClicado;
 
     List<JLabel> listaJlabel = new ArrayList<>();
 
@@ -514,21 +515,39 @@ public class Menu extends javax.swing.JFrame {
         novolbl.setText("NOVO");
         janelaPrincipal.add(novolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 50, 12));
 
+        relatorio1.setBackground(new java.awt.Color(255, 255, 255));
         relatorio1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Cap.relatorio1 (1).jpg"))); // NOI18N
+        relatorio1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                relatorio1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                relatorio1MouseExited(evt);
+            }
+        });
         relatorio1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 relatorio1ActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(relatorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 150, 185));
+        janelaPrincipal.add(relatorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 55, 150, 190));
 
+        relatorio3.setBackground(new java.awt.Color(255, 255, 255));
         relatorio3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/miniaturaParecer.png"))); // NOI18N
+        relatorio3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                relatorio3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                relatorio3MouseExited(evt);
+            }
+        });
         relatorio3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 relatorio3ActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(relatorio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 55, 160, 190));
+        janelaPrincipal.add(relatorio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 55, 150, 190));
 
         novo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/mais (1).png"))); // NOI18N
@@ -537,22 +556,37 @@ public class Menu extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 novoMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                novoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                novoMouseExited(evt);
+            }
         });
         novo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 novoActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 150, 185));
+        janelaPrincipal.add(novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 55, 150, 190));
 
+        relatorio2.setBackground(new java.awt.Color(255, 255, 255));
         relatorio2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         relatorio2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ficha de atendimento.jpg"))); // NOI18N
+        relatorio2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                relatorio2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                relatorio2MouseExited(evt);
+            }
+        });
         relatorio2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 relatorio2ActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(relatorio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 60, 150, 185));
+        janelaPrincipal.add(relatorio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 55, 150, 190));
 
         fichaRadio.setBackground(new java.awt.Color(210, 225, 233));
         documentoSelecionado.add(fichaRadio);
@@ -772,8 +806,11 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_tresPontosLateralMouseEntered
 
     private void tresPontosLateralMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosLateralMouseClicked
-        ocultarLateral();
 
+        if (visivel = true) {
+            ocultarLateral();
+
+        }
 
     }//GEN-LAST:event_tresPontosLateralMouseClicked
 
@@ -835,12 +872,13 @@ public class Menu extends javax.swing.JFrame {
         if (visivel == false) {
 
             mostrarLateral();
-
+            tresPontosClicado = false;
+ 
         }
     }//GEN-LAST:event_tresPontosPrincipalMouseClicked
 
     private void tresPontosPrincipalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosPrincipalMouseEntered
-      
+
     }//GEN-LAST:event_tresPontosPrincipalMouseEntered
 
     private void tresPontosPrincipalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosPrincipalMouseExited
@@ -848,8 +886,40 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_tresPontosPrincipalMouseExited
 
     private void excluirParecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirParecerMouseClicked
-            new ExcluirParecer().setVisible(true);
+        new ExcluirParecer().setVisible(true);
     }//GEN-LAST:event_excluirParecerMouseClicked
+
+    private void relatorio1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatorio1MouseEntered
+        relatorio1.setBorder(BorderFactory.createLineBorder(Color.blue));
+    }//GEN-LAST:event_relatorio1MouseEntered
+
+    private void relatorio1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatorio1MouseExited
+        relatorio1.setBorder(null);
+    }//GEN-LAST:event_relatorio1MouseExited
+
+    private void relatorio2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatorio2MouseEntered
+        relatorio2.setBorder(BorderFactory.createLineBorder(Color.blue));
+    }//GEN-LAST:event_relatorio2MouseEntered
+
+    private void relatorio2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatorio2MouseExited
+        relatorio2.setBorder(null);
+    }//GEN-LAST:event_relatorio2MouseExited
+
+    private void relatorio3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatorio3MouseEntered
+        relatorio3.setBorder(BorderFactory.createLineBorder(Color.blue));
+    }//GEN-LAST:event_relatorio3MouseEntered
+
+    private void relatorio3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatorio3MouseExited
+        relatorio3.setBorder(null);
+    }//GEN-LAST:event_relatorio3MouseExited
+
+    private void novoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novoMouseEntered
+        novo.setBorder(BorderFactory.createLineBorder(Color.blue));
+    }//GEN-LAST:event_novoMouseEntered
+
+    private void novoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novoMouseExited
+        novo.setBorder(null);
+    }//GEN-LAST:event_novoMouseExited
 
     /**
      * @param args the command line arguments

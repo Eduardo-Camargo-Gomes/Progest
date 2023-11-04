@@ -91,8 +91,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
         this.fichaModel = fichaModel;
           initComponents();
        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
-       
-       
+ 
         fichaModel = fichaDao.acessarFicha(fichaModel.getNumeroFicha());
        
        Date data = formatoBanco.parse(String.valueOf(fichaModel.getDataNascimento()));
