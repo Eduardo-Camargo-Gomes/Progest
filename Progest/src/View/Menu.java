@@ -39,15 +39,16 @@ public class Menu extends javax.swing.JFrame {
     String tipoOrdenacao = null;
     //Todos relatórios, Já concluídos   
     RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-    FichaAtendimentoDAO fichaDAO = new    FichaAtendimentoDAO();
+    FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
     ParecerDAO parecerDAO = new ParecerDAO();
-     int x = 230;
-    
+    private String labelClicado = "menuRelatorio";
+    int x = 230;
+
     Map<String, Boolean> selecaoJlabel = new HashMap<>();
     private boolean labelsCriados = false;
+    private boolean visivel = false;
 
     List<JLabel> listaJlabel = new ArrayList<>();
-   
 
     public Menu() throws SQLException {
 
@@ -67,7 +68,7 @@ public class Menu extends javax.swing.JFrame {
 
         Map<Integer, JLabel> mapaRelatorios = new HashMap<>();
         int x = 25;
-       
+
         ImageIcon imagemRelatorio = new ImageIcon(getClass().getResource("Cap.relatorio1.jpg"));
 
         for (int i = 0; i < listaIdsRelatorios.size(); i++) {
@@ -80,12 +81,11 @@ public class Menu extends javax.swing.JFrame {
             miniaturaRelatorios.setBorder(BorderFactory.createLineBorder(Color.black));
 
             //define a posicao dos jlabels de legenda dos relatorios
-            especRelatorio.setBounds(x+23, 197, 100, 50);
+            especRelatorio.setBounds(x + 23, 197, 100, 50);
             miniaturaRelatorios.putClientProperty("numeroRelatorio", listaIdsRelatorios.get(i));
             miniaturaRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             especRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             x += 165;
-            
 
             miniaturaRelatorios.setVisible(true);
             especRelatorio.setVisible(true);
@@ -113,35 +113,34 @@ public class Menu extends javax.swing.JFrame {
                         Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }// fim clicked
-                
-                 @Override
+
+                @Override
                 public void mouseEntered(MouseEvent e) {
-                
-                     miniaturaRelatorios.setBorder(BorderFactory.createLineBorder(Color.blue));
+
+                    miniaturaRelatorios.setBorder(BorderFactory.createLineBorder(Color.blue));
                     revalidate();
                     repaint();
-                    
+
                 }//fim metodo
-                
-                 @Override
+
+                @Override
                 public void mouseExited(MouseEvent e) {
-                
-                     miniaturaRelatorios.setBorder(BorderFactory.createLineBorder(Color.black));
+
+                    miniaturaRelatorios.setBorder(BorderFactory.createLineBorder(Color.black));
                     revalidate();
                     repaint();
-                     
+
                 }//fim metodo
-                
+
             });
 
         }// fim for
         painelDocumentos.revalidate();
         painelDocumentos.repaint();
     }//fim metodo
-    
-    
-     public void mostrarFichas(String tipoOrdenacao) throws SQLException {
-       painelDocumentos.removeAll();
+
+    public void mostrarFichas(String tipoOrdenacao) throws SQLException {
+        painelDocumentos.removeAll();
         painelDocumentos.revalidate();
         painelDocumentos.repaint();
 
@@ -149,7 +148,7 @@ public class Menu extends javax.swing.JFrame {
 
         Map<Integer, JLabel> mapaFichas = new HashMap<>();
         int x = 25;
-       
+
         ImageIcon imagemFicha = new ImageIcon(getClass().getResource("ficha de atendimento.jpg"));
 
         for (int i = 0; i < listaIdsFichas.size(); i++) {
@@ -162,12 +161,11 @@ public class Menu extends javax.swing.JFrame {
             miniaturaFichas.setBorder(BorderFactory.createLineBorder(Color.black));
 
             //define a posicao dos jlabels de legenda dos relatorios
-            especFicha.setBounds(x+23, 197, 100, 50);
+            especFicha.setBounds(x + 23, 197, 100, 50);
             miniaturaFichas.putClientProperty("numeroFicha", listaIdsFichas.get(i));
             miniaturaFichas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             especFicha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             x += 165;
-            
 
             miniaturaFichas.setVisible(true);
             especFicha.setVisible(true);
@@ -186,7 +184,7 @@ public class Menu extends javax.swing.JFrame {
                     final int id = (int) idObj;
 
                     FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
-                   FichaAtendimentoModel fichaAcessar = new FichaAtendimentoModel(id);
+                    FichaAtendimentoModel fichaAcessar = new FichaAtendimentoModel(id);
                     try {
                         new FichaDeAtendimentoAcessar(fichaAcessar).setVisible(true);
                     } catch (SQLException ex) {
@@ -195,24 +193,23 @@ public class Menu extends javax.swing.JFrame {
                         Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }// fim mous clicked
-                
-                 @Override
+
+                @Override
                 public void mouseEntered(MouseEvent e) {
-                
-                    
-                     miniaturaFichas.setBorder(BorderFactory.createLineBorder(Color.blue));
+
+                    miniaturaFichas.setBorder(BorderFactory.createLineBorder(Color.blue));
                     revalidate();
                     repaint();
-                    
+
                 }//fim metodo
-                
-                 @Override
+
+                @Override
                 public void mouseExited(MouseEvent e) {
-                
-                     miniaturaFichas.setBorder(BorderFactory.createLineBorder(Color.black));
+
+                    miniaturaFichas.setBorder(BorderFactory.createLineBorder(Color.black));
                     revalidate();
                     repaint();
-                     
+
                 }//fim metodo
             });
 
@@ -220,10 +217,9 @@ public class Menu extends javax.swing.JFrame {
         painelDocumentos.revalidate();
         painelDocumentos.repaint();
     }//fim metodo
-     
-      public void mostrarParecer(String tipoOrdenacao) throws SQLException {
 
-         
+    public void mostrarParecer(String tipoOrdenacao) throws SQLException {
+
         painelDocumentos.removeAll();
         painelDocumentos.revalidate();
         painelDocumentos.repaint();
@@ -232,8 +228,8 @@ public class Menu extends javax.swing.JFrame {
 
         Map<Integer, JLabel> mapaParecer = new HashMap<>();
         int x = 25;
-       
-        ImageIcon imagemParecer= new ImageIcon(getClass().getResource("ficha de atendimento.jpg"));
+
+        ImageIcon imagemParecer = new ImageIcon(getClass().getResource("miniaturaParecer.png"));
 
         for (int i = 0; i < listaIdsParecer.size(); i++) {
 
@@ -241,16 +237,15 @@ public class Menu extends javax.swing.JFrame {
             JLabel especParecer = new JLabel("Parecer N° " + listaIdsParecer.get(i));
 
             // define a posicao dos jlabels dos relatorios
-            miniaturaParecer.setBounds(x, 25, 138, 185);
+            miniaturaParecer.setBounds(x, 25, 142, 183);
             miniaturaParecer.setBorder(BorderFactory.createLineBorder(Color.black));
 
             //define a posicao dos jlabels de legenda dos relatorios
-            especParecer.setBounds(x+23, 197, 100, 50);
+            especParecer.setBounds(x + 23, 197, 100, 50);
             miniaturaParecer.putClientProperty("numeroParecer", listaIdsParecer.get(i));
             miniaturaParecer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             especParecer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             x += 165;
-            
 
             miniaturaParecer.setVisible(true);
             especParecer.setVisible(true);
@@ -269,7 +264,7 @@ public class Menu extends javax.swing.JFrame {
                     final int id = (int) idObj;
 
                     ParecerDAO parecerDAO = new ParecerDAO();
-                 ParecerModel parecerAcessar = new ParecerModel(id);
+                    ParecerModel parecerAcessar = new ParecerModel(id);
                     try {
                         new ParecerAcessar(parecerAcessar).setVisible(true);
                     } catch (SQLException ex) {
@@ -278,23 +273,23 @@ public class Menu extends javax.swing.JFrame {
                         Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }// fim mouse clicked
-                
-                 @Override
+
+                @Override
                 public void mouseEntered(MouseEvent e) {
-                
-                     miniaturaParecer.setBorder(BorderFactory.createLineBorder(Color.blue));
+
+                    miniaturaParecer.setBorder(BorderFactory.createLineBorder(Color.blue));
                     revalidate();
                     repaint();
-                    
+
                 }//fim metodo
-                
-                 @Override
+
+                @Override
                 public void mouseExited(MouseEvent e) {
-                
-                     miniaturaParecer.setBorder(BorderFactory.createLineBorder(Color.black));
+
+                    miniaturaParecer.setBorder(BorderFactory.createLineBorder(Color.black));
                     revalidate();
                     repaint();
-                     
+
                 }//fim metodo
             });
 
@@ -302,14 +297,14 @@ public class Menu extends javax.swing.JFrame {
         painelDocumentos.revalidate();
         painelDocumentos.repaint();
     }//fim metodo
-     
- 
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         documentoSelecionado = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         painelLateral = new javax.swing.JPanel();
         tresPontosLateral = new javax.swing.JLabel();
         logoProgestLateral = new javax.swing.JLabel();
@@ -320,6 +315,7 @@ public class Menu extends javax.swing.JFrame {
         menuParecer = new javax.swing.JLabel();
         menuFicha = new javax.swing.JLabel();
         menuRelatorio = new javax.swing.JLabel();
+        excluirParecer = new javax.swing.JLabel();
         excluirFicha = new javax.swing.JLabel();
         excluirRelatorio = new javax.swing.JLabel();
         janelaPrincipal = new javax.swing.JPanel();
@@ -335,9 +331,9 @@ public class Menu extends javax.swing.JFrame {
         painelDocumentos = new javax.swing.JPanel();
         filtroJanela = new javax.swing.JComboBox<>();
         logoProgest = new javax.swing.JLabel();
-        tresPontosJanela = new javax.swing.JLabel();
         progestLogo = new javax.swing.JLabel();
         documentosRecentes = new javax.swing.JLabel();
+        tresPontosPrincipal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -348,6 +344,10 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
+        jLabel1.setText("Filtrar por...");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 400, 80, 20));
 
         painelLateral.setBackground(new java.awt.Color(210, 225, 233));
         painelLateral.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -430,7 +430,7 @@ public class Menu extends javax.swing.JFrame {
                 menuParecerMouseClicked(evt);
             }
         });
-        painelLateral.add(menuParecer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 100, 30));
+        painelLateral.add(menuParecer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 100, 30));
 
         menuFicha.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         menuFicha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/docsTs (1).png"))); // NOI18N
@@ -450,7 +450,7 @@ public class Menu extends javax.swing.JFrame {
                 menuFichaMouseClicked(evt);
             }
         });
-        painelLateral.add(menuFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 100, 30));
+        painelLateral.add(menuFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 100, 30));
 
         menuRelatorio.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         menuRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/docsTs (1).png"))); // NOI18N
@@ -461,7 +461,19 @@ public class Menu extends javax.swing.JFrame {
                 menuRelatorioMouseClicked(evt);
             }
         });
-        painelLateral.add(menuRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 160, 30));
+        painelLateral.add(menuRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 160, 30));
+
+        excluirParecer.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        excluirParecer.setForeground(new java.awt.Color(51, 51, 51));
+        excluirParecer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/lixeira.png"))); // NOI18N
+        excluirParecer.setText("  Excluir parecer ");
+        excluirParecer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        excluirParecer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                excluirParecerMouseClicked(evt);
+            }
+        });
+        painelLateral.add(excluirParecer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 150, 30));
 
         excluirFicha.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         excluirFicha.setForeground(new java.awt.Color(51, 51, 51));
@@ -510,13 +522,13 @@ public class Menu extends javax.swing.JFrame {
         });
         janelaPrincipal.add(relatorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 150, 185));
 
-        relatorio3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Cap.relatorio1 (1).jpg"))); // NOI18N
+        relatorio3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/miniaturaParecer.png"))); // NOI18N
         relatorio3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 relatorio3ActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(relatorio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 60, 150, 185));
+        janelaPrincipal.add(relatorio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 55, 160, 190));
 
         novo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/mais (1).png"))); // NOI18N
@@ -594,23 +606,6 @@ public class Menu extends javax.swing.JFrame {
         logoProgest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/contrato (8).png"))); // NOI18N
         jPanel1.add(logoProgest, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 40, 40));
 
-        tresPontosJanela.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tresPontosJanela.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Menu.png"))); // NOI18N
-        tresPontosJanela.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tresPontosJanela.setVerifyInputWhenFocusTarget(false);
-        tresPontosJanela.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tresPontosJanelaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                tresPontosJanelaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                tresPontosJanelaMouseExited(evt);
-            }
-        });
-        jPanel1.add(tresPontosJanela, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 20, 30, 30));
-
         progestLogo.setFont(new java.awt.Font("Arial", 0, 23)); // NOI18N
         progestLogo.setForeground(new java.awt.Color(102, 102, 102));
         progestLogo.setText("Progest");
@@ -620,6 +615,24 @@ public class Menu extends javax.swing.JFrame {
         documentosRecentes.setForeground(new java.awt.Color(51, 51, 51));
         documentosRecentes.setText("Documentos recentes");
         jPanel1.add(documentosRecentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 408, 178, 20));
+
+        tresPontosPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tresPontosPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Menu.png"))); // NOI18N
+        tresPontosPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tresPontosPrincipal.setOpaque(true);
+        tresPontosPrincipal.setVerifyInputWhenFocusTarget(false);
+        tresPontosPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tresPontosPrincipalMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tresPontosPrincipalMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tresPontosPrincipalMouseExited(evt);
+            }
+        });
+        jPanel1.add(tresPontosPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 17, 30, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -635,31 +648,6 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   
-
-    private void tresPontosJanelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosJanelaMouseClicked
-        if (x == 0) {
-            painelLateral.setSize(0, 785);
-            Thread th = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        for (int i = 0; i <= 230; i++) {
-                            Thread.sleep(1);
-                            painelLateral.setSize(i, 785);
-                        }
-                        
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, e);
-                    }
-                }
-            };
-            th.start();
-            x = 230;
-             
-            
-        }
-    }//GEN-LAST:event_tresPontosJanelaMouseClicked
 
     private void relatorio3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorio3ActionPerformed
         // TODO add your handling code here:
@@ -706,7 +694,6 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_relatorio2ActionPerformed
 
-        
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
 
@@ -726,20 +713,36 @@ public class Menu extends javax.swing.JFrame {
 
     private void filtroJanelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroJanelaActionPerformed
 
-        
-         
         tipoOrdenacao = (String) filtroJanela.getSelectedItem();
+
         try {
-            
-            
-  
             mostrarRelatorios(tipoOrdenacao);
+            revalidate();
+            repaint();
+
         } catch (SQLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-         revalidate();
-            repaint();
-          
+
+        if (labelClicado.equals("menuParecer")) {
+            try {
+                mostrarParecer(tipoOrdenacao);
+                revalidate();
+                repaint();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (labelClicado.equals("menuFicha")) {
+            try {
+                mostrarFichas(tipoOrdenacao);
+                revalidate();
+                repaint();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
 
     }//GEN-LAST:event_filtroJanelaActionPerformed
@@ -761,46 +764,25 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_ajudalblMouseClicked
 
     private void tresPontosLateralMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosLateralMouseExited
-        tresPontosLateral.setBackground(new java.awt.Color(210,225,233));
+        tresPontosLateral.setBackground(new java.awt.Color(210, 225, 233));
     }//GEN-LAST:event_tresPontosLateralMouseExited
 
     private void tresPontosLateralMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosLateralMouseEntered
-      tresPontosLateral.setBackground(new java.awt.Color(186, 203, 212));
+        tresPontosLateral.setBackground(new java.awt.Color(186, 203, 212));
     }//GEN-LAST:event_tresPontosLateralMouseEntered
 
     private void tresPontosLateralMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosLateralMouseClicked
-        if (x == 230) {
-            painelLateral.setSize(230, 785);
-            Thread th = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        for (int i = 230; i >= 0; i--) {
-                            Thread.sleep(1);
-                            painelLateral.setSize(i, 785);
-                        }
-                       
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, e);
-                    }
-                }
-            };
-            th.start();
-            x = 0;
-            
-            
-        }
-        
-        
-      
+        ocultarLateral();
+
+
     }//GEN-LAST:event_tresPontosLateralMouseClicked
 
     private void menuParecerAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_menuParecerAncestorAdded
-       
+
     }//GEN-LAST:event_menuParecerAncestorAdded
 
     private void menuFichaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_menuFichaAncestorAdded
-     
+
     }//GEN-LAST:event_menuFichaAncestorAdded
 
     private void excluirFichaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirFichaMouseClicked
@@ -813,7 +795,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void menuParecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuParecerMouseClicked
         try {
+
             mostrarParecer("Todos documentos");
+            labelClicado = "menuParecer";
+            filtroJanela.setSelectedItem("Todos documentos");
             revalidate();
             repaint();
         } catch (SQLException ex) {
@@ -824,7 +809,9 @@ public class Menu extends javax.swing.JFrame {
     private void menuFichaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuFichaMouseClicked
         try {
             mostrarFichas("Todos documentos");
-             revalidate();
+            labelClicado = "menuFicha";
+            filtroJanela.setSelectedItem("Todos documentos");
+            revalidate();
             repaint();
         } catch (SQLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
@@ -834,20 +821,35 @@ public class Menu extends javax.swing.JFrame {
     private void menuRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRelatorioMouseClicked
         try {
             mostrarRelatorios("Todos documentos");
-             revalidate();
+            labelClicado = "menuRelatorio";
+            filtroJanela.setSelectedItem("Todos documentos");
+            revalidate();
             repaint();
         } catch (SQLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_menuRelatorioMouseClicked
 
-    private void tresPontosJanelaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosJanelaMouseEntered
-     
-    }//GEN-LAST:event_tresPontosJanelaMouseEntered
+    private void tresPontosPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosPrincipalMouseClicked
 
-    private void tresPontosJanelaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosJanelaMouseExited
-       
-    }//GEN-LAST:event_tresPontosJanelaMouseExited
+        if (visivel == false) {
+
+            mostrarLateral();
+
+        }
+    }//GEN-LAST:event_tresPontosPrincipalMouseClicked
+
+    private void tresPontosPrincipalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosPrincipalMouseEntered
+      
+    }//GEN-LAST:event_tresPontosPrincipalMouseEntered
+
+    private void tresPontosPrincipalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosPrincipalMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tresPontosPrincipalMouseExited
+
+    private void excluirParecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirParecerMouseClicked
+            new ExcluirParecer().setVisible(true);
+    }//GEN-LAST:event_excluirParecerMouseClicked
 
     /**
      * @param args the command line arguments
@@ -888,9 +890,11 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.ButtonGroup documentoSelecionado;
     private javax.swing.JLabel documentosRecentes;
     private javax.swing.JLabel excluirFicha;
+    private javax.swing.JLabel excluirParecer;
     private javax.swing.JLabel excluirRelatorio;
     private javax.swing.JRadioButton fichaRadio;
     private javax.swing.JComboBox<String> filtroJanela;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel janelaPrincipal;
@@ -909,8 +913,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton relatorio2;
     private javax.swing.JButton relatorio3;
     private javax.swing.JRadioButton relatorioRadio;
-    private javax.swing.JLabel tresPontosJanela;
     private javax.swing.JLabel tresPontosLateral;
+    private javax.swing.JLabel tresPontosPrincipal;
     // End of variables declaration//GEN-END:variables
  private void labelcolor(JLabel label) {
         label.setBackground(new java.awt.Color(186, 203, 212));//a cor do mouse
@@ -950,10 +954,54 @@ public class Menu extends javax.swing.JFrame {
 
     }// fim metodo
 
-    public void limpar() {
-        painelDocumentos.removeAll();
-        painelDocumentos.revalidate();
-        painelDocumentos.repaint();
-    }
+    public void ocultarLateral() {
+
+        if (visivel = true) {
+            painelLateral.setSize(230, 785);
+            Thread th = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        for (int i = 230; i >= 0; i--) {
+                            Thread.sleep(1);
+                            painelLateral.setSize(i, 785);
+                        }
+
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, e);
+                    }
+                }
+            };
+            th.start();
+            x = 0;
+            visivel = false;
+        }
+
+    }//fim metodo
+
+    public void mostrarLateral() {
+
+        if (visivel = false || x == 0) {
+            painelLateral.setSize(0, 785);
+            Thread th = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        for (int i = 0; i <= 230; i++) {
+                            Thread.sleep(1);
+                            painelLateral.setSize(i, 785);
+                        }
+
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, e);
+                    }
+                }
+            };
+            th.start();
+
+            visivel = true;
+        }
+
+    }// fim metodo
 
 }// fim classe 

@@ -413,7 +413,7 @@ public class FichaDeAtendimentoNova extends javax.swing.JFrame {
                 dataNascimentoActionPerformed(evt);
             }
         });
-        jPanel1.add(dataNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 650, 270, 30));
+        jPanel1.add(dataNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 650, 260, 30));
 
         RG.setBorder(null);
         jPanel1.add(RG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, 330, 30));

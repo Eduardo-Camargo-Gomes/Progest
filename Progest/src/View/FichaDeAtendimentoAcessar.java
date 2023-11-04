@@ -92,14 +92,17 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
           initComponents();
        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
        
+       
+        fichaModel = fichaDao.acessarFicha(fichaModel.getNumeroFicha());
+       
        Date data = formatoBanco.parse(String.valueOf(fichaModel.getDataNascimento()));
        
-       String dataOcorrencia = formatoData.format(data);
+       String datadeNascimento = formatoData.format(data);
        
-         fichaModel = fichaDao.acessarFicha(fichaModel.getNumeroFicha());
+        
         campoId.setText(String.valueOf(fichaModel.getNumeroFicha()));
         campoNome.setText(fichaModel.getNome());
-        dataNascimento.setText(dataOcorrencia);
+        dataNascimento.setText(String.valueOf(datadeNascimento));
         alunoCelular.setText(fichaModel.getTelefone());
         RG.setText(fichaModel.getRg());
         endereco.setText(fichaModel.getEndereco());
@@ -504,7 +507,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
                 dataNascimentoActionPerformed(evt);
             }
         });
-        jPanel1.add(dataNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 650, 270, 30));
+        jPanel1.add(dataNascimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 650, 260, 30));
 
         RG.setBorder(null);
         jPanel1.add(RG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, 330, 30));

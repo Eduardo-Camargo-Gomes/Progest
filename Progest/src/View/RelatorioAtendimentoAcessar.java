@@ -70,6 +70,19 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         CampoSituacao.getDocument().addDocumentListener(this);
          CampoEncaminhamentos.getDocument().addDocumentListener(this);
           CampoConclusao.getDocument().addDocumentListener(this);
+          
+          if(CampoSituacao.getText().length()>0){
+              barraProgresso.setValue(33);
+          }
+          
+           if(CampoEncaminhamentos.getText().length()>0 && CampoSituacao.getText().length() >0){
+              barraProgresso.setValue(66);
+          }
+
+         
+           if(CampoEncaminhamentos.getText().length()>0 && CampoSituacao.getText().length() >0 && CampoConclusao.getText().length() >0){
+                barraProgresso.setValue(100);
+           }
     }// fim construtor
 
     public RelatorioAtendimentoAcessar() throws SQLException {
@@ -79,6 +92,8 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //  preencherDados();
         CampoId.setEditable(false);
+        
+        
     }// fim cost
 
     @SuppressWarnings("unchecked")
