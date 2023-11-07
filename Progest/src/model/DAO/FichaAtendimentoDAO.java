@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import static model.DAO.Conexao.getConexao;
 
 public class FichaAtendimentoDAO {
 
@@ -355,6 +356,29 @@ public class FichaAtendimentoDAO {
 
         return listaIdsFichas;
     }// fim metodo
+    
+     public List<Integer> listaIdsFichasPorNome(String nomeAluno) throws SQLException {
+    List<Integer> listaIdsFichas = new ArrayList<>();
+
+    try {
+        String sql = "SELECT numero_ficha FROM fichaatendimento WHERE nome_aluno LIKE ?";
+        
+        try (PreparedStatement ps = getConexao().prepareStatement(sql)) {
+            ps.setString(1, "%" + nomeAluno + "%");
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                int numeroFicha = resultSet.getInt("numero_ficha");
+                listaIdsFichas.add(numeroFicha);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return listaIdsFichas;
+}
 
 }// fim classe 
 

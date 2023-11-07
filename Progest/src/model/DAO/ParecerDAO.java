@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import static model.DAO.Conexao.getConexao;
 import model.FichaAtendimentoModel;
 import model.ParecerModel;
 import model.RelatorioAtendimentoModel;
@@ -252,6 +253,29 @@ public class ParecerDAO {
 
         return listaIdsParecer;
     }// fim metodo
+          
+           public List<Integer> listaIdsParecerPorInteressado(String interessadoParecer) throws SQLException {
+    List<Integer> listaIdsParecer = new ArrayList<>();
+
+    try {
+        String sql = "SELECT numero_parecer FROM parecer WHERE interessado_parecer LIKE ?";
+        
+        try (PreparedStatement ps = getConexao().prepareStatement(sql)) {
+            ps.setString(1, "%" + interessadoParecer + "%");
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                int numeroParecer = resultSet.getInt("numero_parecer");
+                listaIdsParecer.add(numeroParecer);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return listaIdsParecer;
+}
     
     
 }// fim classe 

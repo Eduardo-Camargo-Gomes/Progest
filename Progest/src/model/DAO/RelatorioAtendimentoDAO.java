@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import static model.DAO.Conexao.getConexao;
 
 public class RelatorioAtendimentoDAO {
 
@@ -254,6 +255,29 @@ public class RelatorioAtendimentoDAO {
         return listaIdsRelatorios;
 
     }// fim metodo
+    
+    public List<Integer> listaIdsRelatoriosPorNome(String nomeAluno) throws SQLException {
+    List<Integer> listaIdsRelatorios = new ArrayList<>();
+
+    try {
+        String sql = "SELECT numero_relatorio FROM relatorio_atendimento WHERE nome_aluno LIKE ?";
+        
+        try (PreparedStatement ps = getConexao().prepareStatement(sql)) {
+            ps.setString(1, "%" + nomeAluno + "%"); // Use o operador LIKE para pesquisa parcial
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                int numeroRelatorio = resultSet.getInt("numero_relatorio");
+                listaIdsRelatorios.add(numeroRelatorio);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return listaIdsRelatorios;
+}
 
 }// fim classe
 
