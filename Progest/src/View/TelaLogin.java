@@ -37,9 +37,8 @@ public class TelaLogin extends javax.swing.JFrame {
     
  
     public TelaLogin() {
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        initComponents();
-        setLocationRelativeTo(null);
+         initComponents();
+         setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,36 +47,26 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        esqueciSenha = new javax.swing.JButton();
         USUARIO = new javax.swing.JTextField();
         SENHA = new javax.swing.JPasswordField();
-        naoPossiuUmaConta = new javax.swing.JLabel();
-        cadastreseAqui = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         LOGIN = new javax.swing.JButton();
+        EsqueciSenha = new javax.swing.JLabel();
+        naoPossiuUmaConta = new javax.swing.JLabel();
+        Cadastreseaqui = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagem.login.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 810));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/imagem.login.jpg"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 810));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        esqueciSenha.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
-        esqueciSenha.setText("ESQUECI MINHA SENHA");
-        esqueciSenha.setBorder(null);
-        esqueciSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                esqueciSenhaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(esqueciSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 500, 160, 20));
-
-        USUARIO.setBackground(new java.awt.Color(210, 225, 233));
+        USUARIO.setBackground(new java.awt.Color(186, 203, 212));
         USUARIO.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         USUARIO.setForeground(new java.awt.Color(30, 30, 31));
         USUARIO.addActionListener(new java.awt.event.ActionListener() {
@@ -85,49 +74,34 @@ public class TelaLogin extends javax.swing.JFrame {
                 USUARIOActionPerformed(evt);
             }
         });
-        jPanel1.add(USUARIO, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 300, 250, 40));
+        jPanel1.add(USUARIO, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 300, 300, 40));
 
-        SENHA.setBackground(new java.awt.Color(210, 225, 233));
+        SENHA.setBackground(new java.awt.Color(186, 203, 212));
         SENHA.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         SENHA.setForeground(new java.awt.Color(30, 30, 31));
-        jPanel1.add(SENHA, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 430, 250, 40));
-
-        naoPossiuUmaConta.setBackground(new java.awt.Color(0, 0, 0));
-        naoPossiuUmaConta.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
-        naoPossiuUmaConta.setText("Ainda não possui uma conta?");
-        jPanel1.add(naoPossiuUmaConta, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 630, 190, 20));
-
-        cadastreseAqui.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
-        cadastreseAqui.setForeground(new java.awt.Color(0, 0, 204));
-        cadastreseAqui.setText("Cadastre-se aqui");
-        cadastreseAqui.setBorder(null);
-        cadastreseAqui.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastreseAquiActionPerformed(evt);
-            }
-        });
-        jPanel1.add(cadastreseAqui, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 630, 120, 20));
+        jPanel1.add(SENHA, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 430, 300, 40));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Georgia", 1, 100)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 80)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(30, 30, 31));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("LOGIN");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 60, 380, 120));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(944, 70, 380, 120));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Georgia", 0, 48)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Georgia", 0, 40)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(30, 30, 31));
         jLabel3.setText("Senha");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 380, -1, -1));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("Georgia", 0, 48)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Georgia", 0, 40)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(30, 30, 31));
         jLabel4.setText("Usuario");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 250, 200, -1));
 
         LOGIN.setBackground(new java.awt.Color(0, 0, 0));
-        LOGIN.setFont(new java.awt.Font("Georgia", 0, 30)); // NOI18N
+        LOGIN.setFont(new java.awt.Font("Georgia", 0, 25)); // NOI18N
         LOGIN.setForeground(new java.awt.Color(255, 255, 255));
         LOGIN.setText("Entrar");
         LOGIN.addActionListener(new java.awt.event.ActionListener() {
@@ -135,9 +109,33 @@ public class TelaLogin extends javax.swing.JFrame {
                 LOGINActionPerformed(evt);
             }
         });
-        jPanel1.add(LOGIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 560, 160, 40));
+        jPanel1.add(LOGIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 560, 140, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1570, 810));
+        EsqueciSenha.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        EsqueciSenha.setText("ESQUECI MINHA SENHA");
+        EsqueciSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EsqueciSenhaMouseClicked(evt);
+            }
+        });
+        jPanel1.add(EsqueciSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 510, -1, -1));
+
+        naoPossiuUmaConta.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        naoPossiuUmaConta.setForeground(new java.awt.Color(30, 30, 31));
+        naoPossiuUmaConta.setText("Ainda não possui uma conta?");
+        jPanel1.add(naoPossiuUmaConta, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 630, 227, 20));
+
+        Cadastreseaqui.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        Cadastreseaqui.setForeground(new java.awt.Color(0, 0, 204));
+        Cadastreseaqui.setText("Cadastre-se aqui");
+        Cadastreseaqui.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CadastreseaquiMouseClicked(evt);
+            }
+        });
+        jPanel1.add(Cadastreseaqui, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 630, 135, 20));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1535, 795));
         jPanel1.getAccessibleContext().setAccessibleName("");
 
         pack();
@@ -147,19 +145,6 @@ public class TelaLogin extends javax.swing.JFrame {
     private void USUARIOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_USUARIOActionPerformed
        
     }//GEN-LAST:event_USUARIOActionPerformed
-
-    private void cadastreseAquiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastreseAquiActionPerformed
-         if (evt.getSource()==cadastreseAqui){
-            new TelaCadastro().setVisible(true);
-        }
-        this.setVisible(false);
-    }//GEN-LAST:event_cadastreseAquiActionPerformed
-
-    private void esqueciSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_esqueciSenhaActionPerformed
-        if(evt.getSource()==esqueciSenha){
-            new EsqueciSenha().setVisible(true);
-        }
-    }//GEN-LAST:event_esqueciSenhaActionPerformed
 
     private void LOGINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGINActionPerformed
  if (evt.getSource()==LOGIN){
@@ -187,6 +172,19 @@ public class TelaLogin extends javax.swing.JFrame {
               
     }//GEN-LAST:event_LOGINActionPerformed
 
+    private void EsqueciSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EsqueciSenhaMouseClicked
+        if(evt.getSource()==EsqueciSenha){
+            new EsqueciSenha().setVisible(true);
+        }
+    }//GEN-LAST:event_EsqueciSenhaMouseClicked
+
+    private void CadastreseaquiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CadastreseaquiMouseClicked
+        if (evt.getSource()==Cadastreseaqui){
+            new TelaCadastro().setVisible(true);
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_CadastreseaquiMouseClicked
+
     
     public static void main(String args[]) {
         
@@ -207,17 +205,18 @@ public class TelaLogin extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         
  
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Cadastreseaqui;
+    private javax.swing.JLabel EsqueciSenha;
     private javax.swing.JButton LOGIN;
     private javax.swing.JPasswordField SENHA;
     private javax.swing.JTextField USUARIO;
-    private javax.swing.JButton cadastreseAqui;
-    private javax.swing.JButton esqueciSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

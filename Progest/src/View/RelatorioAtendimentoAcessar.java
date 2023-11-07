@@ -239,13 +239,14 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         jLabel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 730, 500, 40));
 
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura.derelatorio2.png"))); // NOI18N
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/contrato (8).png"))); // NOI18N
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
 
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Ifam (2).png"))); // NOI18N
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Ifam (2).png"))); // NOI18N
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, 110, 160));
 
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/MinisterioDaEducacao (3).png"))); // NOI18N
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/MinisterioDaEducacao (3).png"))); // NOI18N
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 150, 90));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));

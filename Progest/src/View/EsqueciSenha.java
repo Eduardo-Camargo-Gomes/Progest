@@ -122,10 +122,10 @@ public class EsqueciSenha extends javax.swing.JFrame {
         jLabel6.setText("cadastrado para redefinir sua senha ");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura de tela login2.png"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 390, 580));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Captura de tela login2.png"))); // NOI18N
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 580));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 400, 590));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 590));
 
         setSize(new java.awt.Dimension(395, 586));
         setLocationRelativeTo(null);

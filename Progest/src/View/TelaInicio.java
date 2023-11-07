@@ -16,6 +16,7 @@ public class TelaInicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        telaLogin1 = new View.TelaLogin();
         jPanel1 = new javax.swing.JPanel();
         Progest = new javax.swing.JLabel();
         TelaBEMVINDO = new javax.swing.JLabel();
@@ -23,14 +24,16 @@ public class TelaInicio extends javax.swing.JFrame {
         CADASTRAR = new javax.swing.JButton();
         fundo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Progest");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Progest.setFont(new java.awt.Font("Georgia", 1, 100)); // NOI18N
+        Progest.setFont(new java.awt.Font("Georgia", 1, 80)); // NOI18N
         Progest.setForeground(new java.awt.Color(30, 30, 31));
+        Progest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Progest.setText("Progest");
         jPanel1.add(Progest, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 90, 400, 130));
 
@@ -40,7 +43,7 @@ public class TelaInicio extends javax.swing.JFrame {
         jPanel1.add(TelaBEMVINDO, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 280, -1, 80));
 
         LOGIN.setBackground(new java.awt.Color(0, 0, 0));
-        LOGIN.setFont(new java.awt.Font("Georgia", 0, 30)); // NOI18N
+        LOGIN.setFont(new java.awt.Font("Georgia", 0, 25)); // NOI18N
         LOGIN.setForeground(new java.awt.Color(255, 255, 255));
         LOGIN.setText("Login");
         LOGIN.addActionListener(new java.awt.event.ActionListener() {
@@ -48,10 +51,10 @@ public class TelaInicio extends javax.swing.JFrame {
                 LOGINActionPerformed(evt);
             }
         });
-        jPanel1.add(LOGIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 440, 160, -1));
+        jPanel1.add(LOGIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(1125, 440, 140, 40));
 
         CADASTRAR.setBackground(new java.awt.Color(0, 0, 0));
-        CADASTRAR.setFont(new java.awt.Font("Georgia", 0, 30)); // NOI18N
+        CADASTRAR.setFont(new java.awt.Font("Georgia", 0, 25)); // NOI18N
         CADASTRAR.setForeground(new java.awt.Color(255, 255, 255));
         CADASTRAR.setText("Cadastrar");
         CADASTRAR.addActionListener(new java.awt.event.ActionListener() {
@@ -59,12 +62,12 @@ public class TelaInicio extends javax.swing.JFrame {
                 CADASTRARActionPerformed(evt);
             }
         });
-        jPanel1.add(CADASTRAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 500, -1, -1));
+        jPanel1.add(CADASTRAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1125, 500, 140, 40));
 
-        fundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagem.login.jpg"))); // NOI18N
-        jPanel1.add(fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 730, 820));
+        fundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/imagem.login.jpg"))); // NOI18N
+        jPanel1.add(fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 800));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, -10, 1610, 810));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1535, 795));
 
         pack();
         setLocationRelativeTo(null);
@@ -121,6 +124,7 @@ public class TelaInicio extends javax.swing.JFrame {
     private javax.swing.JLabel TelaBEMVINDO;
     private javax.swing.JLabel fundo;
     private javax.swing.JPanel jPanel1;
+    private View.TelaLogin telaLogin1;
     // End of variables declaration//GEN-END:variables
 
     

@@ -11,7 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 public class TelaCadastro extends javax.swing.JFrame {
 
-    public void limparCampos() {
+   public void limparCampos() {
 		CampoCPF.setText("");
 		CampoNome.setText("");
                 CampoSenha.setText("");
@@ -49,6 +49,7 @@ public class TelaCadastro extends javax.swing.JFrame {
     public TelaCadastro() {
         initComponents();
         setLocationRelativeTo(null);
+        CampoCPF.setEditable(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -66,8 +67,9 @@ public class TelaCadastro extends javax.swing.JFrame {
         CampoCPF = new javax.swing.JTextField();
         fundo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        fazerlogin = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -75,7 +77,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         CADASTRAR.setBackground(new java.awt.Color(0, 0, 0));
-        CADASTRAR.setFont(new java.awt.Font("Georgia", 0, 30)); // NOI18N
+        CADASTRAR.setFont(new java.awt.Font("Georgia", 0, 25)); // NOI18N
         CADASTRAR.setForeground(new java.awt.Color(255, 255, 255));
         CADASTRAR.setText("Cadastrar");
         CADASTRAR.addActionListener(new java.awt.event.ActionListener() {
@@ -83,10 +85,10 @@ public class TelaCadastro extends javax.swing.JFrame {
                 CADASTRARActionPerformed(evt);
             }
         });
-        jPanel1.add(CADASTRAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 610, -1, -1));
+        jPanel1.add(CADASTRAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1165, 610, 140, 40));
 
         VOLTAR.setBackground(new java.awt.Color(0, 0, 0));
-        VOLTAR.setFont(new java.awt.Font("Georgia", 0, 30)); // NOI18N
+        VOLTAR.setFont(new java.awt.Font("Georgia", 0, 25)); // NOI18N
         VOLTAR.setForeground(new java.awt.Color(255, 255, 255));
         VOLTAR.setText("Voltar");
         VOLTAR.addActionListener(new java.awt.event.ActionListener() {
@@ -94,14 +96,15 @@ public class TelaCadastro extends javax.swing.JFrame {
                 VOLTARActionPerformed(evt);
             }
         });
-        jPanel1.add(VOLTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 610, 160, -1));
+        jPanel1.add(VOLTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 610, 140, 40));
 
         pedido1.setBackground(new java.awt.Color(255, 255, 255));
         pedido1.setFont(new java.awt.Font("Georgia", 0, 30)); // NOI18N
         pedido1.setText("Nome de Usuario");
         jPanel1.add(pedido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 220, 350, 40));
 
-        CampoNome.setBackground(new java.awt.Color(210, 225, 233));
+        CampoNome.setBackground(new java.awt.Color(186, 203, 212));
+        CampoNome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         CampoNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CampoNomeActionPerformed(evt);
@@ -114,7 +117,8 @@ public class TelaCadastro extends javax.swing.JFrame {
         pedido2.setText("Digite sua senha");
         jPanel1.add(pedido2, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 330, 290, 40));
 
-        CampoSenha.setBackground(new java.awt.Color(210, 225, 233));
+        CampoSenha.setBackground(new java.awt.Color(186, 203, 212));
+        CampoSenha.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         CampoSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CampoSenhaActionPerformed(evt);
@@ -127,7 +131,9 @@ public class TelaCadastro extends javax.swing.JFrame {
         pedido3.setText("Digite CPF");
         jPanel1.add(pedido3, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 440, 270, 40));
 
-        CampoCPF.setBackground(new java.awt.Color(210, 225, 233));
+        CampoCPF.setEditable(false);
+        CampoCPF.setBackground(new java.awt.Color(186, 203, 212));
+        CampoCPF.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         CampoCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CampoCPFActionPerformed(evt);
@@ -135,18 +141,30 @@ public class TelaCadastro extends javax.swing.JFrame {
         });
         jPanel1.add(CampoCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 480, 350, 40));
 
-        fundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagem.login.jpg"))); // NOI18N
-        jPanel1.add(fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 810));
+        fundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/imagem.login.jpg"))); // NOI18N
+        jPanel1.add(fundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 810));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Georgia", 1, 100)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 80)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(30, 30, 31));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CADASTRO");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 50, 610, 130));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1560, 810));
+        fazerlogin.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        fazerlogin.setForeground(new java.awt.Color(0, 0, 204));
+        fazerlogin.setText("Fazer login");
+        fazerlogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fazerloginMouseClicked(evt);
+            }
+        });
+        jPanel1.add(fazerlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 550, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1535, 795));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void CampoCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoCPFActionPerformed
@@ -185,6 +203,13 @@ public class TelaCadastro extends javax.swing.JFrame {
         }// fim ifao
     }//GEN-LAST:event_CADASTRARActionPerformed
 
+    private void fazerloginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fazerloginMouseClicked
+          if(evt.getSource()==fazerlogin){
+              new TelaLogin().setVisible(true);
+          }
+          this.setVisible(false);
+    }//GEN-LAST:event_fazerloginMouseClicked
+
     public static void main(String args[]) {
         
         try {
@@ -204,6 +229,7 @@ public class TelaCadastro extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -219,6 +245,7 @@ public class TelaCadastro extends javax.swing.JFrame {
     private javax.swing.JTextField CampoNome;
     private javax.swing.JPasswordField CampoSenha;
     private javax.swing.JButton VOLTAR;
+    private javax.swing.JLabel fazerlogin;
     private javax.swing.JLabel fundo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

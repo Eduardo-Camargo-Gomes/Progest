@@ -55,6 +55,11 @@ public class Menu extends javax.swing.JFrame {
    
     List<JLabel> listaJlabel = new ArrayList<>();
     
+    Color cor = new Color(255,255,255);
+    Color cor1 = new Color(255,255,255);
+    Color cor2 = new Color(255,255,255);
+    Color cor3 = new Color(255,255,255);
+    
     
     public Menu() throws SQLException {
 
@@ -65,6 +70,11 @@ public class Menu extends javax.swing.JFrame {
         grupo.add(ficha);
         grupo.add(relatorio);
         grupo.add(parecer);
+        
+        novo.setBackground(cor);
+        relatorio1.setBackground(cor1);
+        relatorio2.setBackground(cor2);
+        relatorio3.setBackground(cor3);
        
         
 
@@ -356,6 +366,7 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(1535, 785));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -364,7 +375,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        painelLateral.setBackground(new java.awt.Color(210, 225, 233));
+        painelLateral.setBackground(new java.awt.Color(186, 203, 212));
         painelLateral.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         painelLateral.setMinimumSize(new java.awt.Dimension(210, 785));
         painelLateral.setPreferredSize(new java.awt.Dimension(137, 182));
@@ -375,7 +386,7 @@ public class Menu extends javax.swing.JFrame {
         });
         painelLateral.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tresPontosLateral.setBackground(new java.awt.Color(210, 225, 233));
+        tresPontosLateral.setBackground(new java.awt.Color(186, 203, 212));
         tresPontosLateral.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tresPontosLateral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Menu.png"))); // NOI18N
         tresPontosLateral.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -499,7 +510,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setText("Filtrar por...");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 400, 80, 20));
 
-        janelaPrincipal.setBackground(new java.awt.Color(210, 225, 233));
+        janelaPrincipal.setBackground(new java.awt.Color(186, 203, 212));
         janelaPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Iniciarumnovodocumento.setFont(new java.awt.Font("Arial", 1, 17)); // NOI18N
@@ -512,7 +523,6 @@ public class Menu extends javax.swing.JFrame {
         novolbl.setText("NOVO");
         janelaPrincipal.add(novolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 50, 12));
 
-        relatorio1.setBackground(new java.awt.Color(255, 255, 255));
         relatorio1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Cap.relatorio1 (1).jpg"))); // NOI18N
         relatorio1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -529,7 +539,6 @@ public class Menu extends javax.swing.JFrame {
         });
         janelaPrincipal.add(relatorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 55, 150, 190));
 
-        relatorio3.setBackground(new java.awt.Color(255, 255, 255));
         relatorio3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/miniaturaParecer.png"))); // NOI18N
         relatorio3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -567,7 +576,6 @@ public class Menu extends javax.swing.JFrame {
         });
         janelaPrincipal.add(novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 55, 150, 190));
 
-        relatorio2.setBackground(new java.awt.Color(255, 255, 255));
         relatorio2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         relatorio2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ficha de atendimento.jpg"))); // NOI18N
         relatorio2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -585,7 +593,7 @@ public class Menu extends javax.swing.JFrame {
         });
         janelaPrincipal.add(relatorio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 55, 150, 190));
 
-        fichaRadio.setBackground(new java.awt.Color(210, 225, 233));
+        fichaRadio.setBackground(new java.awt.Color(186, 203, 212));
         documentoSelecionado.add(fichaRadio);
         fichaRadio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         fichaRadio.setText("Ficha atendimento");
@@ -596,7 +604,7 @@ public class Menu extends javax.swing.JFrame {
         });
         janelaPrincipal.add(fichaRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 250, 150, 16));
 
-        parecerRadio.setBackground(new java.awt.Color(210, 225, 233));
+        parecerRadio.setBackground(new java.awt.Color(186, 203, 212));
         documentoSelecionado.add(parecerRadio);
         parecerRadio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         parecerRadio.setText("Parecer");
@@ -607,7 +615,7 @@ public class Menu extends javax.swing.JFrame {
         });
         janelaPrincipal.add(parecerRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 250, 99, 16));
 
-        relatorioRadio.setBackground(new java.awt.Color(210, 225, 233));
+        relatorioRadio.setBackground(new java.awt.Color(186, 203, 212));
         documentoSelecionado.add(relatorioRadio);
         relatorioRadio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         relatorioRadio.setText("Relatório ");
@@ -620,6 +628,7 @@ public class Menu extends javax.swing.JFrame {
 
         jPanel1.add(janelaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 1535, 316));
 
+        painelDocumentos.setBackground(new java.awt.Color(204, 204, 204));
         painelDocumentos.setLayout(null);
         jPanel1.add(painelDocumentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 1350, 340));
 
@@ -643,6 +652,7 @@ public class Menu extends javax.swing.JFrame {
         documentosRecentes.setText("Documentos recentes");
         jPanel1.add(documentosRecentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 408, 178, 20));
 
+        tresPontosPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         tresPontosPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tresPontosPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Menu.png"))); // NOI18N
         tresPontosPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -844,7 +854,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_painelLateralMouseClicked
 
     private void tresPontosLateralMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosLateralMouseExited
-        tresPontosLateral.setBackground(new java.awt.Color(210, 225, 233));
+        tresPontosLateral.setBackground(new java.awt.Color(186,203,212));
     }//GEN-LAST:event_tresPontosLateralMouseExited
 
     private void tresPontosLateralMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosLateralMouseEntered
