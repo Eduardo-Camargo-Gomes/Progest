@@ -36,7 +36,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Menu extends javax.swing.JFrame {
+public class MenuParecer extends javax.swing.JFrame {
 
     String tipoOrdenacao = null;
     //Todos relatórios, Já concluídos   
@@ -56,24 +56,22 @@ public class Menu extends javax.swing.JFrame {
     List<JLabel> listaJlabel = new ArrayList<>();
     
     Color cor = new Color(255,255,255);
-    Color cor1 = new Color(255,255,255);
+    
+    Color cor3 = new Color(255,255,255);
     
     
-    
-    public Menu() throws SQLException {
+    public MenuParecer() throws SQLException {
 
         initComponents();
         painelDocumentos.removeAll();
         mostrarRelatorios("Todos documentos");
         painelLateral.setVisible(true);
         
-        grupo.add(relatorio);
-        
+        grupo.add(parecer);
         
         novo.setBackground(cor);
         
-        relatorio1.setBackground(cor1);
-        
+        relatorio3.setBackground(cor3);
        
         
 
@@ -129,9 +127,9 @@ public class Menu extends javax.swing.JFrame {
                     try {
                         new RelatorioAtendimentoAcessar(relatorioAcessar).setVisible(true);
                     } catch (SQLException ex) {
-                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ParseException ex) {
-                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }// fim clicked
 
@@ -213,9 +211,9 @@ public class Menu extends javax.swing.JFrame {
                     try {
                         new FichaDeAtendimentoAcessar(fichaAcessar).setVisible(true);
                     } catch (SQLException ex) {
-                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ParseException ex) {
-                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }// fim mous clicked
 
@@ -293,9 +291,9 @@ public class Menu extends javax.swing.JFrame {
                     try {
                         new ParecerAcessar(parecerAcessar).setVisible(true);
                     } catch (SQLException ex) {
-                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ParseException ex) {
-                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }// fim mouse clicked
 
@@ -338,14 +336,14 @@ public class Menu extends javax.swing.JFrame {
         menuParecer = new javax.swing.JLabel();
         menuFicha = new javax.swing.JLabel();
         menuRelatorio = new javax.swing.JLabel();
-        excluirRelatorio = new javax.swing.JLabel();
+        excluirParecer = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         janelaPrincipal = new javax.swing.JPanel();
         Iniciarumnovodocumento = new javax.swing.JLabel();
         novolbl = new javax.swing.JLabel();
-        relatorio1 = new javax.swing.JButton();
+        relatorio3 = new javax.swing.JButton();
         novo = new javax.swing.JButton();
-        relatorioRadio = new javax.swing.JRadioButton();
+        parecerRadio = new javax.swing.JRadioButton();
         painelDocumentos = new javax.swing.JPanel();
         filtroJanela = new javax.swing.JComboBox<>();
         progestLogo = new javax.swing.JLabel();
@@ -354,7 +352,7 @@ public class Menu extends javax.swing.JFrame {
         logoProgestLateral1 = new javax.swing.JLabel();
         txtnomealuno = new java.awt.TextField();
         pesquisar = new javax.swing.JLabel();
-        relatorio = new javax.swing.JRadioButton();
+        parecer = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -460,17 +458,17 @@ public class Menu extends javax.swing.JFrame {
         });
         painelLateral.add(menuRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 160, 30));
 
-        excluirRelatorio.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        excluirRelatorio.setForeground(new java.awt.Color(51, 51, 51));
-        excluirRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/lixeira.png"))); // NOI18N
-        excluirRelatorio.setText("  Excluir relatório ");
-        excluirRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        excluirRelatorio.addMouseListener(new java.awt.event.MouseAdapter() {
+        excluirParecer.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        excluirParecer.setForeground(new java.awt.Color(51, 51, 51));
+        excluirParecer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/lixeira.png"))); // NOI18N
+        excluirParecer.setText("  Excluir parecer ");
+        excluirParecer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        excluirParecer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                excluirRelatorioMouseClicked(evt);
+                excluirParecerMouseClicked(evt);
             }
         });
-        painelLateral.add(excluirRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
+        painelLateral.add(excluirParecer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 150, 30));
 
         jPanel1.add(painelLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 0));
 
@@ -491,21 +489,21 @@ public class Menu extends javax.swing.JFrame {
         novolbl.setText("NOVO");
         janelaPrincipal.add(novolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 50, 12));
 
-        relatorio1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Cap.relatorio1 (1).jpg"))); // NOI18N
-        relatorio1.addMouseListener(new java.awt.event.MouseAdapter() {
+        relatorio3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/miniaturaParecer.png"))); // NOI18N
+        relatorio3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                relatorio1MouseEntered(evt);
+                relatorio3MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                relatorio1MouseExited(evt);
+                relatorio3MouseExited(evt);
             }
         });
-        relatorio1.addActionListener(new java.awt.event.ActionListener() {
+        relatorio3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                relatorio1ActionPerformed(evt);
+                relatorio3ActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(relatorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 55, 150, 190));
+        janelaPrincipal.add(relatorio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 55, 150, 190));
 
         novo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/mais (1).png"))); // NOI18N
@@ -528,16 +526,16 @@ public class Menu extends javax.swing.JFrame {
         });
         janelaPrincipal.add(novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 55, 150, 190));
 
-        relatorioRadio.setBackground(new java.awt.Color(186, 203, 212));
-        documentoSelecionado.add(relatorioRadio);
-        relatorioRadio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        relatorioRadio.setText("Relatório ");
-        relatorioRadio.addActionListener(new java.awt.event.ActionListener() {
+        parecerRadio.setBackground(new java.awt.Color(186, 203, 212));
+        documentoSelecionado.add(parecerRadio);
+        parecerRadio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        parecerRadio.setText("Parecer");
+        parecerRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                relatorioRadioActionPerformed(evt);
+                parecerRadioActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(relatorioRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 99, 16));
+        janelaPrincipal.add(parecerRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 99, 16));
 
         jPanel1.add(janelaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 1535, 316));
 
@@ -619,14 +617,14 @@ public class Menu extends javax.swing.JFrame {
         });
         jPanel1.add(pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 30, 30));
 
-        relatorio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        relatorio.setText("Relatorio");
-        relatorio.addActionListener(new java.awt.event.ActionListener() {
+        parecer.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        parecer.setText("Parecer");
+        parecer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                relatorioActionPerformed(evt);
+                parecerActionPerformed(evt);
             }
         });
-        jPanel1.add(relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, -1, -1));
+        jPanel1.add(parecer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, -1, -1));
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -649,20 +647,21 @@ public class Menu extends javax.swing.JFrame {
     
     
 
+    private void relatorio3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorio3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_relatorio3ActionPerformed
+
     private void novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoActionPerformed
 
-        if (relatorioRadio.isSelected()) {
+        if (parecerRadio.isSelected()) {
             if (evt.getSource() == novo) {
                 try {
-                    new RelatorioAtendimentoNovo().setVisible(true);
-
+                    new ParecerNovo().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }// fim if de dentro
-        }// fim if
-        
+                    Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
+                }// fim catch// fim catch
+            }// fim fif
+        }// fim else ifG
 
     }//GEN-LAST:event_novoActionPerformed
 
@@ -675,10 +674,6 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_novoMouseClicked
 
-    private void relatorioRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioRadioActionPerformed
-
-    }//GEN-LAST:event_relatorioRadioActionPerformed
-
     private void filtroJanelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroJanelaActionPerformed
 
         
@@ -690,7 +685,7 @@ public class Menu extends javax.swing.JFrame {
             
 
         } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (labelClicado.equals("menuParecer")) {
@@ -699,7 +694,7 @@ public class Menu extends javax.swing.JFrame {
                
 
             } catch (SQLException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (labelClicado.equals("menuFicha")) {
             try {
@@ -707,7 +702,7 @@ public class Menu extends javax.swing.JFrame {
                 
 
             } catch (SQLException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -715,9 +710,9 @@ public class Menu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_filtroJanelaActionPerformed
 
-    private void relatorio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorio1ActionPerformed
+    private void parecerRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parecerRadioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_relatorio1ActionPerformed
+    }//GEN-LAST:event_parecerRadioActionPerformed
 
     private void painelLateralMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelLateralMouseClicked
 
@@ -746,10 +741,6 @@ public class Menu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_menuFichaAncestorAdded
 
-    private void excluirRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirRelatorioMouseClicked
-        new ExcluirRelatorio().setVisible(true);
-    }//GEN-LAST:event_excluirRelatorioMouseClicked
-
     private void menuParecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuParecerMouseClicked
         if (evt.getSource()==menuParecer){
             try {
@@ -769,7 +760,7 @@ public class Menu extends javax.swing.JFrame {
             revalidate();
             repaint();
         } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_menuParecerMouseClicked
 
@@ -791,7 +782,7 @@ public class Menu extends javax.swing.JFrame {
             revalidate();
             repaint();
         } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_menuFichaMouseClicked
 
@@ -805,7 +796,6 @@ public class Menu extends javax.swing.JFrame {
         }
         this.setVisible(false);
         
-        
         try {
             mostrarRelatorios("Todos documentos");
             labelClicado = "menuRelatorio";
@@ -814,7 +804,7 @@ public class Menu extends javax.swing.JFrame {
             revalidate();
             repaint();
         } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_menuRelatorioMouseClicked
 
@@ -835,13 +825,17 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tresPontosPrincipalMouseExited
 
-    private void relatorio1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatorio1MouseEntered
-        relatorio1.setBorder(BorderFactory.createLineBorder(Color.blue));
-    }//GEN-LAST:event_relatorio1MouseEntered
+    private void excluirParecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirParecerMouseClicked
+        new ExcluirParecer().setVisible(true);
+    }//GEN-LAST:event_excluirParecerMouseClicked
 
-    private void relatorio1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatorio1MouseExited
-        relatorio1.setBorder(null);
-    }//GEN-LAST:event_relatorio1MouseExited
+    private void relatorio3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatorio3MouseEntered
+        relatorio3.setBorder(BorderFactory.createLineBorder(Color.blue));
+    }//GEN-LAST:event_relatorio3MouseEntered
+
+    private void relatorio3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatorio3MouseExited
+        relatorio3.setBorder(null);
+    }//GEN-LAST:event_relatorio3MouseExited
 
     private void novoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novoMouseEntered
         novo.setBorder(BorderFactory.createLineBorder(Color.blue));
@@ -866,46 +860,43 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnomealunoKeyReleased
 
     private void pesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pesquisarMouseClicked
-
-        if (relatorio.isSelected()) {
+        if (parecer.isSelected()) {
             if (evt.getSource() == pesquisar) {
                 try {
                     String nomeAluno = txtnomealuno.getText().trim();
 
                     if (!nomeAluno.isEmpty()) {
-                        RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-                        List<Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatoriosPorNome(nomeAluno);
+                        ParecerDAO parecerDAO = new ParecerDAO();
+                        List<Integer> listaIdsPareceres = parecerDAO.listaIdsParecerPorInteressado(nomeAluno);
 
-                        if (!listaIdsRelatorios.isEmpty()) {
-                            // Se houver relatórios correspondentes, acessar o primeiro da lista
-                            int numeroRelatorio = listaIdsRelatorios.get(0);
-                            RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel(numeroRelatorio);
+                        if (!listaIdsPareceres.isEmpty()) {
+                            int numeroParecer = listaIdsPareceres.get(0);
+                            ParecerModel parecerAcessar = new ParecerModel(numeroParecer);
 
-                            new RelatorioAtendimentoAcessar(relatorioAcessar).setVisible(true);
+                            new ParecerAcessar(parecerAcessar).setVisible(true);
 
                         } else {
-                            JOptionPane.showMessageDialog(null, "Nenhum relatório encontrado para o aluno: " + nomeAluno);
+                            JOptionPane.showMessageDialog(null, "Nenhum parecer encontrado para o interessado: " + nomeAluno);
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Por favor, insira o nome do aluno para pesquisar.");
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(AlterarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ParseException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }  catch (ParseException ex) {
+                    Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
-        }  
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecione uma opção.");
         }
 
     }//GEN-LAST:event_pesquisarMouseClicked
 
-    private void relatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioActionPerformed
+    private void parecerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parecerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_relatorioActionPerformed
+    }//GEN-LAST:event_parecerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -920,13 +911,13 @@ public class Menu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuParecer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuParecer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuParecer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuParecer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -943,7 +934,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel Iniciarumnovodocumento;
     private javax.swing.ButtonGroup documentoSelecionado;
     private javax.swing.JLabel documentosRecentes;
-    private javax.swing.JLabel excluirRelatorio;
+    private javax.swing.JLabel excluirParecer;
     private javax.swing.JComboBox<String> filtroJanela;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -959,11 +950,11 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel novolbl;
     private javax.swing.JPanel painelDocumentos;
     private javax.swing.JPanel painelLateral;
+    private javax.swing.JRadioButton parecer;
+    private javax.swing.JRadioButton parecerRadio;
     private javax.swing.JLabel pesquisar;
     private javax.swing.JLabel progestLogo;
-    private javax.swing.JRadioButton relatorio;
-    private javax.swing.JButton relatorio1;
-    private javax.swing.JRadioButton relatorioRadio;
+    private javax.swing.JButton relatorio3;
     private javax.swing.JLabel tresPontosLateral;
     private javax.swing.JLabel tresPontosPrincipal;
     private java.awt.TextField txtnomealuno;

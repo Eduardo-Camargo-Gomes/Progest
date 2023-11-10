@@ -419,13 +419,13 @@ public class FichaDeAtendimentoNova extends javax.swing.JFrame {
         jPanel1.add(RG, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, 330, 30));
 
         endereco.setBorder(null);
-        jPanel1.add(endereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 730, 680, 30));
+        jPanel1.add(endereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 730, 670, 30));
 
         bairro.setBorder(null);
         jPanel1.add(bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 770, 690, 30));
 
         nomePai.setBorder(null);
-        jPanel1.add(nomePai, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 810, 660, 30));
+        jPanel1.add(nomePai, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 1090, 660, 30));
 
         nomeMae.setBorder(null);
         jPanel1.add(nomeMae, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 850, 650, 30));
