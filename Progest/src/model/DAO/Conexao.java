@@ -7,7 +7,7 @@ public class Conexao {
 	private static final String url = "jdbc:mysql://localhost:3306/projetofinalIFAM";
 	private static final String user = "root";
 	
-		private static final String senha = "root";
+		private static final String senha = "Facanhasql";
 		
 		private static Connection conn;
 		

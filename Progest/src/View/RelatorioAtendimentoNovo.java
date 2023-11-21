@@ -70,7 +70,6 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -184,10 +183,6 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
         jLabel16.setText("  3. ENCAMINHAMENTOS");
         jLabel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 730, 500, 40));
-
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/contrato (8).png"))); // NOI18N
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Ifam (2).png"))); // NOI18N
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, 110, 160));
@@ -424,7 +419,6 @@ public class RelatorioAtendimentoNovo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;

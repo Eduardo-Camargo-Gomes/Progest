@@ -24,6 +24,8 @@ public class ParecerDAO {
     List<Integer> listaIdsParecer = new ArrayList<>();
     LocalDateTime dataHoraAtual = LocalDateTime.now();
     Timestamp timestamp = Timestamp.valueOf(dataHoraAtual);
+    List<Integer> passarAnterior = new ArrayList<>();
+    List<Integer> passarProximo = new ArrayList<>();
     
      public void salvarParecer(ParecerModel parecerASalvar){
         
@@ -218,7 +220,7 @@ public class ParecerDAO {
         ParecerModel parecer = new ParecerModel();
 
         String sql = null;
-        if (tipoOrdenacao.equals("Todos documentos")) {
+        if (tipoOrdenacao.equals("Mais recentes primeiro")) {
             listaIdsParecer.clear();
             sql = "select numero_parecer from parecer order by numero_parecer desc";
         }// fim if 
@@ -233,6 +235,11 @@ public class ParecerDAO {
         else if (tipoOrdenacao.equals("Última modificação")) {
             listaIdsParecer.clear();
             sql = "select numero_parecer from parecer order by dataModificacao desc;";
+        }// fim else if
+        
+         else if(tipoOrdenacao.equals("Mais antigos primeiro")){
+             listaIdsParecer.clear();
+            sql = "select numero_parecer from parecer order by numero_parecer";
         }// fim else if
 
         PreparedStatement ps = null;
@@ -275,7 +282,53 @@ public class ParecerDAO {
     }
 
     return listaIdsParecer;
-}
+}// fim metodo
+           
+           public List<Integer> passarProximo() throws SQLException {
+        ParecerModel parecer = new ParecerModel();
+
+        String sql = " select numero_parecer from parecer order by numero_parecer;";
+
+        PreparedStatement ps = null;
+        Connection connection = null;
+
+        connection = new Conexao().getConexao();
+
+        ps = connection.prepareStatement(sql);
+
+        ResultSet resultSet = ps.executeQuery();
+
+        while (resultSet.next()) {
+           parecer.setNumParecer(resultSet.getInt("numero_parecer"));
+
+            passarProximo.add(parecer.getNumParecer());
+        }// fim while
+
+        return passarProximo;
+    }// fim metodo
+
+    public List<Integer> passarAnterior() throws SQLException {
+     ParecerModel parecer = new ParecerModel();
+
+        String sql = "  select numero_parecer from parecer order by numero_parecer desc;";
+
+        PreparedStatement ps = null;
+        Connection connection = null;
+
+        connection = new Conexao().getConexao();
+
+        ps = connection.prepareStatement(sql);
+
+        ResultSet resultSet = ps.executeQuery();
+
+        while (resultSet.next()) {
+         parecer.setNumParecer(resultSet.getInt("numero_parecer"));
+
+            passarAnterior.add(parecer.getNumParecer());
+        }// fim while
+
+        return passarAnterior;
+    }// fim metodo
     
     
 }// fim classe 

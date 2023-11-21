@@ -19,6 +19,10 @@ public class RelatorioAtendimentoDAO {
     List<Integer> listaIdsRelatorios = new ArrayList<>();
     LocalDateTime dataHoraAtual = LocalDateTime.now();
     Timestamp timestamp = Timestamp.valueOf(dataHoraAtual);
+    List<String> listaTurmas = new ArrayList<>();
+    List<Integer> passarProximo = new ArrayList<>();
+     List<Integer> passarAnterior = new ArrayList<>();
+     List<Integer> listaIdsNome = new ArrayList<>();
 
     public void salvarRelatorio(RelatorioAtendimentoModel relatorioASalvar) {
 
@@ -219,7 +223,7 @@ public class RelatorioAtendimentoDAO {
 
         RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
         String sql = null;
-        if (tipoOrdenacao.equals("Todos documentos")) {
+        if (tipoOrdenacao.equals("Mais recentes primeiro")) {
             listaIdsRelatorios.clear();
             sql = "select numero_relatorio from relatorio_atendimento order by numero_relatorio desc;";
         }// fim if 
@@ -235,6 +239,11 @@ public class RelatorioAtendimentoDAO {
         else if (tipoOrdenacao.equals("Última modificação")) {
             listaIdsRelatorios.clear();
             sql = "select numero_relatorio from relatorio_atendimento order by dataModificacao desc;";
+        }// fim else if
+        
+        else if(tipoOrdenacao.equals("Mais antigos primeiro")){
+             listaIdsRelatorios.clear();
+            sql = "select numero_relatorio from relatorio_atendimento order by numero_relatorio";
         }// fim else if
 
         PreparedStatement ps = null;
@@ -255,29 +264,98 @@ public class RelatorioAtendimentoDAO {
         return listaIdsRelatorios;
 
     }// fim metodo
-    
+
+    public List<String> listaTurmas() throws SQLException {
+
+        RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
+        String sql = "select distinct turma_aluno from relatorio_atendimento";
+
+        PreparedStatement ps = null;
+        Connection connection = null;
+
+        connection = new Conexao().getConexao();
+
+        ps = connection.prepareStatement(sql);
+
+        ResultSet resultSet = ps.executeQuery();
+
+        while (resultSet.next()) {
+            relatorio.setTurmaAluno(resultSet.getString("turma_aluno"));
+
+            listaTurmas.add(relatorio.getTurmaAluno());
+        }// fim while
+
+        return listaTurmas;
+    }// fim metodo
+
     public List<Integer> listaIdsRelatoriosPorNome(String nomeAluno) throws SQLException {
-    List<Integer> listaIdsRelatorios = new ArrayList<>();
+       
 
-    try {
-        String sql = "SELECT numero_relatorio FROM relatorio_atendimento WHERE nome_aluno LIKE ?";
-        
-        try (PreparedStatement ps = getConexao().prepareStatement(sql)) {
-            ps.setString(1, "%" + nomeAluno + "%"); // Use o operador LIKE para pesquisa parcial
+        try {
+            String sql = "SELECT numero_relatorio FROM relatorio_atendimento WHERE nome_aluno LIKE ?";
 
-            ResultSet resultSet = ps.executeQuery();
+            try ( PreparedStatement ps = getConexao().prepareStatement(sql)) {
+                ps.setString(1, "%" + nomeAluno + "%"); // Use o operador LIKE para pesquisa parcial
 
-            while (resultSet.next()) {
-                int numeroRelatorio = resultSet.getInt("numero_relatorio");
-                listaIdsRelatorios.add(numeroRelatorio);
+                ResultSet resultSet = ps.executeQuery();
+
+                while (resultSet.next()) {
+                    int numeroRelatorio = resultSet.getInt("numero_relatorio");
+                    listaIdsNome.add(numeroRelatorio);
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+        return listaIdsNome;
     }
 
-    return listaIdsRelatorios;
-}
+    public List<Integer> passarProximo() throws SQLException {
+        RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
+
+        String sql = " select numero_relatorio from  relatorio_atendimento order by numero_relatorio;";
+
+        PreparedStatement ps = null;
+        Connection connection = null;
+
+        connection = new Conexao().getConexao();
+
+        ps = connection.prepareStatement(sql);
+
+        ResultSet resultSet = ps.executeQuery();
+
+        while (resultSet.next()) {
+            relatorio.setNumRelatorio(resultSet.getInt("numero_relatorio"));
+
+            passarProximo.add(relatorio.getNumRelatorio());
+        }// fim while
+
+        return passarProximo;
+    }// fim metodo
+    
+     public List<Integer> passarAnterior() throws SQLException {
+        RelatorioAtendimentoModel relatorio = new RelatorioAtendimentoModel();
+
+        String sql = " select numero_relatorio from  relatorio_atendimento order by numero_relatorio desc;";
+
+        PreparedStatement ps = null;
+        Connection connection = null;
+
+        connection = new Conexao().getConexao();
+
+        ps = connection.prepareStatement(sql);
+
+        ResultSet resultSet = ps.executeQuery();
+
+        while (resultSet.next()) {
+            relatorio.setNumRelatorio(resultSet.getInt("numero_relatorio"));
+
+            passarAnterior.add(relatorio.getNumRelatorio());
+        }// fim while
+
+        return passarAnterior;
+    }// fim metodo
 
 }// fim classe
 

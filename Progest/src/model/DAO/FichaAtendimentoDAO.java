@@ -20,6 +20,8 @@ public class FichaAtendimentoDAO {
     List<Integer> listaIdsFichas = new ArrayList<>();
     LocalDateTime dataHoraAtual = LocalDateTime.now();
     Timestamp timestamp = Timestamp.valueOf(dataHoraAtual);
+    List<Integer> passarAnterior = new ArrayList<>();
+    List<Integer> passarProximo = new ArrayList<>();
 
     public void salvarFicha(FichaAtendimentoModel fichaASalvar, String estadoCivil, String moraCom) {
 
@@ -321,7 +323,7 @@ public class FichaAtendimentoDAO {
         FichaAtendimentoModel ficha = new FichaAtendimentoModel();
 
         String sql = null;
-        if (tipoOrdenacao.equals("Todos documentos")) {
+        if (tipoOrdenacao.equals("Mais recentes primeiro")) {
             listaIdsFichas.clear();
             sql = "select numero_ficha from fichaatendimento order by numero_ficha desc";
         }// fim if 
@@ -336,6 +338,10 @@ public class FichaAtendimentoDAO {
         else if (tipoOrdenacao.equals("Última modificação")) {
             listaIdsFichas.clear();
             sql = "select numero_ficha from fichaatendimento order by dataModificacao desc;";
+        }// fim else if
+        else if (tipoOrdenacao.equals("Mais antigos primeiro")) {
+            listaIdsFichas.clear();
+            sql = "select numero_ficha from fichaatendimento order by numero_ficha";
         }// fim else if
 
         PreparedStatement ps = null;
@@ -356,29 +362,75 @@ public class FichaAtendimentoDAO {
 
         return listaIdsFichas;
     }// fim metodo
-    
-     public List<Integer> listaIdsFichasPorNome(String nomeAluno) throws SQLException {
-    List<Integer> listaIdsFichas = new ArrayList<>();
 
-    try {
-        String sql = "SELECT numero_ficha FROM fichaatendimento WHERE nome_aluno LIKE ?";
-        
-        try (PreparedStatement ps = getConexao().prepareStatement(sql)) {
-            ps.setString(1, "%" + nomeAluno + "%");
+    public List<Integer> listaIdsFichasPorNome(String nomeAluno) throws SQLException {
+        List<Integer> listaIdsFichas = new ArrayList<>();
 
-            ResultSet resultSet = ps.executeQuery();
+        try {
+            String sql = "SELECT numero_ficha FROM fichaatendimento WHERE nome_aluno LIKE ?";
 
-            while (resultSet.next()) {
-                int numeroFicha = resultSet.getInt("numero_ficha");
-                listaIdsFichas.add(numeroFicha);
+            try ( PreparedStatement ps = getConexao().prepareStatement(sql)) {
+                ps.setString(1, "%" + nomeAluno + "%");
+
+                ResultSet resultSet = ps.executeQuery();
+
+                while (resultSet.next()) {
+                    int numeroFicha = resultSet.getInt("numero_ficha");
+                    listaIdsFichas.add(numeroFicha);
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
 
-    return listaIdsFichas;
-}
+        return listaIdsFichas;
+    }// fim meotodo
+
+    public List<Integer> passarProximo() throws SQLException {
+        FichaAtendimentoModel ficha = new FichaAtendimentoModel();
+
+        String sql = " select numero_ficha from fichaatendimento order by numero_ficha;";
+
+        PreparedStatement ps = null;
+        Connection connection = null;
+
+        connection = new Conexao().getConexao();
+
+        ps = connection.prepareStatement(sql);
+
+        ResultSet resultSet = ps.executeQuery();
+
+        while (resultSet.next()) {
+           ficha.setNumeroFicha(resultSet.getInt("numero_ficha"));
+
+            passarProximo.add(ficha.getNumeroFicha());
+        }// fim while
+
+        return passarProximo;
+    }// fim metodo
+
+    public List<Integer> passarAnterior() throws SQLException {
+       FichaAtendimentoModel ficha = new FichaAtendimentoModel();
+
+        String sql = " select numero_ficha from fichaatendimento order by numero_ficha desc;";
+
+        PreparedStatement ps = null;
+        Connection connection = null;
+
+        connection = new Conexao().getConexao();
+
+        ps = connection.prepareStatement(sql);
+
+        ResultSet resultSet = ps.executeQuery();
+
+        while (resultSet.next()) {
+           ficha.setNumeroFicha(resultSet.getInt("numero_ficha"));
+
+            passarAnterior.add(ficha.getNumeroFicha());
+        }// fim while
+
+        return passarAnterior;
+    }// fim metodo
 
 }// fim classe 
 

@@ -3,11 +3,19 @@ package View;
 import controller.RelatorioAtendimentoController;
 import controller.UsuarioController;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import static java.awt.print.Printable.PAGE_EXISTS;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -18,11 +26,12 @@ import javax.swing.event.DocumentListener;
 import model.DAO.RelatorioAtendimentoDAO;
 import model.RelatorioAtendimentoModel;
 
-public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements DocumentListener {
+public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements DocumentListener, Printable {
 
     //RelatorioAtendimentoModel relatorioModel = new  RelatorioAtendimentoModel();
     SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
+    Menu menu = new Menu();
 
     SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
     boolean concluido = false;
@@ -30,9 +39,14 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
     // formatacao de datas e horrio
     RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
     private RelatorioAtendimentoModel relatorioModel;
+    int id = 0;
+    List<Integer> listaProximo = relatorioDAO.passarProximo();
+    List<Integer> listaAnterior = relatorioDAO.passarAnterior();
+    List<Integer> listaEscolhida;
 
     public RelatorioAtendimentoAcessar(RelatorioAtendimentoModel relatorioModel) throws SQLException, ParseException {
         this.relatorioModel = relatorioModel;
+
         // define o construtor  
         initComponents();
         setLocationRelativeTo(null);
@@ -68,21 +82,34 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         barraProgresso.setStringPainted(true);
         UIManager.put("ProgressBar.selectionBackground", Color.GREEN);
         CampoSituacao.getDocument().addDocumentListener(this);
-         CampoEncaminhamentos.getDocument().addDocumentListener(this);
-          CampoConclusao.getDocument().addDocumentListener(this);
-          
-          if(CampoSituacao.getText().length()>0){
-              barraProgresso.setValue(33);
-          }
-          
-           if(CampoEncaminhamentos.getText().length()>0 && CampoSituacao.getText().length() >0){
-              barraProgresso.setValue(66);
-          }
+        CampoEncaminhamentos.getDocument().addDocumentListener(this);
+        CampoConclusao.getDocument().addDocumentListener(this);
 
-         
-           if(CampoEncaminhamentos.getText().length()>0 && CampoSituacao.getText().length() >0 && CampoConclusao.getText().length() >0){
-                barraProgresso.setValue(100);
-           }
+        if (CampoSituacao.getText().length() > 0) {
+            barraProgresso.setValue(33);
+        }
+
+        if (CampoEncaminhamentos.getText().length() > 0 && CampoSituacao.getText().length() > 0) {
+            barraProgresso.setValue(66);
+        }
+
+        if (CampoEncaminhamentos.getText().length() > 0 && CampoSituacao.getText().length() > 0 && CampoConclusao.getText().length() > 0) {
+            barraProgresso.setValue(100);
+        }
+
+        int numeroAtual = Integer.parseInt(CampoId.getText());
+        int indiceAtualProximo = listaProximo.indexOf(numeroAtual);
+        int indiceAtualAnterior = listaAnterior.indexOf(numeroAtual);
+        if (indiceAtualProximo + 1 > listaProximo.size() - 1) {
+            proximo.setEnabled(false);
+            proximo.setBackground(Color.GRAY);
+        }// fim else 
+
+        if (indiceAtualAnterior + 1 > listaAnterior.size() - 1) {
+            anterior.setEnabled(false);
+            anterior.setBackground(Color.GRAY);
+        }// fim else 
+
     }// fim construtor
 
     public RelatorioAtendimentoAcessar() throws SQLException {
@@ -92,8 +119,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //  preencherDados();
         CampoId.setEditable(false);
-        
-        
+
     }// fim cost
 
     @SuppressWarnings("unchecked")
@@ -114,12 +140,12 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        impressora = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -152,8 +178,10 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         botaoSalvarAlteracao = new javax.swing.JButton();
         CheckConcluido = new javax.swing.JCheckBox();
         barraProgresso = new javax.swing.JProgressBar();
+        proximo = new javax.swing.JButton();
+        anterior = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -161,7 +189,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
 
         jLabel20.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel20.setText("  Completado:");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, -1, -1));
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 80, -1));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -218,6 +246,16 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         jLabel11.setText("  1.4 Discente:                                                                             1.5 Turma:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 460, 500, 40));
 
+        impressora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/impressora (2).png"))); // NOI18N
+        impressora.setToolTipText("Imprimir documento");
+        impressora.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        impressora.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                impressoraMouseClicked(evt);
+            }
+        });
+        jPanel1.add(impressora, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, -1, -1));
+
         jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel12.setText("  1.6 Nome dos responsaveis pelo Discente:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 510, 260, 30));
@@ -238,10 +276,6 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         jLabel16.setText("  3. ENCAMINHAMENTOS");
         jLabel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 730, 500, 40));
-
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/contrato (8).png"))); // NOI18N
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
 
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Ifam (2).png"))); // NOI18N
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, 110, 160));
@@ -341,7 +375,27 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
 
         barraProgresso.setBackground(new java.awt.Color(0, 204, 0));
         barraProgresso.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(barraProgresso, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 250, 30));
+        jPanel1.add(barraProgresso, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 240, 30));
+
+        proximo.setBackground(new java.awt.Color(255, 255, 255));
+        proximo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-para-a-direita (1).png"))); // NOI18N
+        proximo.setToolTipText("Próximo");
+        proximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proximoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(proximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 40, 40));
+
+        anterior.setBackground(new java.awt.Color(255, 255, 255));
+        anterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
+        anterior.setToolTipText("Anterior");
+        anterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anteriorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(anterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 40, 40));
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -418,6 +472,76 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
 
     }//GEN-LAST:event_CheckConcluidoActionPerformed
 
+    private void impressoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_impressoraMouseClicked
+        try {
+            print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_impressoraMouseClicked
+
+    private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
+        try {
+            passar();
+            /*  int numeroAtual = Integer.parseInt(CampoId.getText());
+            int indiceAtual = 0;
+            int proximoRelatorio = 0;
+            
+            try {
+            List<Integer> listaPesquisa = relatorioDAO.listaIdsRelatoriosPorNome(menu.getNomePesquisado());
+
+            if (menu.getAcessadoPelaBarra() == true) {
+            indiceAtual = listaPesquisa.indexOf(numeroAtual);
+            }
+            
+            else {
+            indiceAtual = listaProximo.indexOf(numeroAtual);
+            
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if (indiceAtual != -1 && indiceAtual < listaProximo.size() - 1) {
+            
+            proximoRelatorio = listaProximo.get(indiceAtual + 1);
+            }// fim if
+            
+            try {
+            passarProximo(proximoRelatorio);
+            } catch (SQLException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            */
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_proximoActionPerformed
+
+    private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
+        this.dispose();
+        int numeroAtual = Integer.parseInt(CampoId.getText());
+        int indiceAtual = listaAnterior.indexOf(numeroAtual);
+        int proximoRelatorio = 0;
+
+        if (indiceAtual != -1 && indiceAtual < listaAnterior.size() - 1) {
+
+            proximoRelatorio = listaAnterior.get(indiceAtual + 1);
+        }// fim if 
+
+        try {
+            passarProximo(proximoRelatorio);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_anteriorActionPerformed
+
     public static void main(String args[]) {
 
         try {
@@ -488,8 +612,10 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
     private javax.swing.JTextField CampoTurma;
     private javax.swing.JCheckBox CheckConcluido;
     private javax.swing.JButton VOLTAR;
+    private javax.swing.JButton anterior;
     private javax.swing.JProgressBar barraProgresso;
     private javax.swing.JButton botaoSalvarAlteracao;
+    private javax.swing.JLabel impressora;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -498,7 +624,6 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -527,6 +652,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JButton proximo;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -544,26 +670,109 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         atualizarBarra();
     }
 
-    
     public void atualizarBarra() {
         int preenchido = 0;
-        
-        if(!CampoSituacao.getText().isEmpty()){
+
+        if (!CampoSituacao.getText().isEmpty()) {
             preenchido = 33;
         }
-        
-        if(!CampoSituacao.getText().isEmpty() &&!CampoEncaminhamentos.getText().isEmpty()){
+
+        if (!CampoSituacao.getText().isEmpty() && !CampoEncaminhamentos.getText().isEmpty()) {
             preenchido = 66;
         }// fim metodo
-        
-        if(!CampoSituacao.getText().isEmpty() &&!CampoEncaminhamentos.getText().isEmpty() && !CampoConclusao.getText().isEmpty()){
+
+        if (!CampoSituacao.getText().isEmpty() && !CampoEncaminhamentos.getText().isEmpty() && !CampoConclusao.getText().isEmpty()) {
             preenchido = 100;
         }
+
+        barraProgresso.setValue(preenchido);
+        barraProgresso.revalidate();
+        barraProgresso.repaint();
+
+    }// fim metodo
+
+    @Override
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+
+        if (pageIndex > 0) {
+            return Printable.NO_SUCH_PAGE;
+        }// fim override
+
+        Graphics2D g2d = (Graphics2D) graphics;
+
+        g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+
+        double panelWidth = jPanel1.getWidth();
+        double panelHeigth = jPanel1.getHeight();
+
+        double pageWidth = pageFormat.getImageableWidth();
+        double pageHeigth = pageFormat.getImageableHeight();
+
+        double scaleFactor = Math.min(pageWidth / panelWidth, pageHeigth / panelHeigth);
+
+        g2d.scale(scaleFactor, scaleFactor);
+
+        jPanel1.paint(g2d);
+
+        return PAGE_EXISTS;
+
+    }
+
+    public void print() throws PrinterException {
+        PrinterJob job = PrinterJob.getPrinterJob();
+        job.setPrintable(this);
+
+        if (job.printDialog()) {
+            job.print();
+
+        }
+    }// fim metodo imprimir
+    
+    public void passar() throws SQLException{
         
-       barraProgresso.setValue(preenchido);
-       barraProgresso.revalidate();
-       barraProgresso.repaint();
+         this.dispose();
+        if(menu.getAcessadoPelaBarra()== true){
+            listaEscolhida = relatorioDAO.listaIdsRelatoriosPorNome(menu.getNomePesquisado());
+        }
+        
+        else {
+          
+            listaEscolhida = relatorioDAO.passarProximo();
+        }// fim metodo
+        
+         int numeroAtual = Integer.parseInt(CampoId.getText());
+        int indiceAtual = 0;
+        int proximoRelatorio = 0;
+
+        indiceAtual = listaEscolhida.indexOf(numeroAtual);
+
+        if (indiceAtual != -1 && indiceAtual < listaEscolhida.size() - 1) {
+
+            proximoRelatorio = listaEscolhida.get(indiceAtual + 1);
+        }// fim if 
+
+        try {
+            passarProximo(proximoRelatorio);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }// fim metodo
+
+    public void passarProximo(int numero) throws SQLException, ParseException {
+       
+
+        RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel(numero);
+
+        new RelatorioAtendimentoAcessar(relatorioAcessar).setVisible(true);
+
+    }// fim metodo
+    
+    
+    
+    
 
 }// fim classe 

@@ -24,7 +24,7 @@ public class TelaInicio extends javax.swing.JFrame {
         CADASTRAR = new javax.swing.JButton();
         fundo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Progest");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

@@ -31,6 +31,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
@@ -45,201 +46,37 @@ public class MenuParecer extends javax.swing.JFrame {
     ParecerDAO parecerDAO = new ParecerDAO();
     private String labelClicado = "menuRelatorio";
     ButtonGroup grupo = new ButtonGroup();
-  
 
     Map<String, Boolean> selecaoJlabel = new HashMap<>();
     private boolean labelsCriados = false;
     private boolean visivel = false;
     private boolean tresPontosClicado;
 
-   
     List<JLabel> listaJlabel = new ArrayList<>();
-    
-    Color cor = new Color(255,255,255);
-    
-    Color cor3 = new Color(255,255,255);
-    
-    
+
+    Color cor = new Color(255, 255, 255);
+
+    Color cor3 = new Color(255, 255, 255);
+
     public MenuParecer() throws SQLException {
 
         initComponents();
         painelDocumentos.removeAll();
-        mostrarRelatorios("Todos documentos");
+        mostrarParecer("Mais recentes primeiro");
         painelLateral.setVisible(true);
-        
-        grupo.add(parecer);
-        
+
+        setLocationRelativeTo(null);
+
         novo.setBackground(cor);
-        
+
         relatorio3.setBackground(cor3);
-       
-        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
     }// fim construtor 
 
-    public void mostrarRelatorios(String tipoOrdenacao) throws SQLException {
+  
 
-        painelDocumentos.removeAll();
-        painelDocumentos.revalidate();
-        painelDocumentos.repaint();
-
-        List<Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(tipoOrdenacao);
-
-        Map<Integer, JLabel> mapaRelatorios = new HashMap<>();
-        int x = 25;
-
-        ImageIcon imagemRelatorio = new ImageIcon(getClass().getResource("Cap.relatorio1.jpg"));
-
-        for (int i = 0; i < listaIdsRelatorios.size(); i++) {
-
-            JLabel miniaturaRelatorios = new JLabel(imagemRelatorio);
-            JLabel especRelatorio = new JLabel("Relatório N° " + listaIdsRelatorios.get(i));
-
-            // define a posicao dos jlabels dos relatorios
-            miniaturaRelatorios.setBounds(x, 25, 138, 185);
-            miniaturaRelatorios.setBorder(BorderFactory.createLineBorder(Color.black));
-
-            //define a posicao dos jlabels de legenda dos relatorios
-            especRelatorio.setBounds(x + 23, 197, 100, 50);
-            miniaturaRelatorios.putClientProperty("numeroRelatorio", listaIdsRelatorios.get(i));
-            miniaturaRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            especRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            x += 165;
-
-            miniaturaRelatorios.setVisible(true);
-            especRelatorio.setVisible(true);
-            painelDocumentos.add(especRelatorio);
-            painelDocumentos.add(miniaturaRelatorios);
-
-            miniaturaRelatorios.addMouseListener(new MouseAdapter() {
-
-                @Override
-                public void mouseClicked(MouseEvent e) {
-
-                    JLabel relatorioClicado = (JLabel) e.getSource();
-
-                    Object idObj = relatorioClicado.getClientProperty("numeroRelatorio");
-
-                    final int id = (int) idObj;
-
-                    RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-                    RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel(id);
-                    try {
-                        new RelatorioAtendimentoAcessar(relatorioAcessar).setVisible(true);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }// fim clicked
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-
-                    miniaturaRelatorios.setBorder(BorderFactory.createLineBorder(Color.blue));
-                    revalidate();
-                    repaint();
-
-                }//fim metodo
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-
-                    miniaturaRelatorios.setBorder(BorderFactory.createLineBorder(Color.black));
-                    revalidate();
-                    repaint();
-
-                }//fim metodo
-
-            });
-
-        }// fim for
-        painelDocumentos.revalidate();
-        painelDocumentos.repaint();
-    }//fim metodo
-
-    public void mostrarFichas(String tipoOrdenacao) throws SQLException {
-        painelDocumentos.removeAll();
-        painelDocumentos.revalidate();
-        painelDocumentos.repaint();
-
-        List<Integer> listaIdsFichas = fichaDAO.listaIdsFichas(tipoOrdenacao);
-
-        Map<Integer, JLabel> mapaFichas = new HashMap<>();
-        int x = 25;
-
-        ImageIcon imagemFicha = new ImageIcon(getClass().getResource("ficha de atendimento.jpg"));
-
-        for (int i = 0; i < listaIdsFichas.size(); i++) {
-
-            JLabel miniaturaFichas = new JLabel(imagemFicha);
-           
-            JLabel especFicha = new JLabel("Ficha N° " + listaIdsFichas.get(i));
-
-            // define a posicao dos jlabels dos relatorios
-            miniaturaFichas.setBounds(x, 25, 138, 185);
-       
-            miniaturaFichas.setBorder(BorderFactory.createLineBorder(Color.black));
-                 miniaturaFichas.setBackground(Color.WHITE);
-                 miniaturaFichas.setOpaque(true);
-
-            //define a posicao dos jlabels de legenda dos relatorios
-            especFicha.setBounds(x + 35, 197, 100, 50);
-            miniaturaFichas.putClientProperty("numeroFicha", listaIdsFichas.get(i));
-            miniaturaFichas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            especFicha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            x += 165;
-
-            miniaturaFichas.setVisible(true);
-            especFicha.setVisible(true);
-            painelDocumentos.add(especFicha);
-            painelDocumentos.add(miniaturaFichas);
-
-            miniaturaFichas.addMouseListener(new MouseAdapter() {
-
-                @Override
-                public void mouseClicked(MouseEvent e) {
-
-                    JLabel fichaClicado = (JLabel) e.getSource();
-
-                    Object idObj = fichaClicado.getClientProperty("numeroFicha");
-
-                    final int id = (int) idObj;
-
-                    FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
-                    FichaAtendimentoModel fichaAcessar = new FichaAtendimentoModel(id);
-                    try {
-                        new FichaDeAtendimentoAcessar(fichaAcessar).setVisible(true);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }// fim mous clicked
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-
-                    miniaturaFichas.setBorder(BorderFactory.createLineBorder(Color.blue));
-                    revalidate();
-                    repaint();
-
-                }//fim metodo
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-
-                    miniaturaFichas.setBorder(BorderFactory.createLineBorder(Color.black));
-                    revalidate();
-                    repaint();
-
-                }//fim metodo
-            });
-
-        }// fim for
-        painelDocumentos.revalidate();
-        painelDocumentos.repaint();
-    }//fim metodo
+  
 
     public void mostrarParecer(String tipoOrdenacao) throws SQLException {
 
@@ -250,7 +87,14 @@ public class MenuParecer extends javax.swing.JFrame {
         List<Integer> listaIdsParecer = parecerDAO.listaIdsParecer(tipoOrdenacao);
 
         Map<Integer, JLabel> mapaParecer = new HashMap<>();
-        int x = 25;
+
+        int x = 20;
+        int y = 25;
+
+        int larguraPainel = painelDocumentos.getWidth();
+        int larguraLabel = 138;
+        int alturaLabel = 185;
+        int espacoLabels = 28;
 
         ImageIcon imagemParecer = new ImageIcon(getClass().getResource("miniaturaParecer.png"));
 
@@ -258,17 +102,22 @@ public class MenuParecer extends javax.swing.JFrame {
 
             JLabel miniaturaParecer = new JLabel(imagemParecer);
             JLabel especParecer = new JLabel("Parecer N° " + listaIdsParecer.get(i));
+            
+             if (x + larguraLabel > larguraPainel) {
+                x = 20;
+                y += alturaLabel + espacoLabels;
+            }
 
             // define a posicao dos jlabels dos relatorios
-            miniaturaParecer.setBounds(x, 25, 142, 183);
+            miniaturaParecer.setBounds(x, y, 142, 183);
             miniaturaParecer.setBorder(BorderFactory.createLineBorder(Color.black));
 
             //define a posicao dos jlabels de legenda dos relatorios
-            especParecer.setBounds(x + 23, 197, 100, 50);
+            especParecer.setBounds(x + 28, y + 170, 100, 50);
             miniaturaParecer.putClientProperty("numeroParecer", listaIdsParecer.get(i));
             miniaturaParecer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             especParecer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            x += 165;
+              x += larguraLabel + espacoLabels;
 
             miniaturaParecer.setVisible(true);
             especParecer.setVisible(true);
@@ -317,6 +166,7 @@ public class MenuParecer extends javax.swing.JFrame {
             });
 
         }// fim for
+        painelDocumentos.setPreferredSize(new Dimension(1410, y + alturaLabel + 35));
         painelDocumentos.revalidate();
         painelDocumentos.repaint();
     }//fim metodo
@@ -352,7 +202,6 @@ public class MenuParecer extends javax.swing.JFrame {
         logoProgestLateral1 = new javax.swing.JLabel();
         txtnomealuno = new java.awt.TextField();
         pesquisar = new javax.swing.JLabel();
-        parecer = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -396,7 +245,7 @@ public class MenuParecer extends javax.swing.JFrame {
         painelLateral.add(tresPontosLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 17, 30, 30));
 
         logoProgestLateral.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logoProgestLateral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/contrato (8).png"))); // NOI18N
+        logoProgestLateral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/contrato (14).png"))); // NOI18N
         painelLateral.add(logoProgestLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 10, 40, 40));
 
         Documentos1.setFont(new java.awt.Font("Arial", 0, 23)); // NOI18N
@@ -541,11 +390,11 @@ public class MenuParecer extends javax.swing.JFrame {
 
         painelDocumentos.setBackground(new java.awt.Color(204, 204, 204));
         painelDocumentos.setLayout(null);
-        jPanel1.add(painelDocumentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 1500, 340));
+        jPanel1.add(painelDocumentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 1410, -1));
 
         filtroJanela.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         filtroJanela.setForeground(new java.awt.Color(51, 51, 51));
-        filtroJanela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos documentos", "Já concluídos", "Últimos acessados", "Última modificação" }));
+        filtroJanela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mais recentes primeiro", "Mais antigos primeiro", "Já concluídos", "Últimos acessados", "Última modificação" }));
         filtroJanela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filtroJanelaActionPerformed(evt);
@@ -583,7 +432,9 @@ public class MenuParecer extends javax.swing.JFrame {
         jPanel1.add(tresPontosPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 17, 30, 30));
 
         logoProgestLateral1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logoProgestLateral1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/contrato (8).png"))); // NOI18N
+        logoProgestLateral1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/contrato (14).png"))); // NOI18N
+        logoProgestLateral1.setToolTipText("Progest");
+        logoProgestLateral1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.add(logoProgestLateral1, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 10, 40, 40));
 
         txtnomealuno.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -608,6 +459,7 @@ public class MenuParecer extends javax.swing.JFrame {
         pesquisar.setBackground(new java.awt.Color(204, 204, 204));
         pesquisar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pesquisar.setText("🔎");
+        pesquisar.setToolTipText("Pesquisar");
         pesquisar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pesquisar.setOpaque(true);
         pesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -616,15 +468,6 @@ public class MenuParecer extends javax.swing.JFrame {
             }
         });
         jPanel1.add(pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 30, 30));
-
-        parecer.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        parecer.setText("Parecer");
-        parecer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                parecerActionPerformed(evt);
-            }
-        });
-        jPanel1.add(parecer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, -1, -1));
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -642,10 +485,9 @@ public class MenuParecer extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   int x= 230;
-   int y = 0;
-    
-    
+    int x = 230;
+    int y = 0;
+
 
     private void relatorio3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorio3ActionPerformed
         // TODO add your handling code here:
@@ -676,36 +518,16 @@ public class MenuParecer extends javax.swing.JFrame {
 
     private void filtroJanelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroJanelaActionPerformed
 
-        
-      
         tipoOrdenacao = (String) filtroJanela.getSelectedItem();
 
         try {
-            mostrarRelatorios(tipoOrdenacao);
-            
+            mostrarParecer(tipoOrdenacao);
 
         } catch (SQLException ex) {
             Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if (labelClicado.equals("menuParecer")) {
-            try {
-                mostrarParecer(tipoOrdenacao);
-               
-
-            } catch (SQLException ex) {
-                Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (labelClicado.equals("menuFicha")) {
-            try {
-                mostrarFichas(tipoOrdenacao);
-                
-
-            } catch (SQLException ex) {
-                Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
+       
 
 
     }//GEN-LAST:event_filtroJanelaActionPerformed
@@ -719,7 +541,7 @@ public class MenuParecer extends javax.swing.JFrame {
     }//GEN-LAST:event_painelLateralMouseClicked
 
     private void tresPontosLateralMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosLateralMouseExited
-        tresPontosLateral.setBackground(new java.awt.Color(186,203,212));
+        tresPontosLateral.setBackground(new java.awt.Color(186, 203, 212));
     }//GEN-LAST:event_tresPontosLateralMouseExited
 
     private void tresPontosLateralMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosLateralMouseEntered
@@ -727,9 +549,8 @@ public class MenuParecer extends javax.swing.JFrame {
     }//GEN-LAST:event_tresPontosLateralMouseEntered
 
     private void tresPontosLateralMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosLateralMouseClicked
-    ocultarLateral();
+        ocultarLateral();
 
-        
 
     }//GEN-LAST:event_tresPontosLateralMouseClicked
 
@@ -742,7 +563,7 @@ public class MenuParecer extends javax.swing.JFrame {
     }//GEN-LAST:event_menuFichaAncestorAdded
 
     private void menuParecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuParecerMouseClicked
-        if (evt.getSource()==menuParecer){
+        if (evt.getSource() == menuParecer) {
             try {
                 new MenuParecer().setVisible(true);
             } catch (SQLException ex) {
@@ -750,7 +571,7 @@ public class MenuParecer extends javax.swing.JFrame {
             }
         }
         this.setVisible(false);
-        
+
         try {
 
             mostrarParecer("Todos documentos");
@@ -765,29 +586,20 @@ public class MenuParecer extends javax.swing.JFrame {
     }//GEN-LAST:event_menuParecerMouseClicked
 
     private void menuFichaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuFichaMouseClicked
-        if (evt.getSource()==menuFicha){
+        if (evt.getSource() == menuFicha) {
             try {
                 new MenuFicha().setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        this.setVisible(false);
-        
-        try {
-            mostrarFichas("Todos documentos");
-            labelClicado = "menuFicha";
-            filtroJanela.setSelectedItem("Todos documentos");
-            ocultarLateral();
-            revalidate();
-            repaint();
-        } catch (SQLException ex) {
-            Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.dispose();
+
+       
     }//GEN-LAST:event_menuFichaMouseClicked
 
     private void menuRelatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRelatorioMouseClicked
-        if (evt.getSource()==menuRelatorio){
+        if (evt.getSource() == menuRelatorio) {
             try {
                 new Menu().setVisible(true);
             } catch (SQLException ex) {
@@ -795,26 +607,15 @@ public class MenuParecer extends javax.swing.JFrame {
             }
         }
         this.setVisible(false);
-        
-        try {
-            mostrarRelatorios("Todos documentos");
-            labelClicado = "menuRelatorio";
-            filtroJanela.setSelectedItem("Todos documentos");
-            ocultarLateral();
-            revalidate();
-            repaint();
-        } catch (SQLException ex) {
-            Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+       
     }//GEN-LAST:event_menuRelatorioMouseClicked
 
     private void tresPontosPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosPrincipalMouseClicked
 
-       
-            mostrarLateral();
-            
- 
-        
+        mostrarLateral();
+
+
     }//GEN-LAST:event_tresPontosPrincipalMouseClicked
 
     private void tresPontosPrincipalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tresPontosPrincipalMouseEntered
@@ -846,9 +647,8 @@ public class MenuParecer extends javax.swing.JFrame {
     }//GEN-LAST:event_novoMouseExited
 
     private void txtnomealunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnomealunoActionPerformed
-      
-           
-       
+
+
     }//GEN-LAST:event_txtnomealunoActionPerformed
 
     private void txtnomealunoTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_txtnomealunoTextValueChanged
@@ -860,43 +660,35 @@ public class MenuParecer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnomealunoKeyReleased
 
     private void pesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pesquisarMouseClicked
-        if (parecer.isSelected()) {
-            if (evt.getSource() == pesquisar) {
-                try {
-                    String nomeAluno = txtnomealuno.getText().trim();
+        if (evt.getSource() == pesquisar) {
+            try {
+                String nomeAluno = txtnomealuno.getText().trim();
 
-                    if (!nomeAluno.isEmpty()) {
-                        ParecerDAO parecerDAO = new ParecerDAO();
-                        List<Integer> listaIdsPareceres = parecerDAO.listaIdsParecerPorInteressado(nomeAluno);
+                if (!nomeAluno.isEmpty()) {
+                    ParecerDAO parecerDAO = new ParecerDAO();
+                    List<Integer> listaIdsPareceres = parecerDAO.listaIdsParecerPorInteressado(nomeAluno);
 
-                        if (!listaIdsPareceres.isEmpty()) {
-                            int numeroParecer = listaIdsPareceres.get(0);
-                            ParecerModel parecerAcessar = new ParecerModel(numeroParecer);
+                    if (!listaIdsPareceres.isEmpty()) {
+                        int numeroParecer = listaIdsPareceres.get(0);
+                        ParecerModel parecerAcessar = new ParecerModel(numeroParecer);
 
-                            new ParecerAcessar(parecerAcessar).setVisible(true);
+                        new ParecerAcessar(parecerAcessar).setVisible(true);
 
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Nenhum parecer encontrado para o interessado: " + nomeAluno);
-                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Por favor, insira o nome do aluno para pesquisar.");
+                        JOptionPane.showMessageDialog(null, "Nenhum parecer encontrado para o interessado: " + nomeAluno);
                     }
-                } catch (SQLException ex) {
-                    Logger.getLogger(AlterarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
-                }  catch (ParseException ex) {
-                    Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor, insira o nome do aluno para pesquisar.");
                 }
+            } catch (SQLException ex) {
+                Logger.getLogger(AlterarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(MenuParecer.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, selecione uma opção.");
         }
 
-    }//GEN-LAST:event_pesquisarMouseClicked
 
-    private void parecerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parecerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_parecerActionPerformed
+    }//GEN-LAST:event_pesquisarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -950,7 +742,6 @@ public class MenuParecer extends javax.swing.JFrame {
     private javax.swing.JLabel novolbl;
     private javax.swing.JPanel painelDocumentos;
     private javax.swing.JPanel painelLateral;
-    private javax.swing.JRadioButton parecer;
     private javax.swing.JRadioButton parecerRadio;
     private javax.swing.JLabel pesquisar;
     private javax.swing.JLabel progestLogo;
@@ -980,11 +771,9 @@ public class MenuParecer extends javax.swing.JFrame {
         }
     }
 
-   
-
     public void ocultarLateral() {
 
-        if (visivel = true  || x==230) {
+        if (visivel = true || x == 230) {
             painelLateral.setSize(230, 785);
             Thread th = new Thread() {
                 @Override

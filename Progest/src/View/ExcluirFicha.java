@@ -34,7 +34,7 @@ public class ExcluirFicha extends javax.swing.JFrame {
         LabelInsiraID = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         CampoIDFicha.addActionListener(new java.awt.event.ActionListener() {

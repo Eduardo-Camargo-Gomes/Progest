@@ -5,10 +5,18 @@
 package View;
 
 import controller.FichaAtendimentoController;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import static java.awt.print.Printable.PAGE_EXISTS;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -18,12 +26,12 @@ import model.FichaAtendimentoModel;
 import model.RelatorioAtendimentoModel;
 
 /**
- * 
- * 
+ *
+ *
  *
  * @author vitor
  */
-public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
+public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Printable {
     
     private FichaAtendimentoModel fichaModel;
     private FichaAtendimentoDAO fichaDao = new FichaAtendimentoDAO();
@@ -31,73 +39,63 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
     private String moraCom;
     private String tipoEscola;
     private boolean concluido = false;
+    List<Integer> listaAnterior = fichaDao.passarAnterior();
+    List<Integer> listaProximo = fichaDao.passarProximo();
     
-    
-    
-    
-     public void mostrarIdFicha() throws SQLException{
+    public void mostrarIdFicha() throws SQLException {
         
-         FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
+        FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
         FichaAtendimentoModel fichaModel = new FichaAtendimentoModel();
-
-         fichaModel = fichaDAO.mostrarNumeroFicha();
-         
         
-          
-          campoId.setText(String.valueOf(fichaModel.getNumeroFicha() + 1));
-     }// fim metodo
+        fichaModel = fichaDAO.mostrarNumeroFicha();
+        
+        campoId.setText(String.valueOf(fichaModel.getNumeroFicha() + 1));
+    }// fim metodo
 
     public String getTipoEscola() {
         return tipoEscola;
     }
-
+    
     public void setTipoEscola(String tipoEscola) {
         this.tipoEscola = tipoEscola;
     }
     
-    
-
     public String getEstadoCivil() {
         return estadoCivil;
     }
-
+    
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
-
+    
     public String getMoraCom() {
         return moraCom;
     }
-
+    
     public void setMoraCom(String moraCom) {
         this.moraCom = moraCom;
     }
     
-    
-
     SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
-     SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
-   
-     
+    SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
+    
     public FichaDeAtendimentoAcessar() throws SQLException {
         initComponents();
-       campoId.setEditable(false);
+        campoId.setEditable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-         
         
     }// fim metodo
     
     public FichaDeAtendimentoAcessar(FichaAtendimentoModel fichaModel) throws SQLException, ParseException {
         this.fichaModel = fichaModel;
-          initComponents();
-       setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
- 
+        initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);        
+        
         fichaModel = fichaDao.acessarFicha(fichaModel.getNumeroFicha());
-       
-       Date data = formatoBanco.parse(String.valueOf(fichaModel.getDataNascimento()));
-       
-       String datadeNascimento = formatoData.format(data);
-       
+        
+        Date data = formatoBanco.parse(String.valueOf(fichaModel.getDataNascimento()));
+        
+        String datadeNascimento = formatoData.format(data);
         
         campoId.setText(String.valueOf(fichaModel.getNumeroFicha()));
         campoNome.setText(fichaModel.getNome());
@@ -107,75 +105,59 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
         endereco.setText(fichaModel.getEndereco());
         bairro.setText(fichaModel.getBairro());
         nomePai.setText(fichaModel.getNomePai());
-         nomeMae.setText(fichaModel.getNomeMae());
+        nomeMae.setText(fichaModel.getNomeMae());
         emailPai.setText(fichaModel.getEmailPai());
-         emailMae.setText(fichaModel.getEmailMae());
-         
-         
-         
-         if(fichaModel.getEstadoCivil().equals("Casados") || fichaModel.getMoraCom().equals("Ambos os pais")){
-             casados.setSelected(true);
-         }// fim if
-         
-         else if(fichaModel.getEstadoCivil().equals("Separados")){
-             separados.setSelected(true);
-         }// fim else 
-         
-         else if(fichaModel.getEstadoCivil().equals("Outros") || fichaModel.getMoraCom().equals("Outros")){
-             outrosEstadoCivil.setSelected(true);
-         }// fim else 
-         
+        emailMae.setText(fichaModel.getEmailMae());
         
-         
-         if(fichaModel.getEstadoCivil().equals("Separados") || fichaModel.getEstadoCivil().equals("Outros")){
-            if(fichaModel.getMoraCom().equals("Pai")){
+        if (fichaModel.getEstadoCivil().equals("Casados") || fichaModel.getMoraCom().equals("Ambos os pais")) {
+            casados.setSelected(true);
+        }// fim if
+        else if (fichaModel.getEstadoCivil().equals("Separados")) {
+            separados.setSelected(true);
+        }// fim else 
+        else if (fichaModel.getEstadoCivil().equals("Outros") || fichaModel.getMoraCom().equals("Outros")) {
+            outrosEstadoCivil.setSelected(true);
+        }// fim else 
+        
+        if (fichaModel.getEstadoCivil().equals("Separados") || fichaModel.getEstadoCivil().equals("Outros")) {
+            if (fichaModel.getMoraCom().equals("Pai")) {
                 pai.setSelected(true);
             }// fim if de dentro
-            else if (fichaModel.getMoraCom().equals("Mae")){
+            else if (fichaModel.getMoraCom().equals("Mae")) {
                 mae.setSelected(true);
-            }
-            
-            else if (fichaModel.getMoraCom().equals("Outros")){
-              outrosMoraCom.setSelected(true);
+            } else if (fichaModel.getMoraCom().equals("Outros")) {
+                outrosMoraCom.setSelected(true);
             }// fim else if 
-            
-            else if(fichaModel.getMoraCom().equals("Avos")){
+            else if (fichaModel.getMoraCom().equals("Avos")) {
                 avos.setSelected(true);
             }
             
-         }// fim if
-         
-         celularPai.setText(fichaModel.getTelefonePai());
-            celularMae.setText(fichaModel.getTelefoneMae());
-                escolaConclusao.setText(fichaModel.getEscolaConcluida());
-                
-                if(fichaModel.getTipoEscola().equals("Pública")){
-                    publica.setSelected(true);
-                }// fim if
-                
-                else if (fichaModel.getTipoEscola().equals("Particular")){
-                    particular.setSelected(true);
-                }// fim metodo
-                
-                  if(fichaModel.getConcluido() == true){
-           checkConcluido.setSelected(true);
-       }// fim if 
-       
-       else{
-           checkConcluido.setSelected(false);
-       }// fim else  
-       
-                
-               String anoQueConcluiu = String.valueOf(fichaModel.getAnoConclusao());
-       
-               anoDeConclusao.setText(anoQueConcluiu);
-             campoId.setEditable(false);
-      
-       
+        }// fim if
+        
+        celularPai.setText(fichaModel.getTelefonePai());
+        celularMae.setText(fichaModel.getTelefoneMae());
+        escolaConclusao.setText(fichaModel.getEscolaConcluida());
+        
+        if (fichaModel.getTipoEscola().equals("Pública")) {
+            publica.setSelected(true);
+        }// fim if
+        else if (fichaModel.getTipoEscola().equals("Particular")) {
+            particular.setSelected(true);
+        }// fim metodo
+        
+        if (fichaModel.getConcluido() == true) {
+            checkConcluido.setSelected(true);
+        }// fim if 
+        else {
+            checkConcluido.setSelected(false);
+        }// fim else  
+        
+        String anoQueConcluiu = String.valueOf(fichaModel.getAnoConclusao());
+        
+        anoDeConclusao.setText(anoQueConcluiu);
+        campoId.setEditable(false);
         
     }// fim metodo
-    
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -313,8 +295,15 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         campoId = new javax.swing.JTextField();
         checkConcluido = new javax.swing.JCheckBox();
+        impressora = new javax.swing.JLabel();
+        anterior = new javax.swing.JButton();
+        proximo = new javax.swing.JButton();
+        anterior1 = new javax.swing.JButton();
+        anterior2 = new javax.swing.JButton();
+        anterior3 = new javax.swing.JButton();
+        anterior4 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -686,7 +675,77 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
                 checkConcluidoActionPerformed(evt);
             }
         });
-        jPanel1.add(checkConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        jPanel1.add(checkConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        impressora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/impressora (2).png"))); // NOI18N
+        impressora.setToolTipText("Imprimir documento");
+        impressora.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        impressora.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                impressoraMouseClicked(evt);
+            }
+        });
+        jPanel1.add(impressora, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
+
+        anterior.setBackground(new java.awt.Color(255, 255, 255));
+        anterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
+        anterior.setToolTipText("Anterior");
+        anterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anteriorActionPerformed(evt);
+            }
+        });
+        jPanel1.add(anterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 40, 40));
+
+        proximo.setBackground(new java.awt.Color(255, 255, 255));
+        proximo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-para-a-direita (1).png"))); // NOI18N
+        proximo.setToolTipText("Próximo");
+        proximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proximoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(proximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 40, 40));
+
+        anterior1.setBackground(new java.awt.Color(255, 255, 255));
+        anterior1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
+        anterior1.setToolTipText("Anterior");
+        anterior1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anterior1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(anterior1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 40, 40));
+
+        anterior2.setBackground(new java.awt.Color(255, 255, 255));
+        anterior2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
+        anterior2.setToolTipText("Anterior");
+        anterior2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anterior2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(anterior2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 40, 40));
+
+        anterior3.setBackground(new java.awt.Color(255, 255, 255));
+        anterior3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
+        anterior3.setToolTipText("Anterior");
+        anterior3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anterior3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(anterior3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 40, 40));
+
+        anterior4.setBackground(new java.awt.Color(255, 255, 255));
+        anterior4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
+        anterior4.setToolTipText("Anterior");
+        anterior4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anterior4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(anterior4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 40, 40));
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -694,9 +753,8 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -735,8 +793,8 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
     }//GEN-LAST:event_dataNascimentoActionPerformed
 
     private void VOLTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VOLTARActionPerformed
-        if (evt.getSource()==VOLTAR){
-           this.dispose();
+        if (evt.getSource() == VOLTAR) {
+            this.dispose();
         }
     }//GEN-LAST:event_VOLTARActionPerformed
 
@@ -749,101 +807,126 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField23ActionPerformed
 
     private void SALVARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SALVARActionPerformed
-     if(evt.getSource() == SALVAR){
-         
-         try{
-      
-         int anoQueConcluiu = Integer.parseInt(anoDeConclusao.getText());
-         
-         if(publica.isSelected()){
-             setTipoEscola("Publica");
-         }
-         else if (particular.isSelected()){
-            setTipoEscola("Particular");
-         }// fim else if
-             
-         if(casados.isSelected()){
-            setEstadoCivil("Casados");
-            setMoraCom("Ambos os pais");
-         }// fim if 
-         
-         else if(separados.isSelected()){
-           setEstadoCivil("Separados");
-             
-         }// fim else 
-         
-         else if(outrosEstadoCivil.isSelected()){
-            setEstadoCivil("Outros");
-            setMoraCom("Outros");
-             
-         }//fim else if
-         
-         
-         if(getEstadoCivil().equals("Separados") || getEstadoCivil().equals("Outros")){
-               
-             
-             if(pai.isSelected()){
-                 setMoraCom("Pai");
-             }
-             else if (mae.isSelected()){
-                 setMoraCom("Mae");
-             }
-             else if (avos.isSelected()){
-                 setMoraCom("Avos");
-                 
-             }
-             else if (outrosMoraCom.isSelected()){
-                 setMoraCom("Outros");
-             }// im else 
+        if (evt.getSource() == SALVAR) {
             
-         }// fim if de fora
-         
-           if(checkConcluido.isSelected()){
-              concluido = true;
-         }// fim if 
-   
-         else {
-             concluido = false ;
-         }// fim else 
+            try {
+                
+                int anoQueConcluiu = Integer.parseInt(anoDeConclusao.getText());
+                
+                if (publica.isSelected()) {
+                    setTipoEscola("Publica");
+                } else if (particular.isSelected()) {
+                    setTipoEscola("Particular");
+                }// fim else if
+                
+                if (casados.isSelected()) {
+                    setEstadoCivil("Casados");
+                    setMoraCom("Ambos os pais");
+                }// fim if 
+                else if (separados.isSelected()) {
+                    setEstadoCivil("Separados");
+                    
+                }// fim else 
+                else if (outrosEstadoCivil.isSelected()) {
+                    setEstadoCivil("Outros");
+                    setMoraCom("Outros");
+                    
+                }//fim else if
+                
+                if (getEstadoCivil().equals("Separados") || getEstadoCivil().equals("Outros")) {
+                    
+                    if (pai.isSelected()) {
+                        setMoraCom("Pai");
+                    } else if (mae.isSelected()) {
+                        setMoraCom("Mae");
+                    } else if (avos.isSelected()) {
+                        setMoraCom("Avos");
+                        
+                    } else if (outrosMoraCom.isSelected()) {
+                        setMoraCom("Outros");
+                    }// im else 
+                    
+                }// fim if de fora
+                
+                if (checkConcluido.isSelected()) {
+                    concluido = true;
+                }// fim if 
+                else {
+                    concluido = false;
+                }// fim else 
 
-
-             Date dataNasc = null;
-               
-             dataNasc = formatoData.parse(dataNascimento.getText());
-         
-              formatoData.format(dataNasc);
-        
-         
-           int numeroFicha = Integer.parseInt(campoId.getText());
-          
-          FichaAtendimentoDAO fichaDAO = new  FichaAtendimentoDAO();
-          FichaAtendimentoController controlador = new FichaAtendimentoController();
-          FichaAtendimentoModel fichaASalvar = new FichaAtendimentoModel();
-         
-          
-          boolean sucesso = controlador.alterarFicha(campoNome.getText(), dataNasc,
-                  alunoCelular.getText(), RG.getText(),
-                  endereco.getText(), bairro.getText(), nomePai.getText(),nomeMae.getText(),
-                  emailPai.getText(), emailMae.getText() , getEstadoCivil(), getMoraCom(),
-                  celularPai.getText(), celularMae.getText(),
-                  escolaConclusao.getText(), getTipoEscola(), anoQueConcluiu ,
-                  numeroFicha, concluido);
-          
-          if(sucesso == true){
-              this.dispose();
-          }// fim if
-          
-          
-          } catch (ParseException ex) {
-             Logger.getLogger(FichaDeAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
-         }
-          
-      }// fim
+                Date dataNasc = null;
+                
+                dataNasc = formatoData.parse(dataNascimento.getText());
+                
+                formatoData.format(dataNasc);
+                
+                int numeroFicha = Integer.parseInt(campoId.getText());
+                
+                FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
+                FichaAtendimentoController controlador = new FichaAtendimentoController();
+                FichaAtendimentoModel fichaASalvar = new FichaAtendimentoModel();
+                
+                boolean sucesso = controlador.alterarFicha(campoNome.getText(), dataNasc,
+                        alunoCelular.getText(), RG.getText(),
+                        endereco.getText(), bairro.getText(), nomePai.getText(), nomeMae.getText(),
+                        emailPai.getText(), emailMae.getText(), getEstadoCivil(), getMoraCom(),
+                        celularPai.getText(), celularMae.getText(),
+                        escolaConclusao.getText(), getTipoEscola(), anoQueConcluiu,
+                        numeroFicha, concluido);
+                
+                if (sucesso == true) {
+                    this.dispose();
+                }// fim if
+                
+            } catch (ParseException ex) {
+                Logger.getLogger(FichaDeAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }// fim
     }//GEN-LAST:event_SALVARActionPerformed
 
     private void casadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casadosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_casadosActionPerformed
+    
+    @Override
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        
+        if (pageIndex > 0) {
+            return Printable.NO_SUCH_PAGE;
+        }// fim override
+
+        Graphics2D g2d = (Graphics2D) graphics;
+        
+        g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+        
+        double panelWidth = jPanel1.getWidth();
+        double panelHeigth = jPanel1.getHeight();
+        
+        double pageWidth = pageFormat.getImageableWidth();
+        double pageHeigth = pageFormat.getImageableHeight();
+        
+        double scaleFactor = Math.min(pageWidth / panelWidth, pageHeigth / panelHeigth);
+        
+        g2d.scale(scaleFactor, scaleFactor);
+        
+        jPanel1.paint(g2d);
+        
+        return PAGE_EXISTS;
+        
+    }
+    
+    public void print() throws PrinterException {
+        PrinterJob job = PrinterJob.getPrinterJob();
+        job.setPrintable(this);
+        
+        if (job.printDialog()) {
+            job.print();
+            
+        }
+    }// fim metodo imprimir
+    
 
     private void outrosEstadoCivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outrosEstadoCivilActionPerformed
         // TODO add your handling code here:
@@ -861,49 +944,85 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
 
     }//GEN-LAST:event_checkConcluidoActionPerformed
 
+    private void impressoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_impressoraMouseClicked
+        try {
+            print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_impressoraMouseClicked
+
+    private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
+        this.dispose();
+        int numeroAtual = Integer.parseInt(campoId.getText());
+        int indiceAtual = listaAnterior.indexOf(numeroAtual);
+        int proximoRelatorio = 0;
+        
+        if (indiceAtual != -1 && indiceAtual < listaAnterior.size() - 1) {
+            
+            proximoRelatorio = listaAnterior.get(indiceAtual + 1);
+        }// fim if
+
+        try {
+            passarProximo(proximoRelatorio);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_anteriorActionPerformed
+
+    private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
+        this.dispose();
+        int numeroAtual = Integer.parseInt(campoId.getText());
+        int indiceAtual = listaProximo.indexOf(numeroAtual);
+        int proximoRelatorio = 0;
+        
+        if (indiceAtual != -1 && indiceAtual < listaProximo.size() - 1) {
+            
+            proximoRelatorio = listaProximo.get(indiceAtual + 1);
+        }// fim if
+
+        try {
+            passarProximo(proximoRelatorio);
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }//GEN-LAST:event_proximoActionPerformed
+
+    private void anterior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anterior1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anterior1ActionPerformed
+
+    private void anterior2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anterior2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anterior2ActionPerformed
+
+    private void anterior3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anterior3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anterior3ActionPerformed
+
+    private void anterior4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anterior4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anterior4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    public void passarProximo(int numero) throws SQLException, ParseException {
+        
+        FichaAtendimentoModel ficha = new FichaAtendimentoModel(numero);
+        
+        new FichaDeAtendimentoAcessar(ficha).setVisible(true);
+        
+    }// fim metodo
+    
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FichaDeAtendimentoAcessar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FichaDeAtendimentoAcessar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FichaDeAtendimentoAcessar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FichaDeAtendimentoAcessar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -921,6 +1040,11 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
     private javax.swing.JButton VOLTAR;
     private javax.swing.JTextField alunoCelular;
     private javax.swing.JTextField anoDeConclusao;
+    private javax.swing.JButton anterior;
+    private javax.swing.JButton anterior1;
+    private javax.swing.JButton anterior2;
+    private javax.swing.JButton anterior3;
+    private javax.swing.JButton anterior4;
     private javax.swing.JRadioButton avos;
     private javax.swing.JTextField bairro;
     private javax.swing.JTextField campoId;
@@ -939,6 +1063,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
     private javax.swing.ButtonGroup grupoBotaoEstadoCivil;
     private javax.swing.ButtonGroup grupoBotaoMoraCom;
     private javax.swing.ButtonGroup grupoBotaoTipoEscola;
+    private javax.swing.JLabel impressora;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1041,7 +1166,10 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame {
     private javax.swing.JRadioButton outrosMoraCom;
     private javax.swing.JRadioButton pai;
     private javax.swing.JRadioButton particular;
+    private javax.swing.JButton proximo;
     private javax.swing.JRadioButton publica;
     private javax.swing.JRadioButton separados;
     // End of variables declaration//GEN-END:variables
-}
+
+}// fim classe 
+
