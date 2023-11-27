@@ -17,7 +17,7 @@ import static model.DAO.Conexao.getConexao;
 
 public class FichaAtendimentoDAO {
 
-    List<Integer> listaIdsFichas = new ArrayList<>();
+    List<FichaAtendimentoModel> listaIdsFichas = new ArrayList<>();
     LocalDateTime dataHoraAtual = LocalDateTime.now();
     Timestamp timestamp = Timestamp.valueOf(dataHoraAtual);
     List<Integer> passarAnterior = new ArrayList<>();
@@ -28,8 +28,8 @@ public class FichaAtendimentoDAO {
         String sql = "INSERT INTO fichaatendimento(nome_aluno, data_nascimento, "
                 + "telefone, rg, endereco, bairro, nome_pai, nome_mae, email_pai, email_mae,"
                 + " estado_civil,"
-                + "mora_com, telefone_pai, telefone_mae, escola_concluida, tipo_escola, ano_conclusao, concluido, dataAcesso, dataModificacao) "
-                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?, ?)";
+                + "mora_com, telefone_pai, telefone_mae, escola_concluida, tipo_escola, ano_conclusao, concluido, dataAcesso, dataModificacao, descricao) "
+                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?)";
 
         PreparedStatement ps = null;
         Connection connection = null;
@@ -37,7 +37,9 @@ public class FichaAtendimentoDAO {
         try {
             connection = new Conexao().getConexao();
 
-            ps = connection.prepareStatement(sql);
+         
+            
+         ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, fichaASalvar.getNome());
 
             ps.setDate(2, new java.sql.Date(
@@ -95,8 +97,23 @@ public class FichaAtendimentoDAO {
             ps.setBoolean(18, fichaASalvar.getConcluido());
             ps.setTimestamp(19, timestamp);
             ps.setTimestamp(20, timestamp);
+             ps.setString(21, "Ficha N°: " );
+           
+            int linhasAfetadas = ps.executeUpdate();
 
-            ps.execute();
+            if(linhasAfetadas > 0){
+            ResultSet rs = ps.getGeneratedKeys();
+            if(rs.next()){
+                int id = rs.getInt(1);
+                
+                String nome = "Ficha N°: " +id;
+  
+                 alterarDescricao(nome, id);
+            }// fim if 
+            
+            }// fim if
+
+           
 
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -318,30 +335,30 @@ public class FichaAtendimentoDAO {
 
     }// fim metodo
 
-    public List<Integer> listaIdsFichas(String tipoOrdenacao) throws SQLException {
+    public List<FichaAtendimentoModel> listaIdsFichas(String tipoOrdenacao) throws SQLException {
 
-        FichaAtendimentoModel ficha = new FichaAtendimentoModel();
+       
 
         String sql = null;
         if (tipoOrdenacao.equals("Mais recentes primeiro")) {
             listaIdsFichas.clear();
-            sql = "select numero_ficha from fichaatendimento order by numero_ficha desc";
+            sql = "select numero_ficha, descricao from fichaatendimento order by numero_ficha desc";
         }// fim if 
         else if (tipoOrdenacao.equals("Já concluídos")) {
             listaIdsFichas.clear();
-            sql = "select numero_ficha from fichaatendimento where concluido = true order by numero_ficha desc";
-        }// fim else if
+            sql = "select numero_ficha, descricao from fichaatendimento where concluido = true order by numero_ficha desc";
+        }// fim else if,
         else if (tipoOrdenacao.equals("Últimos acessados")) {
             listaIdsFichas.clear();
-            sql = "select numero_ficha from fichaatendimento order by dataAcesso desc;";
+            sql = "select numero_ficha, descricao from fichaatendimento order by dataAcesso desc;";
         }// fim else if
         else if (tipoOrdenacao.equals("Última modificação")) {
             listaIdsFichas.clear();
-            sql = "select numero_ficha from fichaatendimento order by dataModificacao desc;";
+            sql = "select numero_ficha, descricao from fichaatendimento order by dataModificacao desc;";
         }// fim else if
         else if (tipoOrdenacao.equals("Mais antigos primeiro")) {
             listaIdsFichas.clear();
-            sql = "select numero_ficha from fichaatendimento order by numero_ficha";
+            sql = "select numero_ficha, descricao from fichaatendimento order by numero_ficha";
         }// fim else if
 
         PreparedStatement ps = null;
@@ -355,9 +372,12 @@ public class FichaAtendimentoDAO {
 
         while (resultSet.next()) {
 
-            ficha.setNumeroFicha(resultSet.getInt("numero_ficha"));
+            
+           int numFicha = resultSet.getInt("numero_ficha");
+            String descricao  = resultSet.getString("descricao");
 
-            listaIdsFichas.add(ficha.getNumeroFicha());
+             FichaAtendimentoModel ficha = new FichaAtendimentoModel(numFicha, descricao);
+            listaIdsFichas.add(ficha);
         }// fim while
 
         return listaIdsFichas;
@@ -430,6 +450,31 @@ public class FichaAtendimentoDAO {
         }// fim while
 
         return passarAnterior;
+    }// fim metodo
+    
+    public String alterarDescricao(String descricao, int numFicha){
+        
+         try {
+
+            String sql = "update fichaatendimento set descricao = ?  where numero_ficha = ?";
+
+            PreparedStatement ps = null;
+            Connection connection = null;
+
+            connection = new Conexao().getConexao();
+            ps = connection.prepareStatement(sql);
+
+            ps.setString(1, descricao); 
+            ps.setInt(2, numFicha);
+
+            ps.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }// fim catch
+
+         return descricao;
+        
     }// fim metodo
 
 }// fim classe 

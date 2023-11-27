@@ -1,5 +1,6 @@
 package View;
 
+import controller.FichaAtendimentoController;
 import controller.ParecerController;
 import controller.ParecerController;
 import controller.RelatorioAtendimentoController;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.DAO.ParecerDAO;
 import model.DAO.ParecerDAO;
 import model.ParecerModel;
@@ -100,8 +102,6 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        novo = new javax.swing.JButton();
-        voltar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -127,7 +127,6 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        impressora = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
@@ -137,6 +136,15 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
         CheckConcluido = new javax.swing.JCheckBox();
         anterior = new javax.swing.JButton();
         proximo = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -144,22 +152,6 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 57, 680, 10));
-
-        novo.setText("SALVAR");
-        novo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                novoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
-
-        voltar.setText("VOLTAR");
-        voltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                voltarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/MinisterioDaEducacao (3).png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 121, -1));
@@ -233,16 +225,6 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
 
         jLabel17.setText("SIAPE n° 01746885");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 800, 100, -1));
-
-        impressora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/impressora (2).png"))); // NOI18N
-        impressora.setToolTipText("Imprimir documento");
-        impressora.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        impressora.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                impressoraMouseClicked(evt);
-            }
-        });
-        jPanel1.add(impressora, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, -1, -1));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 223, 50, 10));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 220, -1));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 200, -1));
@@ -256,7 +238,7 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
                 CheckConcluidoActionPerformed(evt);
             }
         });
-        jPanel1.add(CheckConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
+        jPanel1.add(CheckConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         anterior.setBackground(new java.awt.Color(255, 255, 255));
         anterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
@@ -266,7 +248,7 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
                 anteriorActionPerformed(evt);
             }
         });
-        jPanel1.add(anterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 40, 40));
+        jPanel1.add(anterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 30, 30));
 
         proximo.setBackground(new java.awt.Color(255, 255, 255));
         proximo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-para-a-direita (1).png"))); // NOI18N
@@ -276,9 +258,72 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
                 proximoActionPerformed(evt);
             }
         });
-        jPanel1.add(proximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 40, 40));
+        jPanel1.add(proximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 30, 30));
 
         jScrollPane1.setViewportView(jPanel1);
+
+        jMenu1.setText("Salvar");
+        jMenu1.setToolTipText("Salvar documento");
+        jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenuItem1.setText("Salvar");
+        jMenuItem1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Voltar");
+        jMenu2.setToolTipText("Voltar para o menu");
+        jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenuItem2.setText("Voltar");
+        jMenuItem2.setToolTipText("");
+        jMenuItem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Imprimir");
+        jMenu3.setToolTipText("Imprimir documento");
+        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenuItem3.setText("Imprimir");
+        jMenuItem3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Excluir");
+        jMenu4.setToolTipText("Excluir documento");
+        jMenu4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenuItem4.setText("Excluir");
+        jMenuItem4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu4);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -304,56 +349,9 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoActionPerformed
-        if (evt.getSource() == novo) {
-            ParecerModel parecerModel = new ParecerModel();
-            ParecerDAO parecerDAO = new ParecerDAO();
-            ParecerController controlador = new ParecerController();
-
-            boolean concluido = false;
-
-            if (CheckConcluido.isSelected()) {
-                concluido = true;
-            }// fim if
-
-            Date dataOcorrencia = new Date();
-            try {
-                dataOcorrencia = formatoData.parse(campoData.getText());
-            } catch (ParseException ex) {
-                Logger.getLogger(ParecerAcessar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            formatoData.format(dataOcorrencia);
-
-            int numParecer = Integer.parseInt(numeroDoParecer.getText());
-
-            boolean salvou = controlador.alterarParecer(assuntoDoParecer.getText(), nomeInteressado.getText(),
-                    codMatricula.getText(), localDoTexto.getText(), local.getText(), dataOcorrencia, concluido, numParecer);
-            if (salvou) {
-                this.dispose();
-
-            }
-
-        }// fim if
-
-    }//GEN-LAST:event_novoActionPerformed
-
     private void CheckConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckConcluidoActionPerformed
 
     }//GEN-LAST:event_CheckConcluidoActionPerformed
-
-    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
-        if (evt.getSource() == voltar) {
-            this.dispose();
-        }// fim if
-    }//GEN-LAST:event_voltarActionPerformed
-
-    private void impressoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_impressoraMouseClicked
-        try {
-            print();
-        } catch (PrinterException ex) {
-            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_impressoraMouseClicked
 
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
         this.dispose();
@@ -395,6 +393,61 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
         }
 
     }//GEN-LAST:event_proximoActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       ParecerModel parecerModel = new ParecerModel();
+            ParecerDAO parecerDAO = new ParecerDAO();
+            ParecerController controlador = new ParecerController();
+
+            boolean concluido = false;
+
+            if (CheckConcluido.isSelected()) {
+                concluido = true;
+            }// fim if
+
+            Date dataOcorrencia = new Date();
+            try {
+                dataOcorrencia = formatoData.parse(campoData.getText());
+            } catch (ParseException ex) {
+                Logger.getLogger(ParecerAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            formatoData.format(dataOcorrencia);
+
+            int numParecer = Integer.parseInt(numeroDoParecer.getText());
+
+            boolean salvou = controlador.alterarParecer(assuntoDoParecer.getText(), nomeInteressado.getText(),
+                    codMatricula.getText(), localDoTexto.getText(), local.getText(), dataOcorrencia, concluido, numParecer);
+            if (salvou) {
+                this.dispose();
+
+            }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        try {
+            print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(ParecerAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+     ParecerController controlador = new ParecerController();
+        int result = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir esse parecer ?", "Confirmacao", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            try {
+                controlador.excluirParecer(Integer.valueOf(numeroDoParecer.getText()));
+            } catch (SQLException ex) {
+                Logger.getLogger(FichaDeAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.dispose();
+        }
+
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     @Override
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
@@ -485,7 +538,6 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
     private javax.swing.JTextField assuntoDoParecer;
     private javax.swing.JTextField campoData;
     private javax.swing.JTextField codMatricula;
-    private javax.swing.JLabel impressora;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -504,6 +556,15 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -516,9 +577,7 @@ public class ParecerAcessar extends javax.swing.JFrame implements Printable {
     private javax.swing.JTextField local;
     private javax.swing.JTextArea localDoTexto;
     private javax.swing.JTextField nomeInteressado;
-    private javax.swing.JButton novo;
     private javax.swing.JTextField numeroDoParecer;
     private javax.swing.JButton proximo;
-    private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

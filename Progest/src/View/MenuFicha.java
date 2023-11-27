@@ -14,6 +14,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -21,6 +23,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import java.util.HashSet;
 
 import java.util.Map;
@@ -34,8 +37,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 
 public class MenuFicha extends javax.swing.JFrame {
 
@@ -51,6 +57,7 @@ public class MenuFicha extends javax.swing.JFrame {
     private boolean labelsCriados = false;
     private boolean visivel = false;
     private boolean tresPontosClicado;
+   String nomeFicha;
 
     List<JLabel> listaJlabel = new ArrayList<>();
 
@@ -80,7 +87,7 @@ public class MenuFicha extends javax.swing.JFrame {
         painelDocumentos.revalidate();
         painelDocumentos.repaint();
 
-        List<Integer> listaIdsFichas = fichaDAO.listaIdsFichas(tipoOrdenacao);
+        List<FichaAtendimentoModel> listaIdsFichas = fichaDAO.listaIdsFichas(tipoOrdenacao);
 
         Map<Integer, JLabel> mapaFichas = new HashMap<>();
         int x = 20;
@@ -97,7 +104,7 @@ public class MenuFicha extends javax.swing.JFrame {
 
             JLabel miniaturaFichas = new JLabel(imagemFicha);
 
-            JLabel especFicha = new JLabel("Ficha N° " + listaIdsFichas.get(i));
+            JLabel especFicha = new JLabel(listaIdsFichas.get(i).getDescricao());
 
             if (x + larguraLabel > larguraPainel) {
                 x = 20;
@@ -111,15 +118,17 @@ public class MenuFicha extends javax.swing.JFrame {
             miniaturaFichas.setBackground(Color.WHITE);
             miniaturaFichas.setOpaque(true);
 
+            
             //define a posicao dos jlabels de legenda dos relatorios
             especFicha.setBounds(x + 35, y + 170, 100, 50);
-            miniaturaFichas.putClientProperty("numeroFicha", listaIdsFichas.get(i));
+            miniaturaFichas.putClientProperty("numeroFicha", listaIdsFichas.get(i).getNumeroFicha());
             miniaturaFichas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             especFicha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             x += larguraLabel + espacoLabels;
 
             miniaturaFichas.setVisible(true);
             especFicha.setVisible(true);
+            especFicha.setToolTipText(especFicha.getText());
             painelDocumentos.add(especFicha);
             painelDocumentos.add(miniaturaFichas);
 
@@ -136,6 +145,12 @@ public class MenuFicha extends javax.swing.JFrame {
 
                     FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
                     FichaAtendimentoModel fichaAcessar = new FichaAtendimentoModel(id);
+                    
+                     if(SwingUtilities.isRightMouseButton(e)){
+                       mostrarTelinha(especFicha, e.getComponent(), e.getX(), e.getY(), id); 
+                    }// fim botao direito
+                     
+                     else {
                     try {
                         new FichaDeAtendimentoAcessar(fichaAcessar).setVisible(true);
                     } catch (SQLException ex) {
@@ -143,8 +158,10 @@ public class MenuFicha extends javax.swing.JFrame {
                     } catch (ParseException ex) {
                         Logger.getLogger(MenuFicha.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                     }// fim else 
                 }// fim mous clicked
 
+                     
                 @Override
                 public void mouseEntered(MouseEvent e) {
 
@@ -193,15 +210,14 @@ public class MenuFicha extends javax.swing.JFrame {
         novolbl = new javax.swing.JLabel();
         novo = new javax.swing.JButton();
         relatorio2 = new javax.swing.JButton();
-        fichaRadio = new javax.swing.JRadioButton();
         painelDocumentos = new javax.swing.JPanel();
         filtroJanela = new javax.swing.JComboBox<>();
         progestLogo = new javax.swing.JLabel();
-        documentosRecentes = new javax.swing.JLabel();
         tresPontosPrincipal = new javax.swing.JLabel();
         logoProgestLateral1 = new javax.swing.JLabel();
         txtnomealuno = new java.awt.TextField();
         pesquisar = new javax.swing.JLabel();
+        documentosRecentes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -336,10 +352,11 @@ public class MenuFicha extends javax.swing.JFrame {
         novolbl.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         novolbl.setForeground(new java.awt.Color(51, 51, 51));
         novolbl.setText("NOVO");
-        janelaPrincipal.add(novolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 50, 12));
+        janelaPrincipal.add(novolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 50, 12));
 
         novo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/mais (1).png"))); // NOI18N
+        novo.setToolTipText("Iniciar uma nova ficha");
         novo.setOpaque(true);
         novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -357,7 +374,7 @@ public class MenuFicha extends javax.swing.JFrame {
                 novoActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 55, 150, 190));
+        janelaPrincipal.add(novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 150, 190));
 
         relatorio2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         relatorio2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/ficha de atendimento.jpg"))); // NOI18N
@@ -374,18 +391,7 @@ public class MenuFicha extends javax.swing.JFrame {
                 relatorio2ActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(relatorio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 55, 150, 190));
-
-        fichaRadio.setBackground(new java.awt.Color(186, 203, 212));
-        documentoSelecionado.add(fichaRadio);
-        fichaRadio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        fichaRadio.setText("Ficha atendimento");
-        fichaRadio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fichaRadioActionPerformed(evt);
-            }
-        });
-        janelaPrincipal.add(fichaRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 150, 16));
+        janelaPrincipal.add(relatorio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 150, 190));
 
         jPanel1.add(janelaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 1535, 316));
 
@@ -407,11 +413,6 @@ public class MenuFicha extends javax.swing.JFrame {
         progestLogo.setForeground(new java.awt.Color(102, 102, 102));
         progestLogo.setText("Progest");
         jPanel1.add(progestLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 10, 131, 40));
-
-        documentosRecentes.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        documentosRecentes.setForeground(new java.awt.Color(51, 51, 51));
-        documentosRecentes.setText("Documentos recentes");
-        jPanel1.add(documentosRecentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 408, 178, 20));
 
         tresPontosPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         tresPontosPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -470,6 +471,11 @@ public class MenuFicha extends javax.swing.JFrame {
         });
         jPanel1.add(pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 30, 30));
 
+        documentosRecentes.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        documentosRecentes.setForeground(new java.awt.Color(51, 51, 51));
+        documentosRecentes.setText("Documentos recentes");
+        jPanel1.add(documentosRecentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 400, 178, 20));
+
         jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -492,7 +498,7 @@ public class MenuFicha extends javax.swing.JFrame {
 
     private void novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoActionPerformed
 
-        if (fichaRadio.isSelected()) {
+       
             if (evt.getSource() == novo) {
 
                 try {
@@ -501,7 +507,7 @@ public class MenuFicha extends javax.swing.JFrame {
                     Logger.getLogger(MenuFicha.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-            }// fim if
+          
 
         }// fim else if 
 
@@ -520,10 +526,6 @@ public class MenuFicha extends javax.swing.JFrame {
     private void novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novoMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_novoMouseClicked
-
-    private void fichaRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fichaRadioActionPerformed
-
-    }//GEN-LAST:event_fichaRadioActionPerformed
 
     private void painelLateralMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelLateralMouseClicked
 
@@ -729,7 +731,6 @@ public class MenuFicha extends javax.swing.JFrame {
     private javax.swing.ButtonGroup documentoSelecionado;
     private javax.swing.JLabel documentosRecentes;
     private javax.swing.JLabel excluirFicha;
-    private javax.swing.JRadioButton fichaRadio;
     private javax.swing.JComboBox<String> filtroJanela;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -822,5 +823,52 @@ public class MenuFicha extends javax.swing.JFrame {
         }
 
     }// fim metodo
+    
+     public void mostrarTelinha(JLabel espFicha, Component component, int x, int y, int numFicha){
+        
+        JPopupMenu telinha = new JPopupMenu();
+        
+        JMenuItem btnExcluir = new JMenuItem("Excluir");
+         JMenuItem btnRenomear = new JMenuItem("Renomear");
+        
+        btnExcluir.addActionListener( e -> {
+            
+             FichaAtendimentoController controlador = new FichaAtendimentoController();
+             try {
+                  int result = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir essa ficha ?", "Confirmacao", JOptionPane.YES_NO_OPTION);
+           if(result == JOptionPane.YES_OPTION){
+           
+                 controlador.excluirFicha(numFicha);
+                  
+           }
+             } catch (SQLException ex) {
+                 Logger.getLogger(ExcluirRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+             }
+            
+        });
+        
+         btnRenomear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FichaAtendimentoController controlador = new FichaAtendimentoController();
+          nomeFicha = JOptionPane.showInputDialog(MenuFicha.this, "Novo nome: ", "renomear", JOptionPane.INFORMATION_MESSAGE);
+
+                if (nomeFicha != null && !nomeFicha.isEmpty()) {
+                  String novoNome = controlador.alterarDescricao(nomeFicha, numFicha);
+                    JOptionPane.showMessageDialog(null, "Renomeado com sucesso!");
+                    
+                    espFicha.setText(novoNome);
+                }// fim if
+
+            }
+        });
+        
+        telinha.add(btnExcluir);
+        telinha.add(btnRenomear);
+        
+        telinha.show(component, x, y);
+        
+    }// fim metodo
+
 
 }// fim classe 

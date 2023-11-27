@@ -10,41 +10,48 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class AlterarFicha extends javax.swing.JFrame {
+public class AlterarNomeRelatorio extends javax.swing.JFrame {
 
     private int idFicha;
-    FichaDeAtendimentoAcessar fichaAcessar;
-    AlterarFicha interfaceAlterar;
-
-    /**
-     * Creates new form ExcluirRelatorio
-     */
-    public AlterarFicha() {
+    private String novoNome;
+    
+  
+    public AlterarNomeRelatorio() {
         initComponents();
         setLocationRelativeTo(null);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
+
+    public String getNovoNome() {
+        return novoNome;
+    }
+
+    public void setNovoNome(String novoNome) {
+        this.novoNome = novoNome;
+    }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        CampoIDFicha = new javax.swing.JTextField();
+        CampoNome = new javax.swing.JTextField();
         botaoCancel = new javax.swing.JButton();
-        botaoAcessar = new javax.swing.JButton();
-        InsiraIdLbl = new javax.swing.JLabel();
+        botaoRenomear = new javax.swing.JButton();
         LabelInsiraID = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        CampoIDFicha.addActionListener(new java.awt.event.ActionListener() {
+        CampoNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CampoIDFichaActionPerformed(evt);
+                CampoNomeActionPerformed(evt);
             }
         });
-        getContentPane().add(CampoIDFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 80, 30));
+        getContentPane().add(CampoNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 260, 30));
 
         botaoCancel.setBackground(new java.awt.Color(51, 51, 51));
         botaoCancel.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
@@ -57,23 +64,19 @@ public class AlterarFicha extends javax.swing.JFrame {
         });
         getContentPane().add(botaoCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, -1, 20));
 
-        botaoAcessar.setBackground(new java.awt.Color(51, 51, 51));
-        botaoAcessar.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        botaoAcessar.setForeground(new java.awt.Color(255, 255, 255));
-        botaoAcessar.setText("Acessar");
-        botaoAcessar.addActionListener(new java.awt.event.ActionListener() {
+        botaoRenomear.setBackground(new java.awt.Color(51, 51, 51));
+        botaoRenomear.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        botaoRenomear.setForeground(new java.awt.Color(255, 255, 255));
+        botaoRenomear.setText("Renomear");
+        botaoRenomear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoAcessarActionPerformed(evt);
+                botaoRenomearActionPerformed(evt);
             }
         });
-        getContentPane().add(botaoAcessar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, 20));
-
-        InsiraIdLbl.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-        InsiraIdLbl.setText(" ID:");
-        getContentPane().add(InsiraIdLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, -1, -1));
+        getContentPane().add(botaoRenomear, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, 20));
 
         LabelInsiraID.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        LabelInsiraID.setText("Insira o número da ficha que desejas alterar");
+        LabelInsiraID.setText("                    Insira um novo nome:");
         getContentPane().add(LabelInsiraID, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 380, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Captura de tela login2.png"))); // NOI18N
@@ -82,41 +85,15 @@ public class AlterarFicha extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CampoIDFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoIDFichaActionPerformed
+    private void CampoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CampoIDFichaActionPerformed
+    }//GEN-LAST:event_CampoNomeActionPerformed
 
-    private void botaoAcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAcessarActionPerformed
-        if (evt.getSource() == botaoAcessar) {
-            try {
-
-                int numeroFicha = Integer.parseInt(CampoIDFicha.getText());
-
-                FichaAtendimentoModel fichaAcessar = new FichaAtendimentoModel(numeroFicha);
-
-                FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
-
-                boolean existe = fichaDAO.existeNumeroFicha(fichaAcessar);
-
-                if (existe == true) {
-
-                    new FichaDeAtendimentoAcessar(fichaAcessar).setVisible(true);
-
-                }// fim if
-                else {
-                    JOptionPane.showMessageDialog(null, "ficha inexistente!");
-
-                }// fim else 
-
-                this.dispose();
-            } catch (SQLException ex) {
-                Logger.getLogger(AlterarFicha.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(AlterarFicha.class.getName()).log(Level.SEVERE, null, ex);
-            }// fim catch// fim catch// fim catch// fim catch
-
-        }//fim if
-    }//GEN-LAST:event_botaoAcessarActionPerformed
+    private void botaoRenomearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRenomearActionPerformed
+        if (evt.getSource() == botaoRenomear) {
+          
+        }
+    }//GEN-LAST:event_botaoRenomearActionPerformed
 
     private void botaoCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelActionPerformed
         if (evt.getSource() == botaoCancel) {
@@ -141,13 +118,13 @@ public class AlterarFicha extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AlterarFicha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarNomeRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AlterarFicha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarNomeRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AlterarFicha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarNomeRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AlterarFicha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarNomeRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -161,17 +138,18 @@ public class AlterarFicha extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AlterarFicha().setVisible(true);
+                new AlterarNomeRelatorio().setVisible(true);
             }
         });
     }
+    
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CampoIDFicha;
-    private javax.swing.JLabel InsiraIdLbl;
+    private javax.swing.JTextField CampoNome;
     private javax.swing.JLabel LabelInsiraID;
-    private javax.swing.JButton botaoAcessar;
     private javax.swing.JButton botaoCancel;
+    private javax.swing.JButton botaoRenomear;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

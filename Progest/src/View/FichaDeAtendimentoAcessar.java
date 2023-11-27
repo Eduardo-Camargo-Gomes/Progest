@@ -5,6 +5,7 @@
 package View;
 
 import controller.FichaAtendimentoController;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.DAO.FichaAtendimentoDAO;
 import model.DAO.RelatorioAtendimentoDAO;
 import model.FichaAtendimentoModel;
@@ -32,7 +34,7 @@ import model.RelatorioAtendimentoModel;
  * @author vitor
  */
 public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Printable {
-    
+
     private FichaAtendimentoModel fichaModel;
     private FichaAtendimentoDAO fichaDao = new FichaAtendimentoDAO();
     private String estadoCivil;
@@ -41,62 +43,62 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
     private boolean concluido = false;
     List<Integer> listaAnterior = fichaDao.passarAnterior();
     List<Integer> listaProximo = fichaDao.passarProximo();
-    
+
     public void mostrarIdFicha() throws SQLException {
-        
+
         FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
         FichaAtendimentoModel fichaModel = new FichaAtendimentoModel();
-        
+
         fichaModel = fichaDAO.mostrarNumeroFicha();
-        
+
         campoId.setText(String.valueOf(fichaModel.getNumeroFicha() + 1));
     }// fim metodo
 
     public String getTipoEscola() {
         return tipoEscola;
     }
-    
+
     public void setTipoEscola(String tipoEscola) {
         this.tipoEscola = tipoEscola;
     }
-    
+
     public String getEstadoCivil() {
         return estadoCivil;
     }
-    
+
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
-    
+
     public String getMoraCom() {
         return moraCom;
     }
-    
+
     public void setMoraCom(String moraCom) {
         this.moraCom = moraCom;
     }
-    
+
     SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
-    
+
     public FichaDeAtendimentoAcessar() throws SQLException {
         initComponents();
         campoId.setEditable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
+
     }// fim metodo
-    
+
     public FichaDeAtendimentoAcessar(FichaAtendimentoModel fichaModel) throws SQLException, ParseException {
         this.fichaModel = fichaModel;
         initComponents();
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);        
-        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         fichaModel = fichaDao.acessarFicha(fichaModel.getNumeroFicha());
-        
+
         Date data = formatoBanco.parse(String.valueOf(fichaModel.getDataNascimento()));
-        
+
         String datadeNascimento = formatoData.format(data);
-        
+
         campoId.setText(String.valueOf(fichaModel.getNumeroFicha()));
         campoNome.setText(fichaModel.getNome());
         dataNascimento.setText(String.valueOf(datadeNascimento));
@@ -108,7 +110,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
         nomeMae.setText(fichaModel.getNomeMae());
         emailPai.setText(fichaModel.getEmailPai());
         emailMae.setText(fichaModel.getEmailMae());
-        
+
         if (fichaModel.getEstadoCivil().equals("Casados") || fichaModel.getMoraCom().equals("Ambos os pais")) {
             casados.setSelected(true);
         }// fim if
@@ -118,7 +120,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
         else if (fichaModel.getEstadoCivil().equals("Outros") || fichaModel.getMoraCom().equals("Outros")) {
             outrosEstadoCivil.setSelected(true);
         }// fim else 
-        
+
         if (fichaModel.getEstadoCivil().equals("Separados") || fichaModel.getEstadoCivil().equals("Outros")) {
             if (fichaModel.getMoraCom().equals("Pai")) {
                 pai.setSelected(true);
@@ -131,32 +133,46 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
             else if (fichaModel.getMoraCom().equals("Avos")) {
                 avos.setSelected(true);
             }
-            
+
         }// fim if
-        
+
         celularPai.setText(fichaModel.getTelefonePai());
         celularMae.setText(fichaModel.getTelefoneMae());
         escolaConclusao.setText(fichaModel.getEscolaConcluida());
-        
+
         if (fichaModel.getTipoEscola().equals("Pública")) {
             publica.setSelected(true);
         }// fim if
         else if (fichaModel.getTipoEscola().equals("Particular")) {
             particular.setSelected(true);
         }// fim metodo
-        
+
         if (fichaModel.getConcluido() == true) {
             checkConcluido.setSelected(true);
         }// fim if 
         else {
             checkConcluido.setSelected(false);
         }// fim else  
-        
+
         String anoQueConcluiu = String.valueOf(fichaModel.getAnoConclusao());
-        
+
         anoDeConclusao.setText(anoQueConcluiu);
         campoId.setEditable(false);
         
+         int numeroAtual = Integer.parseInt(campoId.getText());
+        int indiceAtualProximo = listaProximo.indexOf(numeroAtual);
+        int indiceAtualAnterior = listaAnterior.indexOf(numeroAtual);
+        if (indiceAtualProximo + 1 > listaProximo.size() - 1) {
+            proximo.setEnabled(false);
+            proximo.setBackground(Color.GRAY);
+        }// fim else 
+
+        if (indiceAtualAnterior + 1 > listaAnterior.size() - 1) {
+            anterior.setEnabled(false);
+            anterior.setBackground(Color.GRAY);
+        }// fim else 
+
+
     }// fim metodo
 
     /**
@@ -214,8 +230,6 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
         jTextField34 = new javax.swing.JTextField();
         jTextField35 = new javax.swing.JTextField();
         jTextField52 = new javax.swing.JTextField();
-        SALVAR = new javax.swing.JButton();
-        VOLTAR = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -295,13 +309,18 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
         jLabel25 = new javax.swing.JLabel();
         campoId = new javax.swing.JTextField();
         checkConcluido = new javax.swing.JCheckBox();
-        impressora = new javax.swing.JLabel();
         anterior = new javax.swing.JButton();
         proximo = new javax.swing.JButton();
         anterior1 = new javax.swing.JButton();
-        anterior2 = new javax.swing.JButton();
-        anterior3 = new javax.swing.JButton();
-        anterior4 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -386,22 +405,6 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
         jPanel1.add(jTextField34, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 480, 180, 30));
         jPanel1.add(jTextField35, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 510, 180, 30));
         jPanel1.add(jTextField52, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 540, 180, 30));
-
-        SALVAR.setText("SALVAR");
-        SALVAR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SALVARActionPerformed(evt);
-            }
-        });
-        jPanel1.add(SALVAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
-
-        VOLTAR.setText("VOLTAR");
-        VOLTAR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VOLTARActionPerformed(evt);
-            }
-        });
-        jPanel1.add(VOLTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, -1, -1));
 
         jLabel1.setText("SECRETARIA DE EDUCAÇÃO PROFISSIONAL E TECNOLOGIA");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, -1, -1));
@@ -675,17 +678,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
                 checkConcluidoActionPerformed(evt);
             }
         });
-        jPanel1.add(checkConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
-
-        impressora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/impressora (2).png"))); // NOI18N
-        impressora.setToolTipText("Imprimir documento");
-        impressora.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        impressora.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                impressoraMouseClicked(evt);
-            }
-        });
-        jPanel1.add(impressora, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
+        jPanel1.add(checkConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
         anterior.setBackground(new java.awt.Color(255, 255, 255));
         anterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
@@ -695,7 +688,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
                 anteriorActionPerformed(evt);
             }
         });
-        jPanel1.add(anterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 40, 40));
+        jPanel1.add(anterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 30, 30));
 
         proximo.setBackground(new java.awt.Color(255, 255, 255));
         proximo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-para-a-direita (1).png"))); // NOI18N
@@ -705,7 +698,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
                 proximoActionPerformed(evt);
             }
         });
-        jPanel1.add(proximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 40, 40));
+        jPanel1.add(proximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 30, 30));
 
         anterior1.setBackground(new java.awt.Color(255, 255, 255));
         anterior1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
@@ -715,39 +708,72 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
                 anterior1ActionPerformed(evt);
             }
         });
-        jPanel1.add(anterior1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 40, 40));
-
-        anterior2.setBackground(new java.awt.Color(255, 255, 255));
-        anterior2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
-        anterior2.setToolTipText("Anterior");
-        anterior2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anterior2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(anterior2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 40, 40));
-
-        anterior3.setBackground(new java.awt.Color(255, 255, 255));
-        anterior3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
-        anterior3.setToolTipText("Anterior");
-        anterior3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anterior3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(anterior3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 40, 40));
-
-        anterior4.setBackground(new java.awt.Color(255, 255, 255));
-        anterior4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
-        anterior4.setToolTipText("Anterior");
-        anterior4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anterior4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(anterior4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 40, 40));
+        jPanel1.add(anterior1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 40, 0));
 
         jScrollPane1.setViewportView(jPanel1);
+
+        jMenu1.setText("Salvar");
+        jMenu1.setToolTipText("Salvar documento");
+        jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenuItem1.setText("Salvar");
+        jMenuItem1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Voltar");
+        jMenu2.setToolTipText("Voltar para o menu");
+        jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenuItem2.setText("Voltar");
+        jMenuItem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Imprimir");
+        jMenu3.setToolTipText("Imprimir documento");
+        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenuItem3.setText("Imprimir");
+        jMenuItem3.setToolTipText("");
+        jMenuItem3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Excluir");
+        jMenu4.setToolTipText("Excluir documento");
+        jMenu4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenuItem4.setText("Excluir");
+        jMenuItem4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu4);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -760,7 +786,7 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1376, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1366, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -792,12 +818,6 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
         // TODO add your handling code here:
     }//GEN-LAST:event_dataNascimentoActionPerformed
 
-    private void VOLTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VOLTARActionPerformed
-        if (evt.getSource() == VOLTAR) {
-            this.dispose();
-        }
-    }//GEN-LAST:event_VOLTARActionPerformed
-
     private void maeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_maeActionPerformed
@@ -806,127 +826,47 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField23ActionPerformed
 
-    private void SALVARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SALVARActionPerformed
-        if (evt.getSource() == SALVAR) {
-            
-            try {
-                
-                int anoQueConcluiu = Integer.parseInt(anoDeConclusao.getText());
-                
-                if (publica.isSelected()) {
-                    setTipoEscola("Publica");
-                } else if (particular.isSelected()) {
-                    setTipoEscola("Particular");
-                }// fim else if
-                
-                if (casados.isSelected()) {
-                    setEstadoCivil("Casados");
-                    setMoraCom("Ambos os pais");
-                }// fim if 
-                else if (separados.isSelected()) {
-                    setEstadoCivil("Separados");
-                    
-                }// fim else 
-                else if (outrosEstadoCivil.isSelected()) {
-                    setEstadoCivil("Outros");
-                    setMoraCom("Outros");
-                    
-                }//fim else if
-                
-                if (getEstadoCivil().equals("Separados") || getEstadoCivil().equals("Outros")) {
-                    
-                    if (pai.isSelected()) {
-                        setMoraCom("Pai");
-                    } else if (mae.isSelected()) {
-                        setMoraCom("Mae");
-                    } else if (avos.isSelected()) {
-                        setMoraCom("Avos");
-                        
-                    } else if (outrosMoraCom.isSelected()) {
-                        setMoraCom("Outros");
-                    }// im else 
-                    
-                }// fim if de fora
-                
-                if (checkConcluido.isSelected()) {
-                    concluido = true;
-                }// fim if 
-                else {
-                    concluido = false;
-                }// fim else 
-
-                Date dataNasc = null;
-                
-                dataNasc = formatoData.parse(dataNascimento.getText());
-                
-                formatoData.format(dataNasc);
-                
-                int numeroFicha = Integer.parseInt(campoId.getText());
-                
-                FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
-                FichaAtendimentoController controlador = new FichaAtendimentoController();
-                FichaAtendimentoModel fichaASalvar = new FichaAtendimentoModel();
-                
-                boolean sucesso = controlador.alterarFicha(campoNome.getText(), dataNasc,
-                        alunoCelular.getText(), RG.getText(),
-                        endereco.getText(), bairro.getText(), nomePai.getText(), nomeMae.getText(),
-                        emailPai.getText(), emailMae.getText(), getEstadoCivil(), getMoraCom(),
-                        celularPai.getText(), celularMae.getText(),
-                        escolaConclusao.getText(), getTipoEscola(), anoQueConcluiu,
-                        numeroFicha, concluido);
-                
-                if (sucesso == true) {
-                    this.dispose();
-                }// fim if
-                
-            } catch (ParseException ex) {
-                Logger.getLogger(FichaDeAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        }// fim
-    }//GEN-LAST:event_SALVARActionPerformed
-
     private void casadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casadosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_casadosActionPerformed
-    
+
     @Override
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-        
+
         if (pageIndex > 0) {
             return Printable.NO_SUCH_PAGE;
         }// fim override
 
         Graphics2D g2d = (Graphics2D) graphics;
-        
+
         g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-        
+
         double panelWidth = jPanel1.getWidth();
         double panelHeigth = jPanel1.getHeight();
-        
+
         double pageWidth = pageFormat.getImageableWidth();
         double pageHeigth = pageFormat.getImageableHeight();
-        
+
         double scaleFactor = Math.min(pageWidth / panelWidth, pageHeigth / panelHeigth);
-        
+
         g2d.scale(scaleFactor, scaleFactor);
-        
+
         jPanel1.paint(g2d);
-        
+
         return PAGE_EXISTS;
-        
+
     }
-    
+
     public void print() throws PrinterException {
         PrinterJob job = PrinterJob.getPrinterJob();
         job.setPrintable(this);
-        
+
         if (job.printDialog()) {
             job.print();
-            
+
         }
     }// fim metodo imprimir
-    
+
 
     private void outrosEstadoCivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outrosEstadoCivilActionPerformed
         // TODO add your handling code here:
@@ -944,22 +884,14 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
 
     }//GEN-LAST:event_checkConcluidoActionPerformed
 
-    private void impressoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_impressoraMouseClicked
-        try {
-            print();
-        } catch (PrinterException ex) {
-            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_impressoraMouseClicked
-
     private void anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorActionPerformed
         this.dispose();
         int numeroAtual = Integer.parseInt(campoId.getText());
         int indiceAtual = listaAnterior.indexOf(numeroAtual);
         int proximoRelatorio = 0;
-        
+
         if (indiceAtual != -1 && indiceAtual < listaAnterior.size() - 1) {
-            
+
             proximoRelatorio = listaAnterior.get(indiceAtual + 1);
         }// fim if
 
@@ -977,9 +909,9 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
         int numeroAtual = Integer.parseInt(campoId.getText());
         int indiceAtual = listaProximo.indexOf(numeroAtual);
         int proximoRelatorio = 0;
-        
+
         if (indiceAtual != -1 && indiceAtual < listaProximo.size() - 1) {
-            
+
             proximoRelatorio = listaProximo.get(indiceAtual + 1);
         }// fim if
 
@@ -990,39 +922,129 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
         } catch (ParseException ex) {
             Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
 
     }//GEN-LAST:event_proximoActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        try {
+
+            int anoQueConcluiu = Integer.parseInt(anoDeConclusao.getText());
+
+            if (publica.isSelected()) {
+                setTipoEscola("Publica");
+            } else if (particular.isSelected()) {
+                setTipoEscola("Particular");
+            }// fim else if
+
+            if (casados.isSelected()) {
+                setEstadoCivil("Casados");
+                setMoraCom("Ambos os pais");
+            }// fim if 
+            else if (separados.isSelected()) {
+                setEstadoCivil("Separados");
+
+            }// fim else 
+            else if (outrosEstadoCivil.isSelected()) {
+                setEstadoCivil("Outros");
+                setMoraCom("Outros");
+
+            }//fim else if
+
+            if (getEstadoCivil().equals("Separados") || getEstadoCivil().equals("Outros")) {
+
+                if (pai.isSelected()) {
+                    setMoraCom("Pai");
+                } else if (mae.isSelected()) {
+                    setMoraCom("Mae");
+                } else if (avos.isSelected()) {
+                    setMoraCom("Avos");
+
+                } else if (outrosMoraCom.isSelected()) {
+                    setMoraCom("Outros");
+                }// im else 
+
+            }// fim if de fora
+
+            if (checkConcluido.isSelected()) {
+                concluido = true;
+            }// fim if 
+            else {
+                concluido = false;
+            }// fim else 
+
+            Date dataNasc = null;
+
+            dataNasc = formatoData.parse(dataNascimento.getText());
+
+            formatoData.format(dataNasc);
+
+            int numeroFicha = Integer.parseInt(campoId.getText());
+
+            FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
+            FichaAtendimentoController controlador = new FichaAtendimentoController();
+            FichaAtendimentoModel fichaASalvar = new FichaAtendimentoModel();
+
+            boolean sucesso = controlador.alterarFicha(campoNome.getText(), dataNasc,
+                    alunoCelular.getText(), RG.getText(),
+                    endereco.getText(), bairro.getText(), nomePai.getText(), nomeMae.getText(),
+                    emailPai.getText(), emailMae.getText(), getEstadoCivil(), getMoraCom(),
+                    celularPai.getText(), celularMae.getText(),
+                    escolaConclusao.getText(), getTipoEscola(), anoQueConcluiu,
+                    numeroFicha, concluido);
+
+            if (sucesso == true) {
+                this.dispose();
+            }// fim if
+
+        } catch (ParseException ex) {
+            Logger.getLogger(FichaDeAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        try {
+            print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(FichaDeAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void anterior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anterior1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_anterior1ActionPerformed
 
-    private void anterior2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anterior2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_anterior2ActionPerformed
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        FichaAtendimentoController controlador = new FichaAtendimentoController();
+        int result = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir essa ficha ?", "Confirmacao", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            try {
+                controlador.excluirFicha(Integer.valueOf(campoId.getText()));
+            } catch (SQLException ex) {
+                Logger.getLogger(FichaDeAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.dispose();
+        }
 
-    private void anterior3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anterior3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_anterior3ActionPerformed
-
-    private void anterior4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anterior4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_anterior4ActionPerformed
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public void passarProximo(int numero) throws SQLException, ParseException {
-        
+
         FichaAtendimentoModel ficha = new FichaAtendimentoModel(numero);
-        
+
         new FichaDeAtendimentoAcessar(ficha).setVisible(true);
-        
+
     }// fim metodo
-    
+
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -1036,15 +1058,10 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField RG;
-    private javax.swing.JButton SALVAR;
-    private javax.swing.JButton VOLTAR;
     private javax.swing.JTextField alunoCelular;
     private javax.swing.JTextField anoDeConclusao;
     private javax.swing.JButton anterior;
     private javax.swing.JButton anterior1;
-    private javax.swing.JButton anterior2;
-    private javax.swing.JButton anterior3;
-    private javax.swing.JButton anterior4;
     private javax.swing.JRadioButton avos;
     private javax.swing.JTextField bairro;
     private javax.swing.JTextField campoId;
@@ -1063,7 +1080,6 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
     private javax.swing.ButtonGroup grupoBotaoEstadoCivil;
     private javax.swing.ButtonGroup grupoBotaoMoraCom;
     private javax.swing.ButtonGroup grupoBotaoTipoEscola;
-    private javax.swing.JLabel impressora;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1100,6 +1116,15 @@ public class FichaDeAtendimentoAcessar extends javax.swing.JFrame implements Pri
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;

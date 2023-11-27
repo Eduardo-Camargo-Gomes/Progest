@@ -39,7 +39,7 @@ public class AlterarRelatorio extends javax.swing.JFrame {
         LabelInsiraID = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         CampoIDRelatorio.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +118,7 @@ public class AlterarRelatorio extends javax.swing.JFrame {
                  Logger.getLogger(AlterarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
              } catch (ParseException ex) {
                  Logger.getLogger(AlterarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
-             }// fim catch
+             }// fim catch// fim catch
              
          }//fim if
     }//GEN-LAST:event_botaoAcessarActionPerformed
@@ -154,6 +154,8 @@ public class AlterarRelatorio extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(AlterarRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

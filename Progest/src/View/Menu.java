@@ -14,6 +14,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -34,8 +36,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 
 public class Menu extends javax.swing.JFrame {
 
@@ -44,6 +49,7 @@ public class Menu extends javax.swing.JFrame {
     RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
     FichaAtendimentoDAO fichaDAO = new FichaAtendimentoDAO();
     ParecerDAO parecerDAO = new ParecerDAO();
+    RelatorioAtendimentoController controlador = new RelatorioAtendimentoController();
     private String labelClicado = "menuRelatorio";
     ButtonGroup grupo = new ButtonGroup();
 
@@ -51,10 +57,11 @@ public class Menu extends javax.swing.JFrame {
     private boolean labelsCriados = false;
     private boolean visivel = false;
     private boolean tresPontosClicado;
-    List<String> listaTurmas = relatorioDAO.listaTurmas();
+
+    String nomeRelatorio;
 
     List<JLabel> listaJlabel = new ArrayList<>();
-
+    
     Color cor = new Color(255, 255, 255);
     Color cor1 = new Color(255, 255, 255);
     private boolean acessadoPelaBarra;
@@ -75,12 +82,12 @@ public class Menu extends javax.swing.JFrame {
 
     }// fim construtor 
 
-    public boolean getAcessadoPelaBarra() {
-        return acessadoPelaBarra;
+    public String getNomeRelatorio() {
+        return nomeRelatorio;
     }
 
-    public void setAcessadoPelaBarra(boolean acessadoPelaBarra) {
-        this.acessadoPelaBarra = acessadoPelaBarra;
+    public void setNomeRelatorio(String nomeRelatorio) {
+        this.nomeRelatorio = nomeRelatorio;
     }
 
     public String getNomePesquisado() {
@@ -97,7 +104,7 @@ public class Menu extends javax.swing.JFrame {
         painelDocumentos.revalidate();
         painelDocumentos.repaint();
 
-        List<Integer> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(tipoOrdenacao);
+        List<RelatorioAtendimentoModel> listaIdsRelatorios = relatorioDAO.listaIdsRelatorios(tipoOrdenacao);
 
         Map<Integer, JLabel> mapaRelatorios = new HashMap<>();
         int x = 20;
@@ -113,7 +120,9 @@ public class Menu extends javax.swing.JFrame {
         for (int i = 0; i < listaIdsRelatorios.size(); i++) {
 
             JLabel miniaturaRelatorios = new JLabel(imagemRelatorio);
-            JLabel especRelatorio = new JLabel("Relatório N° " + listaIdsRelatorios.get(i));
+
+            // JLabel especRelatorio = new JLabel("Relatório N° " + listaIdsRelatorios.get(i).getDescricao());
+            JLabel especRelatorio = new JLabel(listaIdsRelatorios.get(i).getDescricao());
 
             if (x + larguraLabel > larguraPainel) {
                 x = 20;
@@ -127,7 +136,7 @@ public class Menu extends javax.swing.JFrame {
 
             //define a posicao dos jlabels de legenda dos relatorios
             especRelatorio.setBounds(x + 23, y + 170, 100, 50);
-            miniaturaRelatorios.putClientProperty("numeroRelatorio", listaIdsRelatorios.get(i));
+            miniaturaRelatorios.putClientProperty("numeroRelatorio", listaIdsRelatorios.get(i).getNumRelatorio());
             miniaturaRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             especRelatorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             x += larguraLabel + espacoLabels;
@@ -148,15 +157,23 @@ public class Menu extends javax.swing.JFrame {
 
                     final int id = (int) idObj;
 
-                    RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-                    RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel(id);
-                    try {
-                        new RelatorioAtendimentoAcessar(relatorioAcessar).setVisible(true);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    if (SwingUtilities.isRightMouseButton(e)) {
+                        mostrarTelinha(especRelatorio, e.getComponent(), e.getX(), e.getY(), id);
+                    }// fim botao direito
+                    else {
+
+                        RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
+                        RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel(id);
+                        try {
+                            new RelatorioAtendimentoAcessar(relatorioAcessar).setVisible(true);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    }// fim else 
+
                 }// fim clicked
 
                 @Override
@@ -179,6 +196,7 @@ public class Menu extends javax.swing.JFrame {
 
             });
 
+            especRelatorio.setToolTipText(especRelatorio.getText());
         }// fim for
 
         painelDocumentos.setPreferredSize(new Dimension(1410, y + alturaLabel + 35));
@@ -208,15 +226,14 @@ public class Menu extends javax.swing.JFrame {
         novolbl = new javax.swing.JLabel();
         relatorio1 = new javax.swing.JButton();
         novo = new javax.swing.JButton();
-        relatorioRadio = new javax.swing.JRadioButton();
         painelDocumentos = new javax.swing.JPanel();
         filtroJanela = new javax.swing.JComboBox<>();
         progestLogo = new javax.swing.JLabel();
-        documentosRecentes = new javax.swing.JLabel();
         tresPontosPrincipal = new javax.swing.JLabel();
         logoProgestLateral1 = new javax.swing.JLabel();
         txtnomealuno = new java.awt.TextField();
         pesquisar = new javax.swing.JLabel();
+        documentosRecentes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -351,7 +368,7 @@ public class Menu extends javax.swing.JFrame {
         novolbl.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         novolbl.setForeground(new java.awt.Color(51, 51, 51));
         novolbl.setText("NOVO");
-        janelaPrincipal.add(novolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 50, 12));
+        janelaPrincipal.add(novolbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 50, 12));
 
         relatorio1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Cap.relatorio1 (1).jpg"))); // NOI18N
         relatorio1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -367,10 +384,11 @@ public class Menu extends javax.swing.JFrame {
                 relatorio1ActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(relatorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 55, 150, 190));
+        janelaPrincipal.add(relatorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 150, 190));
 
         novo.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/mais (1).png"))); // NOI18N
+        novo.setToolTipText("Iniciar um novo relatório");
         novo.setOpaque(true);
         novo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -388,18 +406,7 @@ public class Menu extends javax.swing.JFrame {
                 novoActionPerformed(evt);
             }
         });
-        janelaPrincipal.add(novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 55, 150, 190));
-
-        relatorioRadio.setBackground(new java.awt.Color(186, 203, 212));
-        documentoSelecionado.add(relatorioRadio);
-        relatorioRadio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        relatorioRadio.setText("Relatório ");
-        relatorioRadio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                relatorioRadioActionPerformed(evt);
-            }
-        });
-        janelaPrincipal.add(relatorioRadio, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 99, 16));
+        janelaPrincipal.add(novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 150, 190));
 
         jPanel1.add(janelaPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 1535, 316));
 
@@ -421,11 +428,6 @@ public class Menu extends javax.swing.JFrame {
         progestLogo.setForeground(new java.awt.Color(102, 102, 102));
         progestLogo.setText("Progest");
         jPanel1.add(progestLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 10, 131, 40));
-
-        documentosRecentes.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        documentosRecentes.setForeground(new java.awt.Color(51, 51, 51));
-        documentosRecentes.setText("Documentos recentes");
-        jPanel1.add(documentosRecentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 408, 178, 20));
 
         tresPontosPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         tresPontosPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -484,6 +486,11 @@ public class Menu extends javax.swing.JFrame {
         });
         jPanel1.add(pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 30, 30));
 
+        documentosRecentes.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        documentosRecentes.setForeground(new java.awt.Color(51, 51, 51));
+        documentosRecentes.setText("Documentos recentes");
+        jPanel1.add(documentosRecentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 400, 178, 20));
+
         jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -506,17 +513,16 @@ public class Menu extends javax.swing.JFrame {
 
     private void novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoActionPerformed
 
-        if (relatorioRadio.isSelected()) {
-            if (evt.getSource() == novo) {
-                try {
-                    new RelatorioAtendimentoNovo().setVisible(true);
+        if (evt.getSource() == novo) {
+            try {
 
-                } catch (SQLException ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new RelatorioAtendimentoNovo().setVisible(true);
 
-            }// fim if de dentro
-        }// fim if
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }// fim if de dentro
 
 
     }//GEN-LAST:event_novoActionPerformed
@@ -529,10 +535,6 @@ public class Menu extends javax.swing.JFrame {
     private void novoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novoMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_novoMouseClicked
-
-    private void relatorioRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioRadioActionPerformed
-
-    }//GEN-LAST:event_relatorioRadioActionPerformed
 
     private void filtroJanelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroJanelaActionPerformed
 
@@ -693,7 +695,6 @@ public class Menu extends javax.swing.JFrame {
                         RelatorioAtendimentoModel relatorioAcessar = new RelatorioAtendimentoModel(numeroRelatorio);
 
                         new RelatorioAtendimentoAcessar(relatorioAcessar).setVisible(true);
-                        this.setAcessadoPelaBarra(true);
 
                     } else {
                         JOptionPane.showMessageDialog(null, "Nenhum relatório encontrado para o aluno: " + nomeAluno);
@@ -711,9 +712,6 @@ public class Menu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_pesquisarMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
 
         try {
@@ -766,7 +764,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel pesquisar;
     private javax.swing.JLabel progestLogo;
     private javax.swing.JButton relatorio1;
-    private javax.swing.JRadioButton relatorioRadio;
     private javax.swing.JLabel tresPontosLateral;
     private javax.swing.JLabel tresPontosPrincipal;
     private java.awt.TextField txtnomealuno;
@@ -841,5 +838,57 @@ public class Menu extends javax.swing.JFrame {
         }
 
     }// fim metodo
+
+    public String mostrarTelinha(JLabel espRelatorio, Component component, int x, int y, int numRelatorio) {
+
+        JPopupMenu telinha = new JPopupMenu();
+
+        JMenuItem btnExcluir = new JMenuItem("Excluir");
+        JMenuItem btnRenomear = new JMenuItem("Renomear");
+
+        btnExcluir.addActionListener(e -> {
+
+            RelatorioAtendimentoController controlador = new RelatorioAtendimentoController();
+            try {
+                int result = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir esse relatório ?", "Confirmacao", JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION) {
+
+                    controlador.excluirRelatorioAtendimento(numRelatorio);
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ExcluirRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+
+        btnRenomear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RelatorioAtendimentoController controlador = new RelatorioAtendimentoController();
+                nomeRelatorio = JOptionPane.showInputDialog(Menu.this, "Novo nome: ", "renomear", JOptionPane.INFORMATION_MESSAGE);
+
+                if (nomeRelatorio != null && !nomeRelatorio.isEmpty()) {
+                  String novoNome = controlador.alterarDescricao(nomeRelatorio, numRelatorio);
+                    JOptionPane.showMessageDialog(null, "Renomeado com sucesso!");
+                    
+                    espRelatorio.setText(novoNome);
+                }// fim if
+
+            }
+        });
+
+        telinha.add(btnExcluir);
+        telinha.add(btnRenomear);
+
+        telinha.show(component, x, y);
+
+        return nomeRelatorio;
+    }// fim metodo
+
+    public String nomearRelatorios(JLabel label, String titulo) {
+
+        return nomeRelatorio;
+    }//fim metodo
 
 }// fim classe 

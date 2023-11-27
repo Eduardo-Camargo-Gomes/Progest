@@ -125,5 +125,15 @@ public class FichaAtendimentoController {
          }// fim else 
     }// fim metodo
     
+      public String alterarDescricao(String descricao, int numRelatorio){
+         
+          
+         FichaAtendimentoDAO dao = new FichaAtendimentoDAO();
+          
+          dao.alterarDescricao(descricao, numRelatorio);
+          
+          return descricao;
+      }// fim metodo
+    
 }//  fim classe 
 

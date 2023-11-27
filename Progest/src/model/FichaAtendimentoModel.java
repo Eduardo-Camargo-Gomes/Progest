@@ -1,3 +1,4 @@
+
 package model;
 
 import model.*;
@@ -35,6 +36,7 @@ public class FichaAtendimentoModel {
       private Time horaAcesso;
       private Time horaModificacao;
      private boolean concluido;
+     private String descricao;
 
     public boolean getConcluido() {
         return concluido;
@@ -43,13 +45,21 @@ public class FichaAtendimentoModel {
     public void setConcluido(boolean concluido) {
         this.concluido = concluido;
     }
-     
-     
-     
-     
 
-    
+    public String getDescricao() {
+        return descricao;
+    }
 
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public FichaAtendimentoModel(int numeroFicha, String descricao) {
+        this.numeroFicha = numeroFicha;
+        this.descricao = descricao;
+    }
+     
+     
     public FichaAtendimentoModel(String nome, Date dataNascimento, String telefone, String rg, String endereco, String bairro, String nomePai, String nomeMae, String emailPai, String emailMae, String estadoCivil, String moraCom, String telefonePai, String telefoneMae, String escolaConcluida, String tipoEscola, int anoConclusao, boolean concluido ) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;

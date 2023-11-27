@@ -129,7 +129,15 @@ public class RelatorioAtendimentoController {
       }// fim metodo
       
       
-      
+      public String alterarDescricao(String descricao, int numRelatorio){
+         
+          
+          RelatorioAtendimentoDAO dao = new RelatorioAtendimentoDAO();
+          
+          dao.alterarDescricao(descricao, numRelatorio);
+          
+          return descricao;
+      }// fim metodo
      
 
 }// fim classe 

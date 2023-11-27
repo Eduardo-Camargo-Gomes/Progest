@@ -105,6 +105,16 @@ public class ParecerController {
         }// fim else 
              
       }// fim metodo
+      
+       public String alterarDescricao(String descricao, int numParecer){
+         
+          
+         ParecerDAO dao = new ParecerDAO();
+          
+          dao.alterarDescricao(descricao, numParecer);
+          
+          return descricao;
+      }// fim metodo
     
     
 }// fim classe 

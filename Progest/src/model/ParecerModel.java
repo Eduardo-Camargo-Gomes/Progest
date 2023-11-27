@@ -14,6 +14,7 @@ public class ParecerModel {
     private Date dataOcorrido;
     private boolean concluido;
     private int numParecer;
+    private String descricao;
 
     public ParecerModel(String assuntoParecer, String interessadoParecer, String matriculaAluno, String texto, String local, Date dataOcorrido, boolean concluido) {
         this.assuntoParecer = assuntoParecer;
@@ -34,6 +35,21 @@ public class ParecerModel {
         this.dataOcorrido = dataOcorrido;
         this.concluido = concluido;
         this.numParecer = numParecer;
+    }
+
+    public ParecerModel(int numParecer, String descricao) {
+        this.numParecer = numParecer;
+        this.descricao = descricao;
+    }
+
+    
+    
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     

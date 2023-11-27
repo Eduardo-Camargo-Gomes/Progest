@@ -38,6 +38,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
 
     // formatacao de datas e horrio
     RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
+    RelatorioAtendimentoController controlador = new RelatorioAtendimentoController();
     private RelatorioAtendimentoModel relatorioModel;
     int id = 0;
     List<Integer> listaProximo = relatorioDAO.passarProximo();
@@ -140,7 +141,6 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        impressora = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -167,7 +167,6 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         CampoTurma = new javax.swing.JTextField();
         CampoObservacoes = new javax.swing.JTextField();
         CampoPais = new javax.swing.JTextField();
-        VOLTAR = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jScrollPane6 = new javax.swing.JScrollPane();
         CampoEncaminhamentos = new javax.swing.JTextArea();
@@ -175,11 +174,19 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         CampoConclusao = new javax.swing.JTextArea();
         jScrollPane8 = new javax.swing.JScrollPane();
         CampoSituacao = new javax.swing.JTextArea();
-        botaoSalvarAlteracao = new javax.swing.JButton();
         CheckConcluido = new javax.swing.JCheckBox();
         barraProgresso = new javax.swing.JProgressBar();
         proximo = new javax.swing.JButton();
         anterior = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        salvar = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        menuVoltar = new javax.swing.JMenu();
+        Voltar = new javax.swing.JMenuItem();
+        menuImprimir = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -245,16 +252,6 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel11.setText("  1.4 Discente:                                                                             1.5 Turma:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 460, 500, 40));
-
-        impressora.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/impressora (2).png"))); // NOI18N
-        impressora.setToolTipText("Imprimir documento");
-        impressora.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        impressora.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                impressoraMouseClicked(evt);
-            }
-        });
-        jPanel1.add(impressora, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel12.setText("  1.6 Nome dos responsaveis pelo Discente:");
@@ -327,16 +324,6 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
 
         CampoPais.setBorder(null);
         jPanel1.add(CampoPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 510, 240, 30));
-
-        VOLTAR.setBackground(new java.awt.Color(204, 204, 204));
-        VOLTAR.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        VOLTAR.setText("VOLTAR");
-        VOLTAR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VOLTARActionPerformed(evt);
-            }
-        });
-        jPanel1.add(VOLTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, 20));
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         CampoEncaminhamentos.setColumns(20);
@@ -357,21 +344,14 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
 
         jPanel1.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 620, 500, 110));
 
-        botaoSalvarAlteracao.setText("SALVAR ");
-        botaoSalvarAlteracao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoSalvarAlteracaoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(botaoSalvarAlteracao, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, 20));
-
         CheckConcluido.setText("Marcar como concluído");
+        CheckConcluido.setToolTipText("Marca o documento como concluído");
         CheckConcluido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CheckConcluidoActionPerformed(evt);
             }
         });
-        jPanel1.add(CheckConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, -1, -1));
+        jPanel1.add(CheckConcluido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
         barraProgresso.setBackground(new java.awt.Color(0, 204, 0));
         barraProgresso.setForeground(new java.awt.Color(0, 0, 0));
@@ -385,7 +365,7 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
                 proximoActionPerformed(evt);
             }
         });
-        jPanel1.add(proximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 40, 40));
+        jPanel1.add(proximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 30, 30));
 
         anterior.setBackground(new java.awt.Color(255, 255, 255));
         anterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/seta-esquerda (1) (2).png"))); // NOI18N
@@ -395,9 +375,88 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
                 anteriorActionPerformed(evt);
             }
         });
-        jPanel1.add(anterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 40, 40));
+        jPanel1.add(anterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 30, 30));
 
         jScrollPane1.setViewportView(jPanel1);
+
+        jMenuBar1.setBackground(new java.awt.Color(0, 0, 0));
+
+        salvar.setText("Salvar");
+        salvar.setToolTipText("Salvar relatório");
+        salvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarActionPerformed(evt);
+            }
+        });
+
+        jMenuItem1.setText("Salvar");
+        jMenuItem1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        salvar.add(jMenuItem1);
+
+        jMenuBar1.add(salvar);
+
+        menuVoltar.setText("Voltar");
+        menuVoltar.setToolTipText("Voltar para o menu");
+        menuVoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVoltarActionPerformed(evt);
+            }
+        });
+
+        Voltar.setText("Voltar");
+        Voltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VoltarActionPerformed(evt);
+            }
+        });
+        menuVoltar.add(Voltar);
+
+        jMenuBar1.add(menuVoltar);
+
+        menuImprimir.setText("Imprimir");
+        menuImprimir.setToolTipText("Imprimir documento");
+        menuImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuImprimirActionPerformed(evt);
+            }
+        });
+
+        jMenuItem5.setText("Imprimir");
+        jMenuItem5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        menuImprimir.add(jMenuItem5);
+
+        jMenuBar1.add(menuImprimir);
+
+        jMenu1.setText("Excluir");
+        jMenu1.setToolTipText("Excluir documento");
+
+        jMenuItem2.setText("Excluir ");
+        jMenuItem2.setToolTipText("");
+        jMenuItem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -418,67 +477,9 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
         // TODO add your handling code here:
     }//GEN-LAST:event_CampoDataActionPerformed
 
-    private void VOLTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VOLTARActionPerformed
-        if (evt.getSource() == VOLTAR) {
-            this.dispose();
-        }
-    }//GEN-LAST:event_VOLTARActionPerformed
-
-    private void botaoSalvarAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarAlteracaoActionPerformed
-        if (evt.getSource() == botaoSalvarAlteracao) {
-
-            RelatorioAtendimentoController relatorioController = new RelatorioAtendimentoController();
-
-            RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
-
-            if (CheckConcluido.isSelected()) {
-                concluido = true;
-            }// fim if
-
-            Date dataOcorrencia = new Date();
-            try {
-                dataOcorrencia = formatoData.parse(CampoData.getText());
-            } catch (ParseException ex) {
-                Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            formatoData.format(dataOcorrencia);
-
-            Date data = new Date();
-
-            try {
-                data = formatoHora.parse(CampoHorario.getText());
-            } catch (ParseException ex) {
-                Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            Time horarioOcorrencia = new Time(data.getTime());
-
-            int numeroRelatorio = Integer.parseInt(CampoId.getText());
-
-            boolean salvou = relatorioController.alterarRelatorio(dataOcorrencia, horarioOcorrencia,
-                    CampoLocal.getText(), CampoDiscente.getText(), CampoTurma.getText(),
-                    CampoPais.getText(), CampoSituacao.getText(),
-                    CampoEncaminhamentos.getText(), CampoConclusao.getText(),
-                    numeroRelatorio, concluido);
-
-            if (salvou == true) {
-                this.dispose();
-            }// fim if  salvou
-
-        }
-    }//GEN-LAST:event_botaoSalvarAlteracaoActionPerformed
-
     private void CheckConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckConcluidoActionPerformed
 
     }//GEN-LAST:event_CheckConcluidoActionPerformed
-
-    private void impressoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_impressoraMouseClicked
-        try {
-            print();
-        } catch (PrinterException ex) {
-            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_impressoraMouseClicked
 
     private void proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoActionPerformed
         try {
@@ -541,6 +542,128 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
             Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_anteriorActionPerformed
+
+    private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
+          RelatorioAtendimentoController relatorioController = new RelatorioAtendimentoController();
+
+            RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
+
+            if (CheckConcluido.isSelected()) {
+                concluido = true;
+            }// fim if
+
+            Date dataOcorrencia = new Date();
+            try {
+                dataOcorrencia = formatoData.parse(CampoData.getText());
+            } catch (ParseException ex) {
+                Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            formatoData.format(dataOcorrencia);
+
+            Date data = new Date();
+
+            try {
+                data = formatoHora.parse(CampoHorario.getText());
+            } catch (ParseException ex) {
+                Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Time horarioOcorrencia = new Time(data.getTime());
+
+            int numeroRelatorio = Integer.parseInt(CampoId.getText());
+
+            boolean salvou = relatorioController.alterarRelatorio(dataOcorrencia, horarioOcorrencia,
+                    CampoLocal.getText(), CampoDiscente.getText(), CampoTurma.getText(),
+                    CampoPais.getText(), CampoSituacao.getText(),
+                    CampoEncaminhamentos.getText(), CampoConclusao.getText(),
+                    numeroRelatorio, concluido);
+
+            if (salvou == true) {
+                this.dispose();
+            }// fim if  salvou
+
+        
+    }//GEN-LAST:event_salvarActionPerformed
+
+    private void menuVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVoltarActionPerformed
+     
+        this.dispose();
+      
+    }//GEN-LAST:event_menuVoltarActionPerformed
+
+    private void menuImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuImprimirActionPerformed
+        try {
+            print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_menuImprimirActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+          RelatorioAtendimentoController relatorioController = new RelatorioAtendimentoController();
+
+            RelatorioAtendimentoDAO relatorioDAO = new RelatorioAtendimentoDAO();
+
+            if (CheckConcluido.isSelected()) {
+                concluido = true;
+            }// fim if
+
+            Date dataOcorrencia = new Date();
+            try {
+                dataOcorrencia = formatoData.parse(CampoData.getText());
+            } catch (ParseException ex) {
+                Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            formatoData.format(dataOcorrencia);
+
+            Date data = new Date();
+
+            try {
+                data = formatoHora.parse(CampoHorario.getText());
+            } catch (ParseException ex) {
+                Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Time horarioOcorrencia = new Time(data.getTime());
+
+            int numeroRelatorio = Integer.parseInt(CampoId.getText());
+
+            boolean salvou = relatorioController.alterarRelatorio(dataOcorrencia, horarioOcorrencia,
+                    CampoLocal.getText(), CampoDiscente.getText(), CampoTurma.getText(),
+                    CampoPais.getText(), CampoSituacao.getText(),
+                    CampoEncaminhamentos.getText(), CampoConclusao.getText(),
+                    numeroRelatorio, concluido);
+
+            if (salvou == true) {
+                this.dispose();
+            }// fim if  salvou
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarActionPerformed
+  this.dispose();
+    }//GEN-LAST:event_VoltarActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        try {
+            print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        try {
+            
+          int result = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir esse relatório ?", "Confirmacao", JOptionPane.YES_NO_OPTION);
+           if(result == JOptionPane.YES_OPTION){
+            controlador.excluirRelatorioAtendimento(Integer.valueOf(CampoId.getText()));
+            this.dispose();
+           }
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioAtendimentoAcessar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public static void main(String args[]) {
 
@@ -611,11 +734,9 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
     private javax.swing.JTextArea CampoSituacao;
     private javax.swing.JTextField CampoTurma;
     private javax.swing.JCheckBox CheckConcluido;
-    private javax.swing.JButton VOLTAR;
+    private javax.swing.JMenuItem Voltar;
     private javax.swing.JButton anterior;
     private javax.swing.JProgressBar barraProgresso;
-    private javax.swing.JButton botaoSalvarAlteracao;
-    private javax.swing.JLabel impressora;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -635,6 +756,11 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
@@ -652,7 +778,10 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JMenu menuImprimir;
+    private javax.swing.JMenu menuVoltar;
     private javax.swing.JButton proximo;
+    private javax.swing.JMenu salvar;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -731,14 +860,10 @@ public class RelatorioAtendimentoAcessar extends javax.swing.JFrame implements D
     public void passar() throws SQLException{
         
          this.dispose();
-        if(menu.getAcessadoPelaBarra()== true){
-            listaEscolhida = relatorioDAO.listaIdsRelatoriosPorNome(menu.getNomePesquisado());
-        }
-        
-        else {
+       
           
             listaEscolhida = relatorioDAO.passarProximo();
-        }// fim metodo
+       
         
          int numeroAtual = Integer.parseInt(CampoId.getText());
         int indiceAtual = 0;

@@ -20,7 +20,9 @@ public class RelatorioAtendimentoModel {
            private String situacao;
                private String encaminhamentos;
                private String conclusao;
+               private String descricao;
                  private int numRelatorio;
+                 
                      private boolean concluido;
                      
                  private Date dataAcesso;
@@ -31,7 +33,7 @@ public class RelatorioAtendimentoModel {
                  
           private List<RelatorioAtendimentoModel> listaRelatorios = new ArrayList<>();
 
-    public RelatorioAtendimentoModel(Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String nomeAluno, String turmaAluno, String nomeResponsavel, String situacao, String encaminhamentos, String conclusao, int numRelatorio, boolean concluido) {
+    public RelatorioAtendimentoModel(Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String nomeAluno, String turmaAluno, String nomeResponsavel, String situacao, String encaminhamentos, String conclusao, int numRelatorio, boolean concluido, String descricao) {
         this.dataOcorrido = dataOcorrido;
         this.horarioOcorrido = horarioOcorrido;
         this.localOcorrido = localOcorrido;
@@ -43,15 +45,12 @@ public class RelatorioAtendimentoModel {
         this.conclusao = conclusao;
         this.numRelatorio = numRelatorio;
         this.concluido = concluido;
+        this.descricao = descricao;
     }
 
     public boolean isConcluido() {
         return concluido;
     }
-
-    
-    
-   
 
     public void setListaRelatorios(List<RelatorioAtendimentoModel> listaRelatorios) {
         this.listaRelatorios = listaRelatorios;
@@ -109,10 +108,18 @@ public class RelatorioAtendimentoModel {
         this.encaminhamentos = encaminhamentos;
         this.conclusao = conclusao;
         this.concluido = concluido;
+       
     }
 
     public RelatorioAtendimentoModel() {
     }
+
+    public RelatorioAtendimentoModel(String descricao, int numRelatorio) {
+        this.descricao = descricao;
+        this.numRelatorio = numRelatorio;
+    }
+    
+    
 
    
 
@@ -135,6 +142,30 @@ public class RelatorioAtendimentoModel {
     public String getLocalOcorrido() {
         return localOcorrido;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public RelatorioAtendimentoModel(Date dataOcorrido, Time horarioOcorrido, String localOcorrido, String nomeAluno, String turmaAluno, String nomeResponsavel, String situacao, String encaminhamentos, String conclusao, int numRelatorio, boolean concluido) {
+        this.dataOcorrido = dataOcorrido;
+        this.horarioOcorrido = horarioOcorrido;
+        this.localOcorrido = localOcorrido;
+        this.nomeAluno = nomeAluno;
+        this.turmaAluno = turmaAluno;
+        this.nomeResponsavel = nomeResponsavel;
+        this.situacao = situacao;
+        this.encaminhamentos = encaminhamentos;
+        this.conclusao = conclusao;
+        this.numRelatorio = numRelatorio;
+        this.concluido = concluido;
+    }
+    
+    
 
     public void setLocalOcorrido(String localOcorrido) {
         this.localOcorrido = localOcorrido;
