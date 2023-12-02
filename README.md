@@ -13,18 +13,32 @@
  - Marcos Paulo Lopes Maciel
 
 - Vitor Roberto Fogassa Pereira
+  
+## Técnicas e Tecnologias Utilizadas
 
-### Técnicas e tecnologias 
+### Linguagens e Frameworks
+- Java
+- NetBeans
 
- - Paradigma Orientada a Objetos
+### Banco de Dados
+- MySQL
 
- - Metodología Ágil Scrum
+### Gerenciamento de Projeto
+- Trello
 
- - Linguagem de programação Java
+### Controle de Versão
+- Git
+- GitHub
 
- - Ambiente de desenvolvimento: Netbens
+### Metodologias e Práticas
+- UML (Unified Modeling Language)
+- Paradigma Orientado a Objetos
+- Metodologia Ágil Scrum
 
- - Base de dados: MySQL
+### Ambiente de Desenvolvimento
+- NetBeans
 
- - Hospedagem de código: Github
+### Armazenamento de Código
+- GitHub
+
 
