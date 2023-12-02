@@ -2,7 +2,7 @@
 
 ### Status 
 
- Concluido
+ Finalizado
 
 ### Colaboradores
 
