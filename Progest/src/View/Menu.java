@@ -195,7 +195,7 @@ public class Menu extends javax.swing.JFrame {
                 }//fim metodo
 
             });
-
+            miniaturaRelatorios.setToolTipText(especRelatorio.getText());
             especRelatorio.setToolTipText(especRelatorio.getText());
         }// fim for
 

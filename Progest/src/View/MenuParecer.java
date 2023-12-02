@@ -124,6 +124,7 @@ public class MenuParecer extends javax.swing.JFrame {
             miniaturaParecer.setVisible(true);
             especParecer.setVisible(true);
             especParecer.setToolTipText(especParecer.getText());
+            miniaturaParecer.setToolTipText(especParecer.getText());
             painelDocumentos.add(especParecer);
             painelDocumentos.add(miniaturaParecer);
 

@@ -129,6 +129,7 @@ public class MenuFicha extends javax.swing.JFrame {
             miniaturaFichas.setVisible(true);
             especFicha.setVisible(true);
             especFicha.setToolTipText(especFicha.getText());
+            miniaturaFichas.setToolTipText(especFicha.getText());
             painelDocumentos.add(especFicha);
             painelDocumentos.add(miniaturaFichas);
 
